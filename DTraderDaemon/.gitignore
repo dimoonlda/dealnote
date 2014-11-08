@@ -1,0 +1,22 @@
+/build.xml
+log4j/
+history/
+log4j.xml
+/HowTo build to tomcat.txt
+/Service.wsdl
+/Service_schema1.xsd
+/ServiceImplService.wsdl
+/ToDo.txt
+*.class
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+/build/
+WebContent/
+distr/
+.metadata/
+.settings/
