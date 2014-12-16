@@ -7,6 +7,8 @@
 <title>Error in login form.</title>
 </head>
 <body>
-
+<b>Error in login to DealNote Web!</b><br>
+${requestScope.j_username }
+${pageContext.exception.message }
 </body>
 </html>

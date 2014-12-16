@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>DealNoteWeb</display-name>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>all jsp</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>testD</role-name>
+		</auth-constraint>
+		
+	</security-constraint>
 	<login-config>
 		<auth-method>FORM</auth-method>
 		<form-login-config>
@@ -9,6 +19,6 @@
 		</form-login-config>
 	</login-config>
 	<welcome-file-list>
-		<welcome-file>/jsp/login.jsp</welcome-file>
+		<welcome-file>/jsp/index.jsp</welcome-file>
 	</welcome-file-list>
 </web-app>
