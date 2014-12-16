@@ -4,11 +4,11 @@
 	<login-config>
 		<auth-method>FORM</auth-method>
 		<form-login-config>
-			<form-login-page>login.jsp</form-login-page>
-			<form-error-page>login_error.jsp</form-error-page>
+			<form-login-page>/jsp/login.jsp</form-login-page>
+			<form-error-page>/jsp/error/login_error.jsp</form-error-page>
 		</form-login-config>
 	</login-config>
 	<welcome-file-list>
-		<welcome-file>jsp/login.jsp</welcome-file>
+		<welcome-file>/jsp/login.jsp</welcome-file>
 	</welcome-file-list>
 </web-app>
