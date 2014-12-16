@@ -8,4 +8,7 @@
 			<form-error-page>login_error.jsp</form-error-page>
 		</form-login-config>
 	</login-config>
+	<welcome-file-list>
+		<welcome-file>jsp/login.jsp</welcome-file>
+	</welcome-file-list>
 </web-app>
