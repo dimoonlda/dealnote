@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-	<link type="text/css" href="menu/menu.css" rel="stylesheet" />
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+	<link type="text/css" href="<c:url value='/menu/menu.css'/>" rel="stylesheet" />
 	<link rel="stylesheet"
 		href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
 	<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 	<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
-	<script type="text/javascript" src="menu/menu.js"></script>
+	<script type="text/javascript" src="<c:url value='/menu/menu.js'/>"></script>
 	<div id="menu">
 		<ul class="menu">
-			<li><a href="index.jsp" class="parent"><span>Главная</span></a>
+			<li><a href="<c:url value='/jsp/index.jsp'/>" class="parent"><span>Главная</span></a>
 <!-- 				<div><ul>
 					<li><a href="#" class="parent"><span>Sub Item 1</span></a>
 						<div><ul>
@@ -44,7 +45,7 @@
 			</li>
 			<li><a href="#"><span>Анализ</span></a>
 			<div><ul>
-					<li><a href="GetAgentGPS"><span>GPS</span></a></li>
+					<li><a href="<c:url value='/gps/ShowAgentGPS.do'/>"><span>GPS</span></a></li>
 					<li><a href="OrderStatServlet"><span>Статистика по заявкам</span></a></li>			
 			</ul></div>
 			</li>
