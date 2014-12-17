@@ -61,7 +61,7 @@ public class LocationDAOJDBC implements LocationDAO {
 				loc.setAgentID(rsList.getInt(colLocation_AgentID));
 				loc.setAccuracy(rsList.getInt(colLocation_Accuracy));
 				loc.setBattery(rsList.getInt(colLocation_Battery));
-				loc.setClock(rsList.getString(colLocation_Clock));
+				loc.setClock(rsList.getTimestamp(colLocation_Clock));
 				loc.setLatitude(rsList.getDouble(colLocation_Latitude));
 				loc.setLongitude(rsList.getDouble(colLocation_Longitude));
 				loc.setProvider(rsList.getString(colLocation_Provider));
