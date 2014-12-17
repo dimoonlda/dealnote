@@ -7,7 +7,7 @@
 <title>DealNote main page.</title>
 </head>
 <body>
-<table>
+<table width="100%">
 <tr>
 	<td><!-- header -->
 		<jsp:include page="header.jsp"/>
