@@ -1,5 +1,9 @@
 package biz.dealnote.web.beans;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Location {
 	public static final String SAVESTATE_OK_BY_STR = "Успех";
 	public static final String SAVESTATE_GPS_OFF_BY_STR = "GPS отключен";
@@ -14,9 +18,11 @@ public class Location {
 	public static final int SAVESTATE_DEVICE_ON = 4;
 	public static final int SAVESTATE_DEVICE_OFF = 5;
 	
+	public static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+	
 	private double longitude;
 	private double latitude;
-	private String clock;
+	private Date clock;
 	private String provider;
 	private int accuracy;
 	private int searchtime;
@@ -39,10 +45,10 @@ public class Location {
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
-	public String getClock() {
+	public Date getClock() {
 		return clock;
 	}
-	public void setClock(String clock) {
+	public void setClock(Date clock) {
 		this.clock = clock;
 	}
 	public String getProvider() {
@@ -106,6 +112,10 @@ public class Location {
 
 	public void setAgentID(int agentID) {
 		this.agentID = agentID;
+	}
+	
+	public String getClockAsString(){
+		return DATE_FORMAT.format(clock);
 	}
 	
 }
