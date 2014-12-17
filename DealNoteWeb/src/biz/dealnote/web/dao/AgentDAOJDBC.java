@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dtrader.web.beans.AgentBean;
+import biz.dealnote.web.beans.Agent;
 
 public class AgentDAOJDBC implements AgentDAO {
 	
@@ -25,22 +25,19 @@ public class AgentDAOJDBC implements AgentDAO {
 	}
 	
 	@Override
-	public List<AgentBean> getActiveAgentsList() throws DAOException {
+	public List<Agent> getActiveAgentsList() throws DAOException {
 		Connection conn = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet rsAgents = null;
-		List<AgentBean> agentsData = new ArrayList<AgentBean>();
+		List<Agent> agentsData = new ArrayList<Agent>();
 		try {
 			conn = daoFactory.getConnection();
 			preparedStatement = conn.prepareStatement(SQL_LIST_ACTIVE_AGENTS);
 			rsAgents = preparedStatement.executeQuery();
 			while(rsAgents.next()){
-				AgentBean agent = new AgentBean();
+				Agent agent = new Agent();
 				agent.setId(rsAgents.getInt(colAgent_ID));
-				agent.setSname(rsAgents.getString(colAgent_SNAME));
-				agent.setRolecode(rsAgents.getInt(colAgent_ROLECODE));
-				agent.setSupervisorid(rsAgents.getInt(colAgent_SUPERVISORID));
-				agent.setUserid(rsAgents.getInt(colAgent_USERID));
+				agent.setName(rsAgents.getString(colAgent_SNAME));
 				agentsData.add(agent);
 			}
 		} catch (SQLException e) {
