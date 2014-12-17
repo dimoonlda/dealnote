@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import org.dtrader.web.beans.LocationBean;
+import biz.dealnote.web.beans.Location;
 
 public class LocationDAOJDBC implements LocationDAO {
 	
@@ -34,12 +34,12 @@ public class LocationDAOJDBC implements LocationDAO {
 	}
 	
 	@Override
-	public List<LocationBean> getLocationList(Integer agentID, String _startDate, String _endDate) throws DAOException {
+	public List<Location> getLocationList(Integer agentID, String _startDate, String _endDate) throws DAOException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rsList = null;
 		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-		List<LocationBean> locList = new ArrayList<LocationBean>();
+		List<Location> locList = new ArrayList<Location>();
 		try{
 			java.util.Date _byDate = df.parse(_startDate);
 			java.util.Date _byDate2 = df.parse(_endDate);
@@ -57,7 +57,7 @@ public class LocationDAOJDBC implements LocationDAO {
 			ps.setDate(3, endDate);
 			rsList = ps.executeQuery();
 			while(rsList.next()){
-				LocationBean loc = new LocationBean();
+				Location loc = new Location();
 				loc.setAgentID(rsList.getInt(colLocation_AgentID));
 				loc.setAccuracy(rsList.getInt(colLocation_Accuracy));
 				loc.setBattery(rsList.getInt(colLocation_Battery));
@@ -80,7 +80,7 @@ public class LocationDAOJDBC implements LocationDAO {
 	}
 
 	@Override
-	public List<LocationBean> getLocationList(Integer agentID, String byDate) throws DAOException {
+	public List<Location> getLocationList(Integer agentID, String byDate) throws DAOException {
 		return getLocationList(agentID, byDate, byDate);
 	}
 

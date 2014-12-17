@@ -2,25 +2,25 @@ package biz.dealnote.web.dao;
 
 import java.util.List;
 
-import org.dtrader.web.beans.LocationBean;
+import biz.dealnote.web.beans.Location;
 
 public interface LocationDAO {
 	/**
-	 * �������� ������ ��������� ������ �� ����.
-	 * @param agentID ��� ������
-	 * @param byDate ����, � ������� dd.MM.YYYY
+	 * Получить список координат агента за дату.
+	 * @param agentID код агента
+	 * @param byDate дата, в формате dd.MM.YYYY
 	 * @return
 	 * @throws DAOException
 	 */
-	public List<LocationBean> getLocationList(Integer agentID, String byDate) throws DAOException;
+	public List<Location> getLocationList(Integer agentID, String byDate) throws DAOException;
 	
 	/**
-	 * �������� ������ ��������� ������ �� ������.
-	 * @param agentID ��� ������
-	 * @param startDate ���� ������ �������, � ������� dd.MM.YYYY
-	 * @param endDate ���� ����� �������, � ������� dd.MM.YYYY
+	 * Получить список координат агента за период.
+	 * @param agentID код агента
+	 * @param startDate дата начала периода, в формате dd.MM.YYYY
+	 * @param endDate дата конца периода, в формате dd.MM.YYYY
 	 * @return
 	 * @throws DAOException
 	 */	
-	public List<LocationBean> getLocationList(Integer agentID, String startDate, String endtDate) throws DAOException;
+	public List<Location> getLocationList(Integer agentID, String startDate, String endtDate) throws DAOException;
 }
