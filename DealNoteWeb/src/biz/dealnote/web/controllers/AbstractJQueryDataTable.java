@@ -1,13 +1,17 @@
 package biz.dealnote.web.controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonObject;
 import biz.dealnote.web.dao.DAOFactory;
 
-public abstract class AbstractJQueryDataTable implements DataTable {
+public abstract class AbstractJQueryDataTable<T> implements DataTable {
 
 	public class JQueryDataTableParamModel {
 	    /// Request sequence number sent by DataTable, same value must be returned in response
@@ -41,6 +45,11 @@ public abstract class AbstractJQueryDataTable implements DataTable {
 	public JQueryDataTableParamModel param = new JQueryDataTableParamModel();
 	protected HttpServletRequest request; 
 	protected DAOFactory base;
+
+	protected List<T> locSourceList;
+	protected List<T> locResultList;
+	protected JsonArray data = new JsonArray(); //data that will be shown in the table
+	protected JsonObject jsonResponse = new JsonObject();
 	
 	protected int sortColumnIndex;
 	protected int sortDirection;
@@ -70,15 +79,54 @@ public abstract class AbstractJQueryDataTable implements DataTable {
 		sortDirection = param.sSortDirection.equals("asc") ? 1 : -1;	
 	}
 	
+	/**
+	 * Fill table with data from Result list
+	 */
+	abstract protected void buildTableRows();
+	
+	@Override
+	public void processData() {
+		search();
+		setSortParams();
+		sort();
+
+		if (locResultList.size() < param.iDisplayStart + param.iDisplayLength) {
+			locResultList = locResultList.subList(param.iDisplayStart,
+					locResultList.size());
+		} else {
+			locResultList = locResultList.subList(param.iDisplayStart,
+					param.iDisplayStart + param.iDisplayLength);
+		}
+
+		jsonResponse = new JsonObject();
+		jsonResponse.addProperty("sEcho", param.sEcho);
+		jsonResponse.addProperty("iTotalRecords", locSourceList.size());
+		jsonResponse.addProperty("iTotalDisplayRecords", locResultList.size());
+
+		buildTableRows();
+
+		jsonResponse.add("aaData", data);
+	}
+	
 	@Override
 	abstract public void search();
 
 	@Override
-	public void sort(){
-		setSortParams();
-	}
+	abstract public void sort();
 
 	@Override
-	abstract public void setResultInResponse(HttpServletResponse response) throws IOException;
+	public void setResultInResponse(HttpServletResponse response) throws IOException{
+		try {
+			processData();
+			response.setContentType("application/Json; charset=utf-8;");
+			response.getWriter().print(jsonResponse.toString());
+		} catch (JsonIOException e) {
+			//TODO: show error page
+			e.printStackTrace();
+			response.setContentType("text/html; charset=utf-8;");
+			response.getWriter().print(e.getMessage());
+		}		
+
+	}
 
 }

@@ -22,6 +22,10 @@ public interface DataTable {
 	 */	
 	public void sort();
 	/**
+	 * Do a main work with table data.
+	 */
+	public void processData();
+	/**
 	 * Set result as response out.
 	 * @param response response to the client.
 	 */

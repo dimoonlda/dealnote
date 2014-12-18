@@ -1,27 +1,18 @@
 package biz.dealnote.web.controllers;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import biz.dealnote.web.beans.Location;
 import biz.dealnote.web.dao.LocationDAO;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
-public class LocationJQueryDataTable extends AbstractJQueryDataTable {
+public class LocationJQueryDataTable extends AbstractJQueryDataTable<Location> {
 	private Integer agentid;
 	private String agentdate;
-	private List<Location> locSourceList;
-	private List<Location> locResultList;
 	
 	@Override
 	public void init(HttpServletRequest request) {
@@ -49,7 +40,6 @@ public class LocationJQueryDataTable extends AbstractJQueryDataTable {
 
 	@Override
 	public void sort() {
-		super.sort();
 		Collections.sort(locResultList, new Comparator<Location>(){
 			@Override
 			public int compare(Location c1, Location c2) {	
@@ -73,48 +63,20 @@ public class LocationJQueryDataTable extends AbstractJQueryDataTable {
 			}
 		});
 	}
-
-	@Override
-	public void setResultInResponse(HttpServletResponse response) throws IOException {
-		search();
-		sort();
-		
-		JsonArray data = new JsonArray(); //data that will be shown in the table
-		
-		if(locResultList.size()< param.iDisplayStart + param.iDisplayLength) {
-			locResultList = locResultList.subList(param.iDisplayStart, locResultList.size());
-		} else {
-			locResultList = locResultList.subList(param.iDisplayStart, param.iDisplayStart + param.iDisplayLength);
-		}
 	
-		try {
-			JsonObject jsonResponse = new JsonObject();			
-			jsonResponse.addProperty("sEcho", param.sEcho);
-			jsonResponse.addProperty("iTotalRecords", locSourceList.size());
-			jsonResponse.addProperty("iTotalDisplayRecords", locResultList.size());
-			
-			for(Location c : locResultList){
-				JsonArray row = new JsonArray();
-				row.add(new JsonPrimitive(c.getLongitude()));
-				row.add(new JsonPrimitive(c.getLatitude()));
-				row.add(new JsonPrimitive(c.getClockAsString()));
-				row.add(new JsonPrimitive(c.getSavestateToString()));
-				row.add(new JsonPrimitive(c.getProvider()));
-				row.add(new JsonPrimitive(c.getSearchtime()));
-				row.add(new JsonPrimitive(c.getBattery()));
-				data.add(row);
-			}
-			jsonResponse.add("aaData", data);
-			
-			response.setContentType("application/Json");
-			response.getWriter().print(jsonResponse.toString());
-			
-		} catch (JsonIOException e) {
-			//TODO: show error page
-			e.printStackTrace();
-			response.setContentType("text/html");
-			response.getWriter().print(e.getMessage());
-		}		
+	@Override
+	protected void buildTableRows() {
+		for(Location c : locResultList){
+			JsonArray row = new JsonArray();
+			row.add(new JsonPrimitive(c.getLongitude()));
+			row.add(new JsonPrimitive(c.getLatitude()));
+			row.add(new JsonPrimitive(c.getClockAsString()));
+			row.add(new JsonPrimitive(c.getSavestateToString()));
+			row.add(new JsonPrimitive(c.getProvider()));
+			row.add(new JsonPrimitive(c.getSearchtime()));
+			row.add(new JsonPrimitive(c.getBattery()));
+			data.add(row);
+		}	
 	}
-
+	
 }
