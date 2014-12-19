@@ -7,10 +7,13 @@
 <title>Login form.</title>
 </head>
 <body>
+	<div align="center">
+    <strong>Wellcome to the DealNote Web.</strong>
 	<form action="j_security_check" method="post">
-		Input username:<br> <input name="j_username" type="text"><br>
-		Input password:<br> <input name="j_password" type="password"><br>
-		<input type="submit" value="Login">
+		  username: <input name="j_username" type="text"><br>
+		  password: <input name="j_password" type="password"><br>
+					<input type="submit" value="Login">
 	</form>
+    </div>
 </body>
 </html>
