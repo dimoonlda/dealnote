@@ -90,6 +90,9 @@ public abstract class AbstractJQueryDataTable<T> implements DataTable {
 		setSortParams();
 		sort();
 
+		int iTotalRecords = locSourceList.size();
+		int iTotalDisplayRecords = locResultList.size();
+		
 		if (locResultList.size() < param.iDisplayStart + param.iDisplayLength) {
 			locResultList = locResultList.subList(param.iDisplayStart,
 					locResultList.size());
@@ -100,8 +103,8 @@ public abstract class AbstractJQueryDataTable<T> implements DataTable {
 
 		jsonResponse = new JsonObject();
 		jsonResponse.addProperty("sEcho", param.sEcho);
-		jsonResponse.addProperty("iTotalRecords", locSourceList.size());
-		jsonResponse.addProperty("iTotalDisplayRecords", locResultList.size());
+		jsonResponse.addProperty("iTotalRecords", iTotalRecords);
+		jsonResponse.addProperty("iTotalDisplayRecords", iTotalDisplayRecords);
 
 		buildTableRows();
 

@@ -28,7 +28,7 @@ public class LocationJQueryDataTable extends AbstractJQueryDataTable<Location> {
 	
 	@Override
 	public void search() {
-		if(param.sSearch != null || param.sSearch.isEmpty()) {
+		if(param.sSearch != null || !param.sSearch.isEmpty()) {
 			for(Location c : locSourceList){
 				if(	String.valueOf(c.getLatitude()).contains(param.sSearch.toLowerCase()) 
 					|| String.valueOf(c.getLongitude()).contains(param.sSearch.toLowerCase())) {
