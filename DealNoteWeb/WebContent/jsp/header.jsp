@@ -36,9 +36,9 @@
 					<li><a href="#"><span>Sub Item 3</span></a></li>
 				</ul></div>  -->
 			</li>
-			<li><a href="#"><span>Справочники</span></a>
+			<li><a href='#'><span>Справочники</span></a>
 				<div><ul>
-					<li><a href="#"><span>Агенты</span></a></li>
+					<li><a href='<c:url value="/jsp/showAgents.jsp"/>'><span>Agents</span></a></li>
 					<li><a href="#"><span>Товары</span></a></li>
 					<li><a href="#"><span>Клиенты</span></a></li>
 				</ul></div>
