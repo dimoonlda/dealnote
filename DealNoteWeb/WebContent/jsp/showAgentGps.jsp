@@ -74,7 +74,7 @@
 <c:if test="${param['agentdate'] != null && param['agentid'] != null}">
 	<tr>
 		<td>
-			<jsp:include page="showAgentsLocationTable.jsp"/>
+			<jsp:include page="agentsLocationDataTable.jsp"/>
 		</td>
 	</tr>
 </c:if>
