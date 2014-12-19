@@ -15,16 +15,8 @@ import biz.dealnote.web.beans.Location;
 import biz.dealnote.web.dao.DAOFactory;
 import biz.dealnote.web.dao.LocationDAO;
 
-public class AgentGpsController extends HttpServlet {
-	private DAOFactory base;
-	
+public class AgentGpsController extends AbstractController {
 	private static final long serialVersionUID = -6625434898849602970L;
-	
-	@Override
-	public void init(ServletConfig config) throws ServletException {
-		super.init(config);
-		base = (DAOFactory)config.getServletContext().getAttribute("base");
-	}
 	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
