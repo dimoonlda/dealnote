@@ -6,4 +6,5 @@ import biz.dealnote.web.beans.Agent;
 
 public interface AgentDAO {
 	public List<Agent> getActiveAgentsList() throws DAOException;
+	public List<Agent> getAgentsList() throws DAOException;
 }
