@@ -10,6 +10,14 @@
       <role-name>testD</role-name>
     </auth-constraint>
   </security-constraint>
+  
+  <jsp-config>
+    <jsp-property-group>
+        <url-pattern>*.jsp</url-pattern>
+        <page-encoding>UTF-8</page-encoding>
+    </jsp-property-group>
+  </jsp-config>
+
   <login-config>
     <auth-method>FORM</auth-method>
     <form-login-config>
@@ -17,38 +25,57 @@
       <form-error-page>/jsp/error/login_error.jsp</form-error-page>
     </form-login-config>
   </login-config>
+  
   <welcome-file-list>
     <welcome-file>/jsp/index.jsp</welcome-file>
   </welcome-file-list>
+  
   <listener>
     <listener-class>biz.dealnote.web.listeners.AppServletContextListener</listener-class>
   </listener>
+  
   <context-param>
     <param-name>dbContext</param-name>
     <param-value>java:comp/env/jdbc/dbAlterTestConn</param-value>
   </context-param>
+  
   <resource-ref>
     <description>DTrader DB Connection Alter</description>
     <res-ref-name>jdbc/dbAlterTestConn</res-ref-name>
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
   </resource-ref>
-    
-  <servlet>
-  	<servlet-name>ShowAgentGPS</servlet-name>
-  	<servlet-class>biz.dealnote.web.controllers.AgentGpsController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>ShowAgentGPS</servlet-name>
-  	<url-pattern>/gps/ShowAgentGPS.do</url-pattern>
-  </servlet-mapping>
-  <servlet>
-  	<servlet-name>AgentLocationsGson</servlet-name>
-  	<servlet-class>biz.dealnote.web.controllers.LocationGsonController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>AgentLocationsGson</servlet-name>
-  	<url-pattern>/gps/GetAgentLocationsInGson.do</url-pattern>
-  </servlet-mapping>
   
+  <servlet>
+    <servlet-name>ShowAgentGPS</servlet-name>
+    <servlet-class>biz.dealnote.web.controllers.AgentGpsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowAgentGPS</servlet-name>
+    <url-pattern>/gps/ShowAgentGPS.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AgentLocationsGson</servlet-name>
+    <servlet-class>biz.dealnote.web.controllers.LocationGsonController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AgentLocationsGson</servlet-name>
+    <url-pattern>/gps/GetAgentLocationsInGson.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>AgentsGson</servlet-name>
+  	<servlet-class>biz.dealnote.web.controllers.AgentsGsonController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AgentsGson</servlet-name>
+  	<url-pattern>/dictionaries/GetAgentsInGson.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>ShowClients</servlet-name>
+  	<servlet-class>biz.dealnote.web.controllers.ClientsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ShowClients</servlet-name>
+  	<url-pattern>/dictionaries/ShowClients.do</url-pattern>
+  </servlet-mapping>
 </web-app>
