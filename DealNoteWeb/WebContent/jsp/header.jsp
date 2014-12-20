@@ -7,6 +7,12 @@
 	<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 	<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
 	<script type="text/javascript" src="<c:url value='/menu/menu.js'/>"></script>
+<!-- for data table BEGIN-->
+        <link href='<c:url value="/media/dataTables/demo_page.css" />' rel="stylesheet" type="text/css" />
+        <link href='<c:url value="/media/dataTables/demo_table.css" />' rel="stylesheet" type="text/css" />
+        <link href='<c:url value="/media/dataTables/demo_table_jui.css" />' rel="stylesheet" type="text/css" />
+        <script src='<c:url value="/js/jquery.dataTables.min.js" />' type="text/javascript"></script>
+<!-- for data table END-->	
 	<div id="menu">
 		<ul class="menu">
 			<li><a href="<c:url value='/jsp/index.jsp'/>" class="parent"><span>Главная</span></a>
