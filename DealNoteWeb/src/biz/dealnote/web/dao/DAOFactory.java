@@ -33,5 +33,6 @@ public abstract class DAOFactory {
 	public abstract AgentDAO getAgentDAO();
 	public abstract LocationDAO getLocationDAO();
 	public abstract DocumentDAO getDocumentDAO();
+	public abstract ClientDAO getClientDAO();
 	
 }

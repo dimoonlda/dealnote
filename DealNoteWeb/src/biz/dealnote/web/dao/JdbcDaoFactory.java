@@ -33,4 +33,9 @@ public class JdbcDaoFactory extends DAOFactory {
 		return new DocumentDAOJDBC(this);
 	}
 
+	@Override
+	public ClientDAO getClientDAO() {
+		return new ClientDaoJdbc(this);
+	}
+
 }
