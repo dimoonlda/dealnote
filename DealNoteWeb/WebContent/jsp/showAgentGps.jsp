@@ -39,19 +39,11 @@
 	<table border="0" cellspacing="5">
     <tr>
 	<th  align="right">Choose agent:</th>
-	<td align="left"><select name="agentid">
-		<option disabled>Choose agent</option>
-		<c:forEach items="${requestScope['agentsList'] }" var="agent">
-			<c:choose>
-				<c:when test="${param['agentid'] == agent.id }">
-					<option selected value="${agent.id }"> ${agent.name } </option>
-				</c:when>
-				<c:otherwise>
-					<option value="${agent.id }"> ${agent.name } </option>
-				</c:otherwise>				
-			</c:choose>
-		</c:forEach>
-		</select></td></tr>
+	<td align="left">
+		<jsp:include page="agentsList.jsp">
+			<jsp:param value='${param["agentid"]}' name="agentid"/>
+		</jsp:include>
+	</td></tr>
 	<tr>
 	 	<th  align="right">Set date:</th>
 		<td align="left">
