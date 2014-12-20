@@ -40,7 +40,7 @@ public class AgentJQueryDataTable extends AbstractJQueryDataTable<Agent> {
 		if(param.sSearch != null || !param.sSearch.isEmpty()) {
 			for(Agent c : locSourceList){
 				if(	String.valueOf(c.getId()).contains(param.sSearch.toLowerCase()) 
-					|| c.getName().contains(param.sSearch.toLowerCase())) {
+					|| c.getName().toLowerCase().contains(param.sSearch.toLowerCase())) {
 					locResultList.add(c); 
 				}
 			}
