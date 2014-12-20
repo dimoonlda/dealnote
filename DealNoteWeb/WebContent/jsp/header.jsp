@@ -40,7 +40,7 @@
 				<div><ul>
 					<li><a href='<c:url value="/jsp/showAgents.jsp"/>'><span>Agents</span></a></li>
 					<li><a href="#"><span>Товары</span></a></li>
-					<li><a href="#"><span>Клиенты</span></a></li>
+					<li><a href='<c:url value="/dictionaries/ShowClients.do"/>'><span>Clients</span></a></li>
 				</ul></div>
 			</li>
 			<li><a href="#"><span>Анализ</span></a>

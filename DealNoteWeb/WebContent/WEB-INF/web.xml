@@ -72,10 +72,18 @@
   </servlet-mapping>
   <servlet>
   	<servlet-name>ShowClients</servlet-name>
-  	<servlet-class>biz.dealnote.web.controllers.ClientsController</servlet-class>
+  	<servlet-class>biz.dealnote.web.controllers.ClientController</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>ShowClients</servlet-name>
   	<url-pattern>/dictionaries/ShowClients.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>ClientsGson</servlet-name>
+  	<servlet-class>biz.dealnote.web.controllers.ClientsGsonController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ClientsGson</servlet-name>
+  	<url-pattern>/dictionaries/GetClientsInGson.do</url-pattern>
   </servlet-mapping>
 </web-app>

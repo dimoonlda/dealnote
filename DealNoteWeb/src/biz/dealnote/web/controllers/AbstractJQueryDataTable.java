@@ -1,6 +1,7 @@
 package biz.dealnote.web.controllers;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
+
 import biz.dealnote.web.dao.DAOFactory;
 
 public abstract class AbstractJQueryDataTable<T> implements DataTable {

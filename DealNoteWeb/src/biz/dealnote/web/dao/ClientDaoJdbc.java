@@ -14,6 +14,7 @@ public class ClientDaoJdbc implements ClientDAO {
 	public static final String TABLE_NAME = "CLIENT";
 	public static final String COL_CLIENT_ID = "ID";
 	public static final String COL_CLIENT_FNAME = "FNAME";
+	public static final String COL_CLIENT_NAME = "NAME";
 	public static final String COL_CLIENT_ADDRESS_LOCATION = "ADDRESSLOCATION";
 	public static final String COL_CLIENT_AGENT_ID = "AGENTID";
 	
@@ -35,20 +36,23 @@ public class ClientDaoJdbc implements ClientDAO {
 			conn = daoFactory.getConnection();
 			ps = conn.prepareStatement("SELECT "
 					+ COL_CLIENT_ID + ", "
-					+ COL_CLIENT_FNAME + ", "
+					+ COL_CLIENT_NAME + ", "
 					+ COL_CLIENT_ADDRESS_LOCATION 
 					+ " FROM " + TABLE_NAME
 					+ " WHERE " + COL_CLIENT_AGENT_ID + " = ?");
-			ps.setInt(0, agentId);
+			ps.setInt(1, agentId);
 			rsClients = ps.executeQuery();
 			while(rsClients.next()){
 				Client client = new Client();
 				client.setId(rsClients.getInt(COL_CLIENT_ID));
-				client.setFName(rsClients.getString(COL_CLIENT_FNAME));
+				client.setName(rsClients.getString(COL_CLIENT_NAME));
 				client.setAddressLocation(rsClients.getString(COL_CLIENT_ADDRESS_LOCATION));
 				clientsList.add(client);
 			}
 		} catch (SQLException e) {
+			//TODO: Log
+			throw new DAOException(e);
+		} finally{
 			DAOUtil.close(conn, ps, rsClients);
 		}
 		return clientsList;

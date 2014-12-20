@@ -51,6 +51,7 @@ public class AgentDAOJDBC implements AgentDAO {
 				agentsData.add(agent);
 			}
 		} catch (SQLException e) {
+			//TODO: Log
 			throw new DAOException(e);
 		} finally {
 			DAOUtil.close(conn, preparedStatement, rsAgents);
