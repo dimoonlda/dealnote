@@ -38,6 +38,10 @@
     <param-name>dbContext</param-name>
     <param-value>java:comp/env/jdbc/dbAlterTestConn</param-value>
   </context-param>
+  <context-param>
+    <param-name>connectionType</param-name>
+    <param-value>jpa</param-value>
+  </context-param>
   
   <resource-ref>
     <description>DTrader DB Connection Alter</description>
@@ -86,4 +90,12 @@
   	<servlet-name>ClientsGson</servlet-name>
   	<url-pattern>/dictionaries/GetClientsInGson.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<servlet-name>ShowClientInfo</servlet-name>
+  	<servlet-class>biz.dealnote.web.controllers.ClientInfoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ShowClientInfo</servlet-name>
+  	<url-pattern>/dictionaries/ShowClientInfo.do</url-pattern>
+  </servlet-mapping>  
 </web-app>

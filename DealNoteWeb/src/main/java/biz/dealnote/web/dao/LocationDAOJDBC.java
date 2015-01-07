@@ -1,0 +1,83 @@
+package biz.dealnote.web.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import biz.dealnote.web.beans.Location;
+
+public class LocationDAOJDBC implements LocationDAO {
+	
+	public static final String colLocation_AgentID = "AGENTID";
+	public static final String colLocation_Longitude = "LONGITUDE"; 
+	public static final String colLocation_Latitude = "LATITUDE";
+	public static final String colLocation_Clock = "CLOCK";
+	public static final String colLocation_Provider = "PROVIDER";
+	public static final String colLocation_Accuracy = "ACCURACY";
+	public static final String colLocation_SearchTime = "SEARCHTIME";
+	public static final String colLocation_SaveState = "SAVESTATE";
+	public static final String colLocation_Check = "CHECKINS";
+	public static final String colLocation_Battery = "BATTERY";
+
+	private final String SQL_LIST_LOCATION_BY_AGENT_AND_DAY = "SELECT * FROM LOCATION WHERE AGENTID=? AND CLOCK>=? and CLOCK<? ORDER BY CLOCK";
+	private DAOFactory factory;
+	
+	public LocationDAOJDBC(DAOFactory factory){
+		this.factory = factory;
+	}
+	
+	@Override
+	public List<Location> getLocationList(Integer agentID, Date startDate, Date endDate) throws DAOException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rsList = null;
+		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+		List<Location> locList = new ArrayList<Location>();
+		try{
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(endDate);
+			cal.add(Calendar.DATE, 1);
+			java.sql.Date _beginDate = new java.sql.Date(startDate.getTime());
+			java.sql.Date _endDate = new java.sql.Date(cal.getTime().getTime());
+			
+			conn = factory.getConnection();
+			ps = conn.prepareStatement(SQL_LIST_LOCATION_BY_AGENT_AND_DAY);
+			ps.setInt(1, agentID);
+			ps.setDate(2, _beginDate);
+			ps.setDate(3, _endDate);
+			rsList = ps.executeQuery();
+			while(rsList.next()){
+				Location loc = new Location();
+				//loc.setAgentID(rsList.getInt(colLocation_AgentID));
+				loc.setAccuracy(rsList.getInt(colLocation_Accuracy));
+				loc.setBattery(rsList.getInt(colLocation_Battery));
+				loc.setClock(rsList.getTimestamp(colLocation_Clock));
+				loc.setLatitude(rsList.getDouble(colLocation_Latitude));
+				loc.setLongitude(rsList.getDouble(colLocation_Longitude));
+				loc.setProvider(rsList.getString(colLocation_Provider));
+				loc.setSavestate(rsList.getInt(colLocation_SaveState));
+				loc.setSearchtime(rsList.getInt(colLocation_SearchTime));
+				locList.add(loc);
+			}
+		}catch(SQLException e){
+			throw new DAOException(e);
+		}finally{
+			DAOUtil.close(conn, ps, rsList);
+		}
+		return locList;
+	}
+
+	@Override
+	public List<Location> getLocationList(Integer agentID, Date byDate) throws DAOException {
+		return getLocationList(agentID, byDate, byDate);
+	}
+
+}

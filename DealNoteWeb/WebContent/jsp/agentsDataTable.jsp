@@ -18,6 +18,6 @@
 	<div id="demo_jui">
 	<table id="agents" class="display">
     <thead><tr>
-	<th width="20%">ID</th><th width="70%">Name</th><th width="10%">Active</th></tr></thead><tbody>
+	<th width="10%">ID</th><th width="70%">Name</th><th width="10%">Clients count</th><th width="10%">Active</th></tr></thead><tbody>
 	</tbody></table>
 	</div></div>
