@@ -98,4 +98,36 @@
   	<servlet-name>ShowClientInfo</servlet-name>
   	<url-pattern>/dictionaries/ShowClientInfo.do</url-pattern>
   </servlet-mapping>  
+  <servlet>
+  	<servlet-name>DeleteAgent</servlet-name>
+  	<servlet-class>biz.dealnote.web.controllers.AgentController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>DeleteAgent</servlet-name>
+  	<url-pattern>/dictionaries/DeleteAgent.do</url-pattern>
+  </servlet-mapping> 
+  <servlet>
+  	<servlet-name>ShowAgentInfo</servlet-name>
+  	<servlet-class>biz.dealnote.web.controllers.AgentController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ShowAgentInfo</servlet-name>
+  	<url-pattern>/dictionaries/ShowAgentInfo.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>EditAgentInfo</servlet-name>
+  	<servlet-class>biz.dealnote.web.controllers.AgentController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>EditAgentInfo</servlet-name>
+  	<url-pattern>/dictionaries/EditAgentInfo.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>AddAgent</servlet-name>
+  	<servlet-class>biz.dealnote.web.controllers.AgentController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AddAgent</servlet-name>
+  	<url-pattern>/dictionaries/AddAgent.do</url-pattern>
+  </servlet-mapping>      
 </web-app>

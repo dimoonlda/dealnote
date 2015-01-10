@@ -59,4 +59,24 @@ public class AgentDAOJDBC implements AgentDAO {
 		return agentsData;
 	}
 
+	@Override
+	public void deleteAgentById(int agentId) throws DAOException {
+		throw new UnsupportedOperationException("Not yet implemented");
+	}
+
+	@Override
+	public Agent getAgentById(int agentId) {
+		throw new UnsupportedOperationException("Not yet implemented");
+	}
+
+	@Override
+	public void addAgent(Agent agent) {
+		throw new UnsupportedOperationException("Not yet implemented");
+	}
+
+	@Override
+	public void updateAgent(Agent agent) {
+		throw new UnsupportedOperationException("Not yet implemented");
+	}
+
 }

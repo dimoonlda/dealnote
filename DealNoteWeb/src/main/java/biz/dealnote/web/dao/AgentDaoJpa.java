@@ -2,6 +2,7 @@ package biz.dealnote.web.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import biz.dealnote.web.beans.Agent;
@@ -37,6 +38,55 @@ public class AgentDaoJpa implements AgentDAO {
 		session.close();
 		
 		return agentsList;
+	}
+
+	@Override
+	public void deleteAgentById(int agentId) throws DAOException {
+		Session session = daoFactory.getSession();
+		session.beginTransaction();
+		
+		Query q = session.createQuery("delete from Agent where id=:id");
+		q.setInteger("id", agentId);
+		q.executeUpdate();
+		
+		session.getTransaction().commit();
+		session.close();
+	}
+
+	@Override
+	public Agent getAgentById(int agentId) {
+		Session session = daoFactory.getSession();
+		session.beginTransaction();
+		
+		Agent agent = (Agent) session.get(Agent.class, agentId);
+		
+		session.getTransaction().commit();
+		session.close();
+		return agent;
+	}
+
+	@Override
+	public void addAgent(Agent agent) {
+		if(agent != null){
+			Session session = daoFactory.getSession();
+			session.beginTransaction();
+			
+			session.save(agent);
+			session.getTransaction().commit();
+			session.close();
+		}
+	}
+
+	@Override
+	public void updateAgent(Agent agent) {
+		if(agent != null){
+			Session session = daoFactory.getSession();
+			session.beginTransaction();
+			
+			session.update(agent);
+			session.getTransaction().commit();
+			session.close();
+		}		
 	}
 
 }

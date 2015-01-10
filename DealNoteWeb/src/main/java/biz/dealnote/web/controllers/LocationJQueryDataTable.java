@@ -24,7 +24,7 @@ public class LocationJQueryDataTable extends AbstractJQueryDataTable<Location> {
 		super.init(request);
 		agentid = Integer.valueOf(request.getParameter("agentid"));
 		try {
-			agentdate = Consts.dateFormat.parse(request.getParameter("agentdate"));
+			agentdate = Consts.DATE_FORMAT.parse(request.getParameter("agentdate"));
 		} catch (ParseException e) {
 			// TODO Log 
 		}

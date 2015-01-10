@@ -1,9 +1,5 @@
 package biz.dealnote.web.dao;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -47,7 +43,7 @@ public class LocationDaoJpa implements LocationDAO {
 			q.setInteger("agentId", agentID);
 			q.setTimestamp("beginDate", _beginDate);
 			q.setTimestamp("endDate", _endDate);
-			result = q.list();
+			result = (List<Location>) q.list();
 		} finally {
 			session.getTransaction().commit();
 			session.close();

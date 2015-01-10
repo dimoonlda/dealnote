@@ -29,9 +29,10 @@ public class AgentJQueryDataTable extends AbstractJQueryDataTable<Agent> {
 		for(Agent c : locResultList){
 			JsonArray row = new JsonArray();
 			row.add(new JsonPrimitive(c.getId()));
-			row.add(new JsonPrimitive(c.getName()));
+			row.add(new JsonPrimitive("<a href='../dictionaries/ShowAgentInfo.do?agentId=" + c.getId() + "'>" + c.getName() + "</a>"));
 			row.add(new JsonPrimitive(c.getClients().size()));
-			row.add(new JsonPrimitive(true));
+			row.add(new JsonPrimitive(c.getActiveAsBoolean()));
+			row.add(new JsonPrimitive("<a href='../dictionaries/DeleteAgent.do?agentId=" + c.getId() + "'>Delete</a>"));
 			data.add(row);
 		}	
 	}

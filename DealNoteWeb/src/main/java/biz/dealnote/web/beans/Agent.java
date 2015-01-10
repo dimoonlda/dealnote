@@ -25,8 +25,14 @@ public class Agent {
 	@Column(name="SNAME")
 	private String name;
 	
+	/**
+	 * if value 1 - active, 0 - not active
+	 */
 	@Column(name="ISACTIVE")
 	private Integer active;
+	
+	private Integer outerId;
+	private Integer roleCode;
 	
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="agent")
 	private Set<Client> clients = new HashSet<Client>();
@@ -38,7 +44,7 @@ public class Agent {
 		this.name = name;
 	}
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
@@ -59,6 +65,9 @@ public class Agent {
 		this.active = active;
 	}
 
+	public Boolean getActiveAsBoolean(){
+		return this.active == 0 ? false : true;
+	}
 	
 	public Set<Client> getClients() {
 		return clients;
@@ -66,6 +75,22 @@ public class Agent {
 
 	public void setClients(Set<Client> clients) {
 		this.clients = clients;
+	}
+
+	public Integer getOuterId() {
+		return outerId;
+	}
+
+	public void setOuterId(Integer outerId) {
+		this.outerId = outerId;
+	}
+
+	public Integer getRoleCode() {
+		return roleCode;
+	}
+
+	public void setRoleCode(Integer roleCode) {
+		this.roleCode = roleCode;
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public class AgentGpsController extends AbstractController {
 		Date agentDate = null;
 		try{
 			agentID = Integer.valueOf(req.getParameter("agentid"));
-			agentDate = Consts.dateFormat.parse(req.getParameter("agentdate"));
+			agentDate = Consts.DATE_FORMAT.parse(req.getParameter("agentdate"));
 		}catch(Exception e){
 			//TODO: Log
 		}
