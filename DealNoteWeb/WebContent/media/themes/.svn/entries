@@ -1,34 +1,0 @@
-10
-
-dir
-2227
-http://192.168.20.5/repos/DTraderWeb/trunk/WebContent/media/themes
-http://192.168.20.5/repos
-
-
-
-2013-02-11T09:49:46.109206Z
-1500
-dimoon
-
-
-svn:special svn:externals svn:needs-lock
-
-
-
-
-
-
-
-
-
-
-
-ca64fa2c-b845-42c9-9c72-1f6a640316ab
-
-base
-dir
-
-smoothness
-dir
-
