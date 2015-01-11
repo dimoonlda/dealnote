@@ -8,12 +8,15 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import biz.dealnote.web.beans.Location;
+import biz.dealnote.web.utils.SessionUtil;
 
 public class LocationDaoJpa implements LocationDAO {
 	private DAOFactory daoFactory;
+	private Session session;
 	
 	public LocationDaoJpa(DAOFactory daoFactory) {
 		this.daoFactory = daoFactory;
+		session = SessionUtil.getSessionFactory().getCurrentSession();
 	}
 	
 	@Override
@@ -25,8 +28,6 @@ public class LocationDaoJpa implements LocationDAO {
 	@Override
 	public List<Location> getLocationList(Integer agentID, Date startDate,
 			Date endDate) throws DAOException {
-		Session session = daoFactory.getSession();
-		session.beginTransaction();
 		List<Location> result = null;
 		try {
 			Calendar cal = Calendar.getInstance();
@@ -45,8 +46,7 @@ public class LocationDaoJpa implements LocationDAO {
 			q.setTimestamp("endDate", _endDate);
 			result = (List<Location>) q.list();
 		} finally {
-			session.getTransaction().commit();
-			session.close();
+			//TODO: Log
 		}
 
 		return result;

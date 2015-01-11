@@ -26,7 +26,7 @@ public class Client {
 	private String taxCode;
 	//private Integer agentId;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="agentid")
 	private Agent agent;
 	

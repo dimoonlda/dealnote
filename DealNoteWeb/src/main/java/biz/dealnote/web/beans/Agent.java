@@ -34,7 +34,7 @@ public class Agent {
 	private Integer outerId;
 	private Integer roleCode;
 	
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="agent")
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="agent")
 	private Set<Client> clients = new HashSet<Client>();
 	
 	public Agent(){};

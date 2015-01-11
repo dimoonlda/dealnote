@@ -8,8 +8,10 @@
         <property name="hibernate.connection.driver_class">org.firebirdsql.jdbc.FBDriver</property>
         <property name="hibernate.dialect">org.hibernate.dialect.FirebirdDialect</property>
 		<property name="hibernate.connection.datasource">java:comp/env/jdbc/dbAlterTestConn</property>
+		<property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+    	<property name="hibernate.current_session_context_class">thread</property>
         <!--  Echo all executed SQL to stdout  -->
-        <property name="show_sql">false</property>
+        <property name="show_sql">true</property>
         <!--  Drop and re-create the database schema on startup  -->
         <!-- <property name="hbm2ddl.auto">create-drop</property> -->
         <mapping class="biz.dealnote.web.beans.Client"/>

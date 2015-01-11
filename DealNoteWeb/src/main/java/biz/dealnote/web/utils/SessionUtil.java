@@ -22,6 +22,10 @@ public class SessionUtil {
 	public static Session getSession() {
 		return getInstance().factory.openSession();
 	}
+	
+	public static SessionFactory getSessionFactory() {
+		return getInstance().factory;
+	}
 
 	private static SessionUtil getInstance() {
 		return instance;

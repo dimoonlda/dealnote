@@ -33,7 +33,17 @@
   <listener>
     <listener-class>biz.dealnote.web.listeners.AppServletContextListener</listener-class>
   </listener>
+
+  <filter>  
+        <filter-name>HibernateFilter</filter-name>  
+        <filter-class>biz.dealnote.web.filters.HibernateSessionRequestFilter</filter-class>  
+  </filter>  
   
+  <filter-mapping>  
+        <filter-name>HibernateFilter</filter-name>  
+        <url-pattern>/*</url-pattern>  
+  </filter-mapping> 
+      
   <context-param>
     <param-name>dbContext</param-name>
     <param-value>java:comp/env/jdbc/dbAlterTestConn</param-value>
