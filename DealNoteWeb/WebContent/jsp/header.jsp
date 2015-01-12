@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 	<script type="text/javascript" src="<c:url value='/js/jquery-1.11.1.min.js'/>"></script>	
+	<link type="text/css" href="<c:url value='/css/jquery-ui.css'/>" rel="stylesheet" />
+	<script type="text/javascript" src="<c:url value='/js/jquery-ui.js'/>"></script>
 	
 	<link type="text/css" href="<c:url value='/menu/menu.css'/>" rel="stylesheet" />
 	<script type="text/javascript" src="<c:url value='/menu/menu.js'/>"></script>
