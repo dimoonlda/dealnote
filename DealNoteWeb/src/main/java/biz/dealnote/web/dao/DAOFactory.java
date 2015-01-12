@@ -9,6 +9,10 @@ import javax.sql.DataSource;
 
 import org.hibernate.Session;
 
+import biz.dealnote.web.dao.jdbc.JdbcDaoFactory;
+import biz.dealnote.web.dao.jpa.JpaDaoFactory;
+import biz.dealnote.web.utils.SessionUtil;
+
 public abstract class DAOFactory {
 	
 	/**
@@ -33,7 +37,7 @@ public abstract class DAOFactory {
 			}
 		}else if(connectionType.equals("jpa")){
 			//TODO: Create JPA instance
-			instance = new JpaDaoFactory();
+			instance = new JpaDaoFactory(SessionUtil.getSessionFactory());
 		}
 		
 		return instance;
@@ -41,12 +45,12 @@ public abstract class DAOFactory {
 	/**
 	 * Return JDBC connection
 	 */
-	abstract Connection getConnection() throws SQLException;
+	public abstract Connection getConnection() throws SQLException;
 	/**
 	 * Get Hibernate session
 	 * @return
 	 */
-	abstract Session getSession();
+	public abstract Session getSession();
 	
 	public abstract AgentDAO getAgentDAO();
 	public abstract LocationDAO getLocationDAO();

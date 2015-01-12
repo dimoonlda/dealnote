@@ -1,4 +1,4 @@
-package biz.dealnote.web.dao;
+package biz.dealnote.web.dao.jdbc;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -6,6 +6,12 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import org.hibernate.Session;
+
+import biz.dealnote.web.dao.AgentDAO;
+import biz.dealnote.web.dao.ClientDAO;
+import biz.dealnote.web.dao.DAOFactory;
+import biz.dealnote.web.dao.DocumentDAO;
+import biz.dealnote.web.dao.LocationDAO;
 
 public class JdbcDaoFactory extends DAOFactory {
 	
@@ -16,7 +22,7 @@ public class JdbcDaoFactory extends DAOFactory {
 	}
 
 	@Override
-	Connection getConnection() throws SQLException {
+	public Connection getConnection() throws SQLException {
 		return dataSource.getConnection();
 	}
 
@@ -41,7 +47,7 @@ public class JdbcDaoFactory extends DAOFactory {
 	}
 
 	@Override
-	Session getSession() {
+	public Session getSession() {
 		throw new UnsupportedOperationException("You can use this method only with JPA");
 	}
 

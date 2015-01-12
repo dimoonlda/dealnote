@@ -1,4 +1,4 @@
-package biz.dealnote.web.dao;
+package biz.dealnote.web.dao.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +13,10 @@ import java.util.Date;
 import java.util.List;
 
 import biz.dealnote.web.beans.Location;
+import biz.dealnote.web.dao.DAOException;
+import biz.dealnote.web.dao.DAOFactory;
+import biz.dealnote.web.dao.DAOUtil;
+import biz.dealnote.web.dao.LocationDAO;
 
 public class LocationDAOJDBC implements LocationDAO {
 	

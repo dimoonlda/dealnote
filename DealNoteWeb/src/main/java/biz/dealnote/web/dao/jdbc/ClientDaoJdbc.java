@@ -1,4 +1,4 @@
-package biz.dealnote.web.dao;
+package biz.dealnote.web.dao.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import biz.dealnote.web.beans.Client;
+import biz.dealnote.web.dao.ClientDAO;
+import biz.dealnote.web.dao.DAOException;
+import biz.dealnote.web.dao.DAOFactory;
+import biz.dealnote.web.dao.DAOUtil;
 
 public class ClientDaoJdbc implements ClientDAO {
 

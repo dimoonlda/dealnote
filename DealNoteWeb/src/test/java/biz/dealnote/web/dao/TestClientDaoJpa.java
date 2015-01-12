@@ -15,14 +15,11 @@ import biz.dealnote.web.beans.Client;
 
 public class TestClientDaoJpa {
 	private static DAOFactory daoFactory;
-	private static ClientDaoJpa clientDaoJpa;
 	
 	@BeforeClass
 	public static void initData(){
 		daoFactory = DAOFactory.getFactory("jpa", null);
 		assertNotNull(daoFactory);
-		clientDaoJpa = new ClientDaoJpa(daoFactory);
-		assertNotNull(clientDaoJpa);
 	}
 
 	@Test
@@ -45,7 +42,7 @@ public class TestClientDaoJpa {
 		tx.commit();
 		session.close();
 		
-		List<Client> clientList = clientDaoJpa.getClientsByAgent(agentId);
+		List<Client> clientList = daoFactory.getClientDAO().getClientsByAgent(agentId);
 		assertEquals(2, clientList.size());
 	}
 	
@@ -70,7 +67,7 @@ public class TestClientDaoJpa {
 		tx.commit();
 		session.close();
 		
-		client = clientDaoJpa.getClietnById(client_id);
+		client = daoFactory.getClientDAO().getClietnById(client_id);
 		assertEquals("test", client.getName());
 	}	
 }

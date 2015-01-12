@@ -1,4 +1,4 @@
-package biz.dealnote.web.dao;
+package biz.dealnote.web.dao.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import biz.dealnote.web.dao.DAOException;
+import biz.dealnote.web.dao.DAOFactory;
+import biz.dealnote.web.dao.DAOUtil;
+import biz.dealnote.web.dao.DocumentDAO;
 
 public class DocumentDAOJDBC implements DocumentDAO {
 	

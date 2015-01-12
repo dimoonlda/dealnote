@@ -1,24 +1,22 @@
-package biz.dealnote.web.dao;
+package biz.dealnote.web.dao.jpa;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
-import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import biz.dealnote.web.beans.Location;
-import biz.dealnote.web.utils.SessionUtil;
+import biz.dealnote.web.dao.DAOException;
+import biz.dealnote.web.dao.LocationDAO;
 
-public class LocationDaoJpa implements LocationDAO {
-	private DAOFactory daoFactory;
-	private Session session;
+public class LocationDaoJpa extends BaseDaoJpa implements LocationDAO {
 	
-	public LocationDaoJpa(DAOFactory daoFactory) {
-		this.daoFactory = daoFactory;
-		session = SessionUtil.getSessionFactory().getCurrentSession();
+	public LocationDaoJpa(SessionFactory sessionFactory) {
+		super(sessionFactory);
 	}
-	
+
 	@Override
 	public List<Location> getLocationList(Integer agentID, Date byDate)
 			throws DAOException {
@@ -36,7 +34,7 @@ public class LocationDaoJpa implements LocationDAO {
 
 			java.sql.Date _beginDate = new java.sql.Date(startDate.getTime());
 			java.sql.Date _endDate = new java.sql.Date(cal.getTime().getTime());
-			Query q = session
+			Query q = getSession()
 					.createQuery("from Location location "
 							+ " where location.agent.id=:agentId and "
 							+ " location.clock >= :beginDate and location.clock < :endDate"

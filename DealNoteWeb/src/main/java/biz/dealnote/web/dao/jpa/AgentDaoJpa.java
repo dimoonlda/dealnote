@@ -1,27 +1,23 @@
-package biz.dealnote.web.dao;
+package biz.dealnote.web.dao.jpa;
 
 import java.util.List;
 
 import org.hibernate.Query;
-import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import biz.dealnote.web.beans.Agent;
 import biz.dealnote.web.dao.AgentDAO;
-import biz.dealnote.web.utils.SessionUtil;
+import biz.dealnote.web.dao.DAOException;
 
-public class AgentDaoJpa implements AgentDAO {
-	private DAOFactory daoFactory;
+public class AgentDaoJpa extends BaseDaoJpa implements AgentDAO {
 	
-	private Session session;
-	
-	public AgentDaoJpa(DAOFactory daoFactory) {
-		this.daoFactory = daoFactory;
-		session = SessionUtil.getSessionFactory().getCurrentSession();
+	public AgentDaoJpa(SessionFactory sessionFactory) {
+		super(sessionFactory);
 	}
 
 	@Override
 	public List<Agent> getActiveAgentsList() throws DAOException {
-		List<Agent> agentsList = (List<Agent>) session
+		List<Agent> agentsList = (List<Agent>) getSession()
 				.createQuery("from Agent agent where agent.active=1").list();
 
 		return agentsList;
@@ -30,7 +26,7 @@ public class AgentDaoJpa implements AgentDAO {
 	@Override
 	public List<Agent> getAgentsList() throws DAOException {
 		List<Agent> agentsList = 
-				(List<Agent>) session.createQuery("from Agent").list();
+				(List<Agent>) getSession().createQuery("from Agent").list();
 		
 		return agentsList;
 	}
@@ -38,7 +34,7 @@ public class AgentDaoJpa implements AgentDAO {
 	@Override
 	public void deleteAgentById(int agentId) throws DAOException {
 		
-		Query q = session.createQuery("delete from Agent where id=:id");
+		Query q = getSession().createQuery("delete from Agent where id=:id");
 		q.setInteger("id", agentId);
 		q.executeUpdate();
 	}
@@ -46,21 +42,21 @@ public class AgentDaoJpa implements AgentDAO {
 	@Override
 	public Agent getAgentById(int agentId) {
 		
-		Agent agent = (Agent) session.get(Agent.class, agentId);
+		Agent agent = (Agent) getSession().get(Agent.class, agentId);
 		return agent;
 	}
 
 	@Override
 	public void addAgent(Agent agent) {
 		if(agent != null){
-			session.save(agent);
+			getSession().save(agent);
 		}
 	}
 
 	@Override
 	public void updateAgent(Agent agent) {
 		if(agent != null){
-			session.update(agent);
+			getSession().update(agent);
 		}		
 	}
 

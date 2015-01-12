@@ -10,42 +10,49 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import biz.dealnote.web.beans.Agent;
 import biz.dealnote.web.beans.Client;
+import biz.dealnote.web.utils.SessionUtil;
 
 public class TestAgentDaoJpa {
 	private static DAOFactory daoFactory;
-	private static AgentDaoJpa agentDaoJpa;
 	
 	@BeforeClass
 	public static void initialize(){
 		daoFactory = DAOFactory.getFactory("jpa", null);
 		assertNotNull(daoFactory);
-		agentDaoJpa = new AgentDaoJpa(daoFactory);
-		assertNotNull(agentDaoJpa);
 	}
 	
 	@Test
 	public void testGetAgentsList(){
-		Session session = daoFactory.getSession();
-		Transaction tx = session.beginTransaction();
+		SessionUtil.getSessionFactory()
+			.getCurrentSession().beginTransaction();
 		
-		Query q = session.createQuery("delete from Agent");
+		Query q = SessionUtil.getSessionFactory().getCurrentSession().createQuery("delete from Agent");
 		q.executeUpdate();
 		
 		Agent agent = new Agent();
-		session.save(agent);
+		SessionUtil.getSessionFactory().getCurrentSession().save(agent);
 		
 		agent = new Agent();
-		session.save(agent);
+		SessionUtil.getSessionFactory().getCurrentSession().save(agent);
 		
-		tx.commit();
-		session.close();
+		SessionUtil.getSessionFactory()
+			.getCurrentSession().getTransaction().commit();
 		
-		List<Agent> agentList = agentDaoJpa.getAgentsList();
+		SessionUtil.getSessionFactory()
+			.getCurrentSession().beginTransaction();
+
+		List<Agent> agentList = daoFactory.getAgentDAO().getAgentsList();
+
+		SessionUtil.getSessionFactory()
+			.getCurrentSession().getTransaction().commit();
+
 		assertEquals(2, agentList.size());
 	}
 
@@ -65,7 +72,9 @@ public class TestAgentDaoJpa {
 		tx.commit();
 		session.close();
 		
-		List<Agent> agentList = agentDaoJpa.getActiveAgentsList();
+		SessionUtil.getSessionFactory().getCurrentSession().beginTransaction();
+		List<Agent> agentList = daoFactory.getAgentDAO().getActiveAgentsList();
+		SessionUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
 		assertEquals(1, agentList.size());
 	}
 	
@@ -131,8 +140,10 @@ public class TestAgentDaoJpa {
 
 		session.getTransaction().commit();
 		session.close();
-
+		
+		SessionUtil.getSessionFactory().getCurrentSession().beginTransaction();
 		daoFactory.getAgentDAO().deleteAgentById(agent_id);
+		SessionUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
 
 		session = daoFactory.getSession();
 		session.beginTransaction();
@@ -157,12 +168,16 @@ public class TestAgentDaoJpa {
 		session.getTransaction().commit();
 		session.close();
 		
+		SessionUtil.getSessionFactory().getCurrentSession().beginTransaction();
 		agent = daoFactory.getAgentDAO().getAgentById(agentId);
+		SessionUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
+		
 		assertEquals("Test222", agent.getName());
 	}
 
 	@Test
 	public void testAddAgent(){
+		SessionUtil.getSessionFactory().getCurrentSession().beginTransaction();
 		Agent agent = new Agent();
 		agent.setName("Test222");
 		daoFactory.getAgentDAO().addAgent(agent);
@@ -171,6 +186,7 @@ public class TestAgentDaoJpa {
 		agent = null;
 		daoFactory.getAgentDAO().addAgent(agent);
 		assertEquals(null, agent);
+		SessionUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
 		
 		Session session = daoFactory.getSession();
 		session.beginTransaction();
@@ -182,7 +198,7 @@ public class TestAgentDaoJpa {
 		session.close();
 	}
 
-	@Test
+/*	@Test
 	public void testUpdateAgent(){
 		Session session = daoFactory.getSession();
 		session.beginTransaction();
@@ -220,6 +236,54 @@ public class TestAgentDaoJpa {
 		session.getTransaction().commit();
 		session.close();
 
-	}
+	}*/
+	
+	@Test
+	public void testUpdateAgent(){
+		SessionUtil.getSessionFactory()
+			.getCurrentSession().beginTransaction();
+		
+		Agent agent = new Agent();
+		agent.setName("Test222");
+		SessionUtil.getSessionFactory().getCurrentSession().save(agent);
+		int agentId = agent.getId();
+
+		SessionUtil.getSessionFactory()
+			.getCurrentSession().getTransaction().commit();
+		
+		agent = null;
+		daoFactory.getAgentDAO().updateAgent(agent);
+		assertEquals(null, agent);
+
+		SessionUtil.getSessionFactory()
+			.getCurrentSession().beginTransaction();
+		
+		agent = (Agent) SessionUtil.getSessionFactory()
+				.getCurrentSession().get(Agent.class, agentId);
+		assertEquals("Test222", agent.getName());
+		agent.setName("Test3333");
+
+		SessionUtil.getSessionFactory()
+			.getCurrentSession().getTransaction().commit();
+
+		SessionUtil.getSessionFactory()
+			.getCurrentSession().beginTransaction();
+		
+		daoFactory.getAgentDAO().updateAgent(agent);
+		
+		SessionUtil.getSessionFactory()
+			.getCurrentSession().getTransaction().commit();
+		
+		SessionUtil.getSessionFactory()
+			.getCurrentSession().beginTransaction();
+		
+		agent = (Agent) SessionUtil.getSessionFactory()
+					.getCurrentSession().get(Agent.class, agentId);
+		assertEquals("Test3333", agent.getName());
+		
+		SessionUtil.getSessionFactory()
+			.getCurrentSession().getTransaction().commit();
+
+	}	
 
 }

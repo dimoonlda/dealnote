@@ -17,14 +17,11 @@ import biz.dealnote.web.beans.Location;
 
 public class TestLocationDaoJpa {
 	private static DAOFactory daoFactory;
-	private static LocationDaoJpa locationDaoJpa;
 	
 	@BeforeClass
 	public static void initData(){
 		daoFactory = DAOFactory.getFactory("jpa", null);
 		assertNotNull(daoFactory);
-		locationDaoJpa = new LocationDaoJpa(daoFactory);
-		assertNotNull(locationDaoJpa);
 	}
 
 	@Test
@@ -60,7 +57,7 @@ public class TestLocationDaoJpa {
 		session.getTransaction().commit();
 		session.close();
 
-		List<Location> res = (List<Location>) locationDaoJpa.getLocationList(
+		List<Location> res = (List<Location>) daoFactory.getLocationDAO().getLocationList(
 				agent_id, date1);
 		assertEquals(1, res.size());
 	}
