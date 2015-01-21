@@ -1,4 +1,4 @@
-package biz.dealnote.web.beans;
+package biz.dealnote.web.model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

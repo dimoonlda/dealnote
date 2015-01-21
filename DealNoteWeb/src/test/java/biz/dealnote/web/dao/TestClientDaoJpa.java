@@ -10,8 +10,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import biz.dealnote.web.beans.Agent;
-import biz.dealnote.web.beans.Client;
+import biz.dealnote.web.model.Agent;
+import biz.dealnote.web.model.Client;
 
 public class TestClientDaoJpa {
 	private static DAOFactory daoFactory;

@@ -1,4 +1,4 @@
-package biz.dealnote.web.controllers;
+package biz.dealnote.web.web;
 
 import java.io.IOException;
 
@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import biz.dealnote.web.dao.DAOFactory;
+import biz.dealnote.web.service.AbstractController;
 
 /**
  * Servlet implementation class AgentController

@@ -15,8 +15,8 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import biz.dealnote.web.beans.Agent;
-import biz.dealnote.web.beans.Client;
+import biz.dealnote.web.model.Agent;
+import biz.dealnote.web.model.Client;
 import biz.dealnote.web.utils.SessionUtil;
 
 public class TestAgentDaoJpa {

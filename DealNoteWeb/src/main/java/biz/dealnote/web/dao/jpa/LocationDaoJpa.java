@@ -7,9 +7,9 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
-import biz.dealnote.web.beans.Location;
 import biz.dealnote.web.dao.DAOException;
 import biz.dealnote.web.dao.LocationDAO;
+import biz.dealnote.web.model.Location;
 
 public class LocationDaoJpa extends BaseDaoJpa implements LocationDAO {
 	

@@ -2,7 +2,7 @@ package biz.dealnote.web.dao;
 
 import java.util.List;
 
-import biz.dealnote.web.beans.Client;
+import biz.dealnote.web.model.Client;
 
 public interface ClientDAO {
 	/**

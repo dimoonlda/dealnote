@@ -3,7 +3,7 @@ package biz.dealnote.web.dao;
 import java.util.Date;
 import java.util.List;
 
-import biz.dealnote.web.beans.Location;
+import biz.dealnote.web.model.Location;
 
 public interface LocationDAO {
 	/**

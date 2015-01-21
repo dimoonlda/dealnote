@@ -1,4 +1,4 @@
-package biz.dealnote.web.controllers;
+package biz.dealnote.web.service;
 
 import java.io.IOException;
 
@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import biz.dealnote.web.beans.Agent;
+import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.utils.Consts;
 
 public class AgentController extends AbstractController {

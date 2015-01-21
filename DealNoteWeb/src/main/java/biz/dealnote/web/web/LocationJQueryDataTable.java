@@ -1,4 +1,4 @@
-package biz.dealnote.web.controllers;
+package biz.dealnote.web.web;
 
 import java.text.ParseException;
 import java.util.Collections;
@@ -8,8 +8,8 @@ import java.util.LinkedList;
 
 import javax.servlet.http.HttpServletRequest;
 
-import biz.dealnote.web.beans.Location;
 import biz.dealnote.web.dao.LocationDAO;
+import biz.dealnote.web.model.Location;
 import biz.dealnote.web.utils.Consts;
 
 import com.google.gson.JsonArray;

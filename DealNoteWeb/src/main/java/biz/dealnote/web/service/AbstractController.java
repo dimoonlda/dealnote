@@ -1,4 +1,4 @@
-package biz.dealnote.web.controllers;
+package biz.dealnote.web.service;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;

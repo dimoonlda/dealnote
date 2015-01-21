@@ -1,4 +1,4 @@
-package biz.dealnote.web.controllers;
+package biz.dealnote.web.web;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonPrimitive;
 
-import biz.dealnote.web.beans.Agent;
 import biz.dealnote.web.dao.AgentDAO;
+import biz.dealnote.web.model.Agent;
 
 public class AgentJQueryDataTable extends AbstractJQueryDataTable<Agent> {
 

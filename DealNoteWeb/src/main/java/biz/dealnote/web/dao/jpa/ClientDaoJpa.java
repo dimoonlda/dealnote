@@ -4,8 +4,9 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import biz.dealnote.web.beans.Client;
+
 import biz.dealnote.web.dao.ClientDAO;
+import biz.dealnote.web.model.Client;
 
 public class ClientDaoJpa extends BaseDaoJpa implements ClientDAO {
 

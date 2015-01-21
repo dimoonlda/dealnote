@@ -5,9 +5,9 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
-import biz.dealnote.web.beans.Agent;
 import biz.dealnote.web.dao.AgentDAO;
 import biz.dealnote.web.dao.DAOException;
+import biz.dealnote.web.model.Agent;
 
 public class AgentDaoJpa extends BaseDaoJpa implements AgentDAO {
 	

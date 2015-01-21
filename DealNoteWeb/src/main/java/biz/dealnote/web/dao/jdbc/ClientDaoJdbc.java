@@ -7,11 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import biz.dealnote.web.beans.Client;
 import biz.dealnote.web.dao.ClientDAO;
 import biz.dealnote.web.dao.DAOException;
 import biz.dealnote.web.dao.DAOFactory;
 import biz.dealnote.web.dao.DAOUtil;
+import biz.dealnote.web.model.Client;
 
 public class ClientDaoJdbc implements ClientDAO {
 

@@ -1,4 +1,4 @@
-package biz.dealnote.web.beans;
+package biz.dealnote.web.model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

@@ -1,4 +1,4 @@
-package biz.dealnote.web.controllers;
+package biz.dealnote.web.web;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

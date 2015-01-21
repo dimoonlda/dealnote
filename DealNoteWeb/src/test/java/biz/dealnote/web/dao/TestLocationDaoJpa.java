@@ -12,8 +12,8 @@ import org.hibernate.Session;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import biz.dealnote.web.beans.Agent;
-import biz.dealnote.web.beans.Location;
+import biz.dealnote.web.model.Agent;
+import biz.dealnote.web.model.Location;
 
 public class TestLocationDaoJpa {
 	private static DAOFactory daoFactory;

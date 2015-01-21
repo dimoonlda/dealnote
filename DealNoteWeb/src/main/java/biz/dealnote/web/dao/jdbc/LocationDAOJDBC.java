@@ -12,11 +12,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import biz.dealnote.web.beans.Location;
 import biz.dealnote.web.dao.DAOException;
 import biz.dealnote.web.dao.DAOFactory;
 import biz.dealnote.web.dao.DAOUtil;
 import biz.dealnote.web.dao.LocationDAO;
+import biz.dealnote.web.model.Location;
 
 public class LocationDAOJDBC implements LocationDAO {
 	

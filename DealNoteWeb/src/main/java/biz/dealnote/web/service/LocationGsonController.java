@@ -1,4 +1,4 @@
-package biz.dealnote.web.controllers;
+package biz.dealnote.web.service;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -18,9 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
-import biz.dealnote.web.beans.Location;
+
+
 import biz.dealnote.web.dao.DAOFactory;
 import biz.dealnote.web.dao.LocationDAO;
+import biz.dealnote.web.model.Location;
+import biz.dealnote.web.web.DataTable;
+import biz.dealnote.web.web.LocationJQueryDataTable;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonIOException;
