@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import biz.dealnote.web.service.AbstractController;
+import biz.dealnote.web.utils.DataTable;
 
 public class ClientsGsonController extends AbstractController {
 	private static final long serialVersionUID = -8823982693714197299L;

@@ -1,27 +1,21 @@
 package biz.dealnote.web.web;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedList;
-
-import javax.servlet.http.HttpServletRequest;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonPrimitive;
 
-import biz.dealnote.web.dao.AgentDAO;
 import biz.dealnote.web.model.Agent;
+import biz.dealnote.web.utils.AbstractJQueryDataTable;
+import biz.dealnote.web.utils.JQueryDataTableParamModel;
 
 public class AgentJQueryDataTable extends AbstractJQueryDataTable<Agent> {
 
-	@Override
-	public void init(HttpServletRequest request) {
-		super.init(request);
-
-		AgentDAO agentDAO = base.getAgentDAO();
-		locSourceList = agentDAO.getAgentsList();
-
-		locResultList = new LinkedList<Agent>();
+	public AgentJQueryDataTable(Collection<Agent> dataToShow, JQueryDataTableParamModel jQueryDataTableParamModel) {
+		super(jQueryDataTableParamModel);
+		locSourceList = new ArrayList<Agent>(dataToShow);
 	}
 	
 	@Override
@@ -29,10 +23,10 @@ public class AgentJQueryDataTable extends AbstractJQueryDataTable<Agent> {
 		for(Agent c : locResultList){
 			JsonArray row = new JsonArray();
 			row.add(new JsonPrimitive(c.getId()));
-			row.add(new JsonPrimitive("<a href='../dictionaries/ShowAgentInfo.do?agentId=" + c.getId() + "'>" + c.getName() + "</a>"));
+			row.add(new JsonPrimitive("<a href='../agents/" + c.getId() + "'>" + c.getName() + "</a>"));
 			row.add(new JsonPrimitive(c.getClients().size()));
 			row.add(new JsonPrimitive(c.getActiveAsBoolean()));
-			row.add(new JsonPrimitive("<a href='../dictionaries/DeleteAgent.do?agentId=" + c.getId() + "'>Delete</a>"));
+			row.add(new JsonPrimitive("<a href='../agents/" + c.getId() + "/delete'>D</a>" + " <a href='../agents/" + c.getId() + "/edit'>E</a>"));
 			data.add(row);
 		}	
 	}

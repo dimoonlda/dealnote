@@ -74,12 +74,7 @@ public class AgentDAOJDBC implements AgentDAO {
 	}
 
 	@Override
-	public void addAgent(Agent agent) {
-		throw new UnsupportedOperationException("Not yet implemented");
-	}
-
-	@Override
-	public void updateAgent(Agent agent) {
+	public void save(Agent agent) {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 

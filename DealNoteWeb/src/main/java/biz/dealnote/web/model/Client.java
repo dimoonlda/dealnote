@@ -1,5 +1,6 @@
 package biz.dealnote.web.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Client info
@@ -20,16 +25,22 @@ public class Client {
 	@SequenceGenerator(name="gen_client", sequenceName="GEN_CLIENT_ID", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="gen_client")
 	private Integer id;
+	
+	@NotNull(message = "{message.field.notnull}")
+	@NotEmpty(message = "{message.field.notempty}")
+	@Size(max = 35, message = "{message.field.size35}")
 	private String name;
 	private String phone;
-	private Integer clientTypeId;
 	private String taxCode;
-	//private Integer agentId;
 	
+	@NotNull(message = "{message.field.notnull}")
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="agentid")
 	private Agent agent;
-	
+
+	@NotNull(message = "{message.field.notnull}")
+	@NotEmpty(message = "{message.field.notempty}")
+	@Size(max = 84, message = "{message.field.size84}")
 	private String addressLocation;
 	private String taxNum;
 	private String okpo;
@@ -44,16 +55,37 @@ public class Client {
 	private Integer debtSumm2;
 	private Integer debtDays2;
 	private Short stopShipment;
-	private Short routeId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "routeId")
+	private Route route;
+	
+	@NotNull(message = "{message.field.notnull}")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CLIENTTYPEID")
+	private ClientGroup group;
+	
 	private Integer defaultDiscount;
-	private Integer parentId;
 	private Double longitude;
 	private Double latitude;
-	private Integer outerid;
-
-	public Client(){}
+	private Integer outerId;
 	
-	public int getId() {
+	/**
+	 * if value 0 - active, 1 - not active
+	 */
+	@NotNull(message = "{message.field.notnull}")
+	@Column(name = "NOACTIVE")
+	private Integer isNotActive; 
+	
+	public Client(){
+		this.stopShipment = 0;
+		this.defaultDiscount = 0;
+		this.isNotActive = 0;
+		this.latitude = 0.0;
+		this.longitude = 0.0;
+	}
+	
+	public Integer getId() {
 		return id;
 	}
 
@@ -77,14 +109,6 @@ public class Client {
 		this.phone = phone;
 	}
 
-	public int getClientTypeId() {
-		return clientTypeId;
-	}
-
-	public void setClientTypeId(Integer clientTypeId) {
-		this.clientTypeId = clientTypeId;
-	}
-
 	public String getTaxCode() {
 		return taxCode;
 	}
@@ -92,15 +116,7 @@ public class Client {
 	public void setTaxCode(String taxCode) {
 		this.taxCode = taxCode;
 	}
-/*
-	public int getAgentId() {
-		return agentId;
-	}
 
-	public void setAgentId(Integer agentId) {
-		this.agentId = agentId;
-	}
-*/
 	public String getAddressLocation() {
 		return addressLocation;
 	}
@@ -210,15 +226,15 @@ public class Client {
 	}
 
 	public void setStopShipment(Short stopShipment) {
-		this.stopShipment = stopShipment;
+		this.stopShipment = (stopShipment == null ? 0 : stopShipment);
 	}
 
-	public short getRouteId() {
-		return routeId;
+	public Route getRoute() {
+		return route;
 	}
 
-	public void setRouteId(Short routeId) {
-		this.routeId = routeId;
+	public void setRoute(Route route) {
+		this.route = route;
 	}
 
 	public int getDefaultDiscount() {
@@ -229,15 +245,7 @@ public class Client {
 		this.defaultDiscount = defaultDiscount;
 	}
 
-	public int getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(Integer parentId) {
-		this.parentId = parentId;
-	}
-
-	public double getLongitude() {
+	public Double getLongitude() {
 		return longitude;
 	}
 
@@ -245,7 +253,7 @@ public class Client {
 		this.longitude = longitude;
 	}
 
-	public double getLatitude() {
+	public Double getLatitude() {
 		return latitude;
 	}
 
@@ -253,12 +261,12 @@ public class Client {
 		this.latitude = latitude;
 	}
 
-	public int getOuterId() {
-		return outerid;
+	public Integer getOuterId() {
+		return outerId;
 	}
 
 	public void setOuterId(Integer outerId) {
-		this.outerid = outerId;
+		this.outerId = outerId;
 	}
 
 	public Agent getAgent() {
@@ -269,6 +277,30 @@ public class Client {
 		this.agent = agent;
 	}
 	
+	public ClientGroup getGroup() {
+		return group;
+	}
+
+	public void setGroup(ClientGroup group) {
+		this.group = group;
+	}
+	
+	public Integer getIsNotActive() {
+		return isNotActive;
+	}
+
+	public void setIsNotActive(Integer isNotActive) {
+		this.isNotActive = (isNotActive == null ? 0 : isNotActive);
+	}
+	
+	public Boolean getIsNotActiveAsBoolean(){
+		return (this.isNotActive == null || this.isNotActive == 0) ? false : true;
+	}
+	
+	public boolean isNew(){
+		return (this.id == null);
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

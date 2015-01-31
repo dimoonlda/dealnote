@@ -1,24 +1,65 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<jsp:include page="fragments/staticFiles.jsp"/>
+
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>${requestScope['client'].name}</title>
-</head>
+<title>${client.name}</title>
 <body>
-<table width="100%">
-	<tr><td align="right" width="50%">Id:</td><td width="50%"><b>${requestScope['client'].id}</b></td></tr>
-	<tr><td align="right">Full name:</td><td><b>${requestScope['client'].name}</b></td></tr>
-	<tr><td align="right">Phone:</td><td><b>${requestScope['client'].phone}</b></td></tr>
-	<tr><td align="right">Tax Code:</td><td><b>${requestScope['client'].taxCode}</b></td></tr>
-	<tr><td align="right">Agent:</td><td><b>${requestScope['client'].agent.name}</b></td></tr>
-	<tr><td align="right">Address location:</td><td><b>${requestScope['client'].addressLocation}</b></td></tr>
-	<tr><td align="right">OKPO:</td><td><b>${requestScope['client'].okpo}</b></td></tr>
-	<tr><td align="right">Bank account:</td><td><b>${requestScope['client'].bankAccount}</b></td></tr>
-	<tr><td align="right">Dog. number:</td><td><b>${requestScope['client'].dogNum}</b></td></tr>
-	<tr><td align="right">Address law:</td><td><b>${requestScope['client'].addressLaw}</b></td></tr>
-	<tr><td colspan="2"><center><input type="button" value="Close" onclick="self.close()"></center></td></tr>
+<jsp:include page="fragments/header.jsp" />
+<div class="container">
+<h2><spring:message code="clients.showInfoForm.title"/></h2>
+<table class="table table-striped" style="width:600px;">
+	<tr>
+		<th><spring:message code="clients.showInfoForm.lable.id"/>:</th>
+		<td>${requestScope['client'].id}</td></tr>
+	<tr>
+		<th><spring:message code="clients.showInfoForm.lable.outerId"/>:</th>
+		<td>${requestScope['client'].outerId}</td></tr>
+	<tr>
+		<th><spring:message code="clients.showInfoForm.lable.fullName"/>:</th>
+		<td>${requestScope['client'].name}</td></tr>
+	<tr>
+		<th><spring:message code="clients.showInfoForm.lable.clientGroup"/>:</th>
+		<td>${requestScope['client'].group.name}</td></tr>
+	<tr>
+		<th><spring:message code="clients.showInfoForm.lable.phone"/>:</th>
+		<td>${requestScope['client'].phone}</td></tr>
+	<tr>
+		<th><spring:message code="clients.showInfoForm.lable.taxCode"/>:</th>
+		<td>${requestScope['client'].taxCode}</td></tr>
+	<tr>
+		<th><spring:message code="clients.showInfoForm.lable.agentName"/>:</th>
+		<td>${requestScope['client'].agent.name}</td></tr>
+	<tr>
+		<th><spring:message code="clients.showInfoForm.lable.addressLocation"/>:</th>
+		<td>${requestScope['client'].addressLocation}</td></tr>
+	<tr>
+		<th><spring:message code="clients.showInfoForm.lable.route"/>:</th>
+		<td>${requestScope['client'].route.name}</td>
+	</tr>
+	<tr>
+		<th><spring:message code="clients.showInfoForm.lable.okpo"/>:</th>
+		<td>${requestScope['client'].okpo}</td></tr>
+	<tr>
+		<th><spring:message code="clients.showInfoForm.lable.bankAccount"/>:</th>
+		<td>${requestScope['client'].bankAccount}</td></tr>
+	<tr>
+		<th><spring:message code="clients.showInfoForm.lable.dogNumber"/>:</th>
+		<td>${requestScope['client'].dogNum}</td></tr>
+	<tr>
+		<th><spring:message code="clients.showInfoForm.lable.addressLaw"/>:</th>
+		<td>${requestScope['client'].addressLaw}</td></tr>
+	<tr>
+		<td colspan="2"><center>
+			<input type="button" value='<spring:message code="clients.showInfoForm.button.cancel"/>' 
+				onclick="history.go(-1);" class="btn btn-default">
+		</center></td>
+	</tr>
 </table>
+</div>
+<jsp:include page="fragments/footer.jsp" />
 </body>
 </html>

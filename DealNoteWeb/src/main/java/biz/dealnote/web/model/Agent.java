@@ -13,6 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="AGENTS")
@@ -22,24 +26,33 @@ public class Agent {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="gen_agent")
 	private Integer id;
 	
+	@NotEmpty(message = "{message.field.notempty}")
+	@Size(max = 35, message = "{message.field.size35}")
 	@Column(name="SNAME")
 	private String name;
 	
 	/**
 	 * if value 1 - active, 0 - not active
 	 */
+	@NotNull
 	@Column(name="ISACTIVE")
 	private Integer active;
 	
 	private Integer outerId;
+	
+	@NotNull
 	private Integer roleCode;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="agent")
 	private Set<Client> clients = new HashSet<Client>();
 	
-	public Agent(){};
+	public Agent(){
+		this.roleCode = 1;
+		this.active = 0;
+	};
 	
 	public Agent(int id, String name){
+		this();
 		this.id = id;
 		this.name = name;
 	}
@@ -62,11 +75,11 @@ public class Agent {
 	}
 
 	public void setActive(Integer active) {
-		this.active = active;
+		this.active = (active == null ? 0 : active);		 
 	}
 
 	public Boolean getActiveAsBoolean(){
-		return this.active == 0 ? false : true;
+		return (this.active == null || this.active == 0) ? false : true;
 	}
 	
 	public Set<Client> getClients() {
@@ -93,6 +106,10 @@ public class Agent {
 		this.roleCode = roleCode;
 	}
 
+	public boolean isNew(){
+		return (this.id == null);
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

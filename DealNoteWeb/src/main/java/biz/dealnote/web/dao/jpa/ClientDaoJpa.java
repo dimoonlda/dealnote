@@ -1,34 +1,56 @@
 package biz.dealnote.web.dao.jpa;
 
+import java.util.Collection;
 import java.util.List;
 
-import org.hibernate.Query;
-import org.hibernate.SessionFactory;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import org.springframework.stereotype.Repository;
 
 import biz.dealnote.web.dao.ClientDAO;
 import biz.dealnote.web.model.Client;
 
-public class ClientDaoJpa extends BaseDaoJpa implements ClientDAO {
+@Repository
+public class ClientDaoJpa implements ClientDAO {
 
-
-	public ClientDaoJpa(SessionFactory sessionFactory) {
-		super(sessionFactory);
-	}
+	@PersistenceContext
+	private EntityManager em;
 
 	@Override
-	public List<Client> getClientsByAgent(int agentId) {
+	public Collection<Client> getClientsByAgent(int agentId) {
 		
-		Query q = getSession().createQuery("from Client client where client.agent.id=:agentId");
-		q.setInteger("agentId", agentId);
-		List<Client> result = q.list();
+		Query q = this.em.createQuery("from Client client where client.agent.id=:agentId");
+		q.setParameter("agentId", agentId);
+		Collection<Client> result = q.getResultList();
 		return result;
 	}
 
 	@Override
 	public Client getClietnById(int clientId) {
-		Client result = (Client) getSession().get(Client.class, clientId);
+		Client result = (Client) this.em
+				.createQuery("from Client client where client.id=:id")
+				.setParameter("id", clientId)
+				.getSingleResult();
 		
 		return result;
+	}
+
+	@Override
+	public void save(Client client) {
+		if(client.getId()==null){
+			this.em.persist(client);
+		}else{
+			this.em.merge(client);
+		}
+	}
+
+	@Override
+	public void deleteById(int clientId) {
+		this.em.createQuery("delete from Client c where c.id=:id")
+			.setParameter("id", clientId)
+			.executeUpdate();
 	}
 
 }

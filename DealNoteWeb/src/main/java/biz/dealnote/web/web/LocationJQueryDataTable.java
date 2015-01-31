@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import biz.dealnote.web.dao.LocationDAO;
 import biz.dealnote.web.model.Location;
+import biz.dealnote.web.utils.AbstractJQueryDataTable;
 import biz.dealnote.web.utils.Consts;
 
 import com.google.gson.JsonArray;
