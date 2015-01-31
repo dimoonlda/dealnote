@@ -7,7 +7,6 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
-import biz.dealnote.web.dao.DAOException;
 import biz.dealnote.web.dao.LocationDAO;
 import biz.dealnote.web.model.Location;
 
@@ -18,14 +17,13 @@ public class LocationDaoJpa extends BaseDaoJpa implements LocationDAO {
 	}
 
 	@Override
-	public List<Location> getLocationList(Integer agentID, Date byDate)
-			throws DAOException {
+	public List<Location> getLocationList(Integer agentID, Date byDate){
 		return getLocationList(agentID, byDate, byDate);
 	}
 
 	@Override
 	public List<Location> getLocationList(Integer agentID, Date startDate,
-			Date endDate) throws DAOException {
+			Date endDate){
 		List<Location> result = null;
 		try {
 			Calendar cal = Calendar.getInstance();

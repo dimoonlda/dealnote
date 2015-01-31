@@ -13,7 +13,7 @@ public interface LocationDAO {
 	 * @return
 	 * @throws DAOException
 	 */
-	public List<Location> getLocationList(Integer agentID, Date byDate) throws DAOException;
+	public List<Location> getLocationList(Integer agentID, Date byDate);
 	
 	/**
 	 * Получить список координат агента за период.
@@ -23,5 +23,5 @@ public interface LocationDAO {
 	 * @return
 	 * @throws DAOException
 	 */	
-	public List<Location> getLocationList(Integer agentID, Date startDate, Date endtDate) throws DAOException;
+	public List<Location> getLocationList(Integer agentID, Date startDate, Date endtDate);
 }

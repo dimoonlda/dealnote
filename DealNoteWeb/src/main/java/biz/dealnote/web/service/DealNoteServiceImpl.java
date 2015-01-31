@@ -1,8 +1,6 @@
 package biz.dealnote.web.service;
 
 import java.util.Collection;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import biz.dealnote.web.dao.AgentDAO;
 import biz.dealnote.web.dao.ClientDAO;
 import biz.dealnote.web.dao.ClientGroupDao;
-import biz.dealnote.web.dao.DAOException;
 import biz.dealnote.web.dao.RouteDao;
 import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.Client;
@@ -35,13 +32,13 @@ public class DealNoteServiceImpl implements DealNoteService{
 	}
 	
 	@Override
-	public Collection<Agent> getActiveAgentsList() throws DAOException {
+	public Collection<Agent> getActiveAgentsList(){
 		return agentDao.getActiveAgentsList();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Agent> getAgentsList() throws DAOException {
+	public Collection<Agent> getAgentsList(){
 		return agentDao.getAgentsList();
 	}
 
@@ -59,7 +56,7 @@ public class DealNoteServiceImpl implements DealNoteService{
 
 	@Override
 	@Transactional
-	public void deleteAgentById(int agentId) throws DAOException {
+	public void deleteAgentById(int agentId){
 		agentDao.deleteAgentById(agentId);
 	}
 
