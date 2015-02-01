@@ -83,6 +83,17 @@
         <servlet-name>dealnote</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+	<error-page>
+		<error-code>400</error-code>
+		<location>/error/400</location>
+	</error-page>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/404</location>
+	</error-page>
+
 	<!-- For PUT and DELETE form methods -->
     <filter>
         <filter-name>httpMethodFilter</filter-name>

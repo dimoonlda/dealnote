@@ -48,7 +48,7 @@
 	<tr>
 		<td colspan="2"><center>
 			<input type="button" value='<spring:message code="agents.showInfoForm.button.cancel"/>' 
-				onclick="history.go(-1);">
+				onclick="history.go(-1);" class="btn btn-default">
 		</center></td>
 	</tr>
 </table>

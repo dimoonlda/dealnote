@@ -86,7 +86,7 @@
 								<form:label path="addressLocation" class="col-sm-2 control-label">
 									<spring:message code="clients.createForm.lable.addressLocation"/>:
 								</form:label>
-								<div class="col-xs-3"><form:input path="addressLocation" class="form-control"/></div>
+								<div class="col-xs-5"><form:input path="addressLocation" class="form-control"/></div>
 								<form:errors path="addressLocation" cssClass="form_error_message"/>
 							</div>
 							<div class="form-group">
