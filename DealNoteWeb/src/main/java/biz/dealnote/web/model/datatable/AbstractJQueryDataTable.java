@@ -1,4 +1,4 @@
-package biz.dealnote.web.utils;
+package biz.dealnote.web.model.datatable;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -30,8 +30,8 @@ public abstract class AbstractJQueryDataTable<T> implements DataTable {
 	}
 	
 	protected void setSortParams(){
-		sortColumnIndex = param.iSortColumnIndex;
-		sortDirection = param.sSortDirection.equals("asc") ? 1 : -1;	
+		sortColumnIndex = param.getiSortCol_0();
+		sortDirection = param.getsSortDir_0().equals("asc") ? 1 : -1;	
 	}
 	
 	/**
@@ -41,23 +41,28 @@ public abstract class AbstractJQueryDataTable<T> implements DataTable {
 	
 	@Override
 	public void processData() {
-		search();
+		if(param.getsSearch() != null && !param.getsSearch().isEmpty()) {
+			search();
+		}else{
+			locResultList = new LinkedList<T>(locSourceList);
+		}
+		
 		setSortParams();
 		sort();
 
 		int iTotalRecords = locSourceList.size();
 		int iTotalDisplayRecords = locResultList.size();
 		
-		if (locResultList.size() < param.iDisplayStart + param.iDisplayLength) {
-			locResultList = locResultList.subList(param.iDisplayStart,
+		if (locResultList.size() < param.getiDisplayStart() + param.getiDisplayLength()) {
+			locResultList = locResultList.subList(param.getiDisplayStart(),
 					locResultList.size());
 		} else {
-			locResultList = locResultList.subList(param.iDisplayStart,
-					param.iDisplayStart + param.iDisplayLength);
+			locResultList = locResultList.subList(param.getiDisplayStart(),
+					param.getiDisplayStart() + param.getiDisplayLength());
 		}
 
 		jsonResponse = new JsonObject();
-		jsonResponse.addProperty("sEcho", param.sEcho);
+		jsonResponse.addProperty("sEcho", param.getsEcho());
 		jsonResponse.addProperty("iTotalRecords", iTotalRecords);
 		jsonResponse.addProperty("iTotalDisplayRecords", iTotalDisplayRecords);
 

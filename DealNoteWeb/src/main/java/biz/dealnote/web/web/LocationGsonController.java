@@ -22,10 +22,10 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
-import biz.dealnote.web.dao.DAOFactory;
+
 import biz.dealnote.web.dao.LocationDAO;
 import biz.dealnote.web.model.Location;
-import biz.dealnote.web.utils.DataTable;
+import biz.dealnote.web.model.datatable.DataTable;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonIOException;
@@ -37,11 +37,9 @@ import com.google.gson.JsonPrimitive;
  */
 public class LocationGsonController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DAOFactory base;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LocationGsonController() {
+/*	private DAOFactory base;
+
+	public LocationGsonController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -51,10 +49,8 @@ public class LocationGsonController extends HttpServlet {
     	super.init(config);
 		base = (DAOFactory)config.getServletContext().getAttribute("base");
     }
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		DataTable locationDataTable = new LocationJQueryDataTable();
 		locationDataTable.init(request);
@@ -62,11 +58,8 @@ public class LocationGsonController extends HttpServlet {
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
+*/
 }

@@ -1,6 +1,7 @@
 package biz.dealnote.web.service;
 
 import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,10 @@ import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.Client;
 import biz.dealnote.web.model.ClientGroup;
 import biz.dealnote.web.model.Route;
+import biz.dealnote.web.model.datatable.AgentJQueryDataTable;
+import biz.dealnote.web.model.datatable.ClientsJQueryDataTable;
+import biz.dealnote.web.model.datatable.DataTable;
+import biz.dealnote.web.model.datatable.JQueryDataTableParamModel;
 
 @Service
 public class DealNoteServiceImpl implements DealNoteService{
@@ -106,6 +111,25 @@ public class DealNoteServiceImpl implements DealNoteService{
 	@Transactional
 	public void deleteClientById(int clientId) {
 		clientDao.deleteById(clientId);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public DataTable getAgentDataTable(JQueryDataTableParamModel params) {
+		DataTable dataTable = new AgentJQueryDataTable(agentDao.getAgentsList(), 
+				params);
+		dataTable.processData();
+		return dataTable;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public DataTable getClientDataTable(int agentId,
+			JQueryDataTableParamModel params) {
+		DataTable dataTable = new ClientsJQueryDataTable(clientDao.getClientsByAgent(agentId), 
+				params);
+		dataTable.processData();
+		return dataTable;
 	}
 
 }

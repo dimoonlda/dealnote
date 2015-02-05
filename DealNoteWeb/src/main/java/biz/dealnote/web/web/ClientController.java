@@ -1,10 +1,13 @@
 package biz.dealnote.web.web;
 
 import java.util.Collection;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,18 +19,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.Client;
 import biz.dealnote.web.model.ClientGroup;
 import biz.dealnote.web.model.Route;
+import biz.dealnote.web.model.datatable.ClientsJQueryDataTable;
+import biz.dealnote.web.model.datatable.DataTable;
+import biz.dealnote.web.model.datatable.JQueryDataTableParamModel;
 import biz.dealnote.web.service.DealNoteService;
-import biz.dealnote.web.utils.DataTable;
-import biz.dealnote.web.utils.JQueryDataTableParamModel;
 
 @RequestMapping(value = "/clients")
 @Controller
-@SessionAttributes(types = Client.class)
+@SessionAttributes(types = {Client.class})
 public class ClientController {
 	DealNoteService dealNoteService;
 	
@@ -36,47 +42,44 @@ public class ClientController {
 		this.dealNoteService = dealNoteService;
 	}
 	
-	@ModelAttribute(value = "agentsList")
-	public Collection<Agent> populateAgents(){
-		return this.dealNoteService.getActiveAgentsList();
+	@ModelAttribute
+	public void populateAgents(Model model){
+		model.addAttribute("agentsList", this.dealNoteService.getActiveAgentsList());
+		model.addAttribute("routesList", this.dealNoteService.getRoutes());
+		model.addAttribute("groupsList", this.dealNoteService.getGroups());
+		model.addAttribute("agent", new Agent());
 	}
 	
-	@ModelAttribute(value = "routesList")
-	public Collection<Route> populateRoutes(){
-		return this.dealNoteService.getRoutes();
-	}
-
-	@ModelAttribute(value = "groupsList")
-	public Collection<ClientGroup> populateClientGroups(){
-		return this.dealNoteService.getGroups();
-	}
-
 	@RequestMapping(value = "/listClients", method = RequestMethod.GET)
 	public String initShowClients(Model model){
+		/*Agent agent = new Agent();
+		model.addAttribute("agent", agent);*/
 		return "showClients";
 	}
 	
 	@RequestMapping(value = "/listClients/{agentId}", method = RequestMethod.GET)
 	public String processShowClients(@PathVariable(value="agentId") int agentId, Model model){
-		model.addAttribute("agentId", agentId);
+		Agent redirectAgent = new Agent();
+		redirectAgent.setId(agentId);
+		model.addAttribute("agent", redirectAgent);
 		return "showClients";
+	}
+
+	@RequestMapping(value = {"/listClients", "/listClients/{agentId}"}, method = RequestMethod.POST)
+	public String processShowClients(@ModelAttribute Agent agent, RedirectAttributes redirectAttributes){
+		return "redirect:/clients/listClients/" + agent.getId();
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/listgrid/{agentId}", method = RequestMethod.GET, produces="application/json; charset=utf-8;")
 	public String initListClientsForm(@PathVariable(value = "agentId") int agentId, 
-			HttpServletRequest httpServletRequest){
-		
-		JQueryDataTableParamModel jQueryDataTableParamModel = 
-				new JQueryDataTableParamModel(httpServletRequest);
-		DataTable dataTable = new ClientsJQueryDataTable(dealNoteService.getClientsByAgent(agentId), 
-				jQueryDataTableParamModel);
-		dataTable.processData();
+			JQueryDataTableParamModel params){
+		DataTable dataTable = dealNoteService.getClientDataTable(agentId, params);
 		return dataTable.getDataTableAsJson().toString();
 	}
 	
 	@RequestMapping(value = "/{clientId}", method = RequestMethod.GET)
-	public String initShowClientInfoForm(@PathVariable(value = "clientId") int clientId, Model model){
+	public String initShowClientInfoForm(@PathVariable(value = "clientId") int clientId, @ModelAttribute Agent agent, Model model){
 		Client client = dealNoteService.getClietnById(clientId);
 		model.addAttribute("client", client);
 		return "showClientInfo";

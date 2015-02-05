@@ -12,7 +12,7 @@
 <table width="100%">
 <tr>
 	<td><!-- header -->
-		<jsp:include page="header.jsp"/>
+		<jsp:include page="fragments/header.jsp"/>
 			<script type="text/javascript">
 						$(function(){
 							$("#CalendarDatepiker").datepicker({
@@ -72,7 +72,7 @@
 </c:if>
 <tr>
 	<td><!-- footer -->
-		<jsp:include page="footer.jsp"/>
+		<jsp:include page="fragments/footer.jsp"/>
 	</td>
 </tr>
 </table>

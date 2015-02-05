@@ -12,15 +12,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import biz.dealnote.web.dao.DAOFactory;
 import biz.dealnote.web.dao.LocationDAO;
 import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.Location;
 import biz.dealnote.web.utils.Consts;
 
-public class AgentGpsController extends AbstractController {
+public class AgentGpsController {
 	private static final long serialVersionUID = -6625434898849602970L;
-	
+/*	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -50,5 +49,5 @@ public class AgentGpsController extends AbstractController {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		doGet(req, resp);
-	}
+	} */
 }

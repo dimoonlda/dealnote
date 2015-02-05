@@ -1,7 +1,5 @@
 package biz.dealnote.web.web;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -9,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -19,11 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import biz.dealnote.web.model.Agent;
+import biz.dealnote.web.model.datatable.DataTable;
+import biz.dealnote.web.model.datatable.JQueryDataTableParamModel;
 import biz.dealnote.web.service.DealNoteService;
-import biz.dealnote.web.utils.DataTable;
-import biz.dealnote.web.utils.JQueryDataTableParamModel;
 
 @RequestMapping(value = "/agents")
 @Controller
@@ -31,6 +29,7 @@ import biz.dealnote.web.utils.JQueryDataTableParamModel;
 public class AgentController{
 	
 	private final DealNoteService dealNoteService;
+	private DataTable dataTable;
 	
 	@Autowired
 	public AgentController(DealNoteService dealNoteService) {
@@ -44,18 +43,19 @@ public class AgentController{
     }
     
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public String showAgent(@PathVariable("id") Integer id, Model uiModel){
+	public ModelAndView showAgent(@PathVariable("id") Integer id){
 		Agent agent = dealNoteService.getAgentById(id);
-		uiModel.addAttribute("agent", agent);
-		return "showAgentInfo";
+		ModelAndView model = new ModelAndView("showAgentInfo")
+			.addObject("agent", agent);
+		return model;
 	}
 	
 	@PreAuthorize(value="hasRole('ROLE_USER')")
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
-	public String initCreationForm(Map<String, Object> model){
+	public ModelAndView initCreationForm(){
 		Agent agent = new Agent();
-		model.put("agent", agent);
-		return "createOrUpdateAgentForm";
+		return new ModelAndView("createOrUpdateAgentForm")
+			.addObject("agent", agent);
 	}
 	
 	@PreAuthorize(value="hasRole('ROLE_USER')")
@@ -72,10 +72,11 @@ public class AgentController{
 	
 	@PreAuthorize(value="hasRole('ROLE_USER')")
 	@RequestMapping(value = "/{agentId}/edit", method = RequestMethod.GET)
-	public String initUpdateAgentForm(@PathVariable("agentId") int agentId, Model model){
+	public ModelAndView initUpdateAgentForm(@PathVariable("agentId") int agentId){
 		Agent agent = this.dealNoteService.getAgentById(agentId);
-		model.addAttribute("agent", agent);
-		return "createOrUpdateAgentForm";
+		
+		return new ModelAndView("createOrUpdateAgentForm")
+			.addObject("agent", agent);
 	}
 	
 	@PreAuthorize(value="hasRole('ROLE_USER')")
@@ -92,12 +93,8 @@ public class AgentController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/listgrid", method = RequestMethod.GET, produces="application/json; charset=utf-8;")
-	public String initListAgentForm(HttpServletRequest httpServletRequest){
-		JQueryDataTableParamModel jQueryDataTableParamModel = 
-				new JQueryDataTableParamModel(httpServletRequest);
-		DataTable dataTable = new AgentJQueryDataTable(dealNoteService.getAgentsList(), 
-				jQueryDataTableParamModel);
-		dataTable.processData();
+	public String initListAgentForm(JQueryDataTableParamModel params){
+		dataTable = dealNoteService.getAgentDataTable(params);
 		return dataTable.getDataTableAsJson().toString();
 	}
 	

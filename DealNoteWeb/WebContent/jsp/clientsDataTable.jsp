@@ -10,7 +10,7 @@
         $(document).ready(function () {
             $("#clients").dataTable({
                 "bServerSide": true,
-                "sAjaxSource": "${showClientUrl }/listgrid/${param['agentid'] }",
+                "sAjaxSource": "${showClientUrl }/listgrid/${param['agentId'] }",
                 "bProcessing": true,
                 "pagingType": "full_numbers"
             });

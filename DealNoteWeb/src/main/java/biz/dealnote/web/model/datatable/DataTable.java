@@ -1,6 +1,5 @@
-package biz.dealnote.web.utils;
+package biz.dealnote.web.model.datatable;
 
-import javax.servlet.http.HttpServletRequest;
 import com.google.gson.JsonObject;
 
 public interface DataTable {

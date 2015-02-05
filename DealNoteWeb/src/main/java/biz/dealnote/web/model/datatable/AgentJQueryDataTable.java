@@ -1,15 +1,14 @@
-package biz.dealnote.web.web;
+package biz.dealnote.web.model.datatable;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonPrimitive;
 
 import biz.dealnote.web.model.Agent;
-import biz.dealnote.web.utils.AbstractJQueryDataTable;
-import biz.dealnote.web.utils.JQueryDataTableParamModel;
 
 public class AgentJQueryDataTable extends AbstractJQueryDataTable<Agent> {
 
@@ -33,14 +32,12 @@ public class AgentJQueryDataTable extends AbstractJQueryDataTable<Agent> {
 
 	@Override
 	public void search() {
-		if(param.sSearch != null || !param.sSearch.isEmpty()) {
 			for(Agent c : locSourceList){
-				if(	String.valueOf(c.getId()).contains(param.sSearch.toLowerCase()) 
-					|| c.getName().toLowerCase().contains(param.sSearch.toLowerCase())) {
+				if(	String.valueOf(c.getId()).contains(param.getsSearch().toLowerCase()) 
+					|| c.getName().toLowerCase().contains(param.getsSearch().toLowerCase())) {
 					locResultList.add(c); 
 				}
 			}
-		}		
 	}
 
 	@Override

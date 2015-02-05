@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 
 import biz.dealnote.web.dao.LocationDAO;
 import biz.dealnote.web.model.Location;
-import biz.dealnote.web.utils.AbstractJQueryDataTable;
+import biz.dealnote.web.model.datatable.AbstractJQueryDataTable;
 import biz.dealnote.web.utils.Consts;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonPrimitive;
 
-public class LocationJQueryDataTable extends AbstractJQueryDataTable<Location> {
+public class LocationJQueryDataTable {
 	private Integer agentid;
 	private Date agentdate;
-	
+/*	
 	@Override
 	public void init(HttpServletRequest request) {
 		super.init(request);
@@ -88,5 +88,5 @@ public class LocationJQueryDataTable extends AbstractJQueryDataTable<Location> {
 			data.add(row);
 		}	
 	}
-	
+	*/
 }

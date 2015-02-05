@@ -1,15 +1,14 @@
-package biz.dealnote.web.web;
+package biz.dealnote.web.model.datatable;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonPrimitive;
 
 import biz.dealnote.web.model.Client;
-import biz.dealnote.web.utils.AbstractJQueryDataTable;
-import biz.dealnote.web.utils.JQueryDataTableParamModel;
 
 public class ClientsJQueryDataTable extends AbstractJQueryDataTable<Client> {
 	
@@ -34,15 +33,13 @@ public class ClientsJQueryDataTable extends AbstractJQueryDataTable<Client> {
 
 	@Override
 	public void search() {
-		if(param.sSearch != null || !param.sSearch.isEmpty()) {
 			for(Client c : locSourceList){
-				if(	String.valueOf(c.getId()).contains(param.sSearch.toLowerCase()) 
-					|| c.getName().toLowerCase().contains(param.sSearch.toLowerCase())
-					|| c.getAddressLocation().toLowerCase().contains(param.sSearch.toLowerCase())) {
+				if(	String.valueOf(c.getId()).contains(param.getsSearch().toLowerCase()) 
+					|| c.getName().toLowerCase().contains(param.getsSearch().toLowerCase())
+					|| c.getAddressLocation().toLowerCase().contains(param.getsSearch().toLowerCase())) {
 					locResultList.add(c); 
 				}
 			}
-		}		
 	}
 
 	@Override
