@@ -1,6 +1,5 @@
 package biz.dealnote.web.model.datatable;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,11 +11,11 @@ import biz.dealnote.web.model.Agent;
 
 public class AgentJQueryDataTable extends AbstractJQueryDataTable<Agent> {
 
-	public AgentJQueryDataTable(Collection<Agent> dataToShow, JQueryDataTableParamModel jQueryDataTableParamModel) {
-		super(jQueryDataTableParamModel);
-		locSourceList = new ArrayList<Agent>(dataToShow);
+	public AgentJQueryDataTable(Collection<Agent> dataToShow,
+			JQueryDataTableParamModel params) {
+		super(dataToShow, params);
 	}
-	
+
 	@Override
 	protected void buildTableRows() {
 		for(Agent c : locResultList){

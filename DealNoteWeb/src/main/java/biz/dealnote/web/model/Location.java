@@ -2,8 +2,7 @@ package biz.dealnote.web.model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,19 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PostLoad;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 @Entity
 public class Location {
-	public static final String SAVESTATE_OK_BY_STR = "Успех";
-	public static final String SAVESTATE_GPS_OFF_BY_STR = "GPS отключен";
-	public static final String SAVESTATE_SEARCH_TIME_OUT_BY_STR = "Время поиска вышло";
-	public static final String SAVESTATE_DEVICE_ON_BY_STR = "Устройство включено";
-	public static final String SAVESTATE_DEVICE_OFF_BY_STR = "Устройство выключено";
-	public static final String SAVESTATE_NONE_BY_STR = "Неизвестно";
-
 	public static final int SAVESTATE_OK = 1;
 	public static final int SAVESTATE_GPS_OFF = 2;
 	public static final int SAVESTATE_SEARCH_TIME_OUT = 3;
@@ -39,12 +30,17 @@ public class Location {
 	private Double longitude;
 	private Double latitude;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date clock;
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	@Column(name="CLOCK")
+	private DateTime creationDate;
 	private String provider;
 	private Integer accuracy;
 	private Integer searchtime;
-	private Integer savestate;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="savestate")
+	private LocationSaveState savestate;
+	
 	private Integer battery;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -59,17 +55,17 @@ public class Location {
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
-	public double getLatitude() {
+	public Double getLatitude() {
 		return latitude;
 	}
 	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
-	public Date getClock() {
-		return clock;
+	public DateTime getCreationDate() {
+		return creationDate;
 	}
-	public void setClock(Date clock) {
-		this.clock = clock;
+	public void setCreationDate(DateTime creationDate) {
+		this.creationDate = creationDate;
 	}
 	public String getProvider() {
 		return provider;
@@ -77,49 +73,26 @@ public class Location {
 	public void setProvider(String provider) {
 		this.provider = provider;
 	}
-	public int getAccuracy() {
+	public Integer getAccuracy() {
 		return accuracy;
 	}
 	public void setAccuracy(Integer accuracy) {
 		this.accuracy = accuracy;
 	}
-	public int getSearchtime() {
+	public Integer getSearchtime() {
 		return searchtime;
 	}
 	public void setSearchtime(Integer searchtime) {
 		this.searchtime = searchtime;
 	}
-	public int getSavestate() {
+	public LocationSaveState getSavestate() {
 		return savestate;
 	}
-	public void setSavestate(Integer savestate) {
+	public void setSavestate(LocationSaveState savestate) {
 		this.savestate = savestate;
 	}
-	public String getSavestateToString(){
-		String res = "";
-		switch(this.savestate){
-		case SAVESTATE_OK:
-			res = SAVESTATE_OK_BY_STR;
-			break;
-		case SAVESTATE_GPS_OFF:
-			res = SAVESTATE_GPS_OFF_BY_STR;
-			break;
-		case SAVESTATE_SEARCH_TIME_OUT:
-			res = SAVESTATE_SEARCH_TIME_OUT_BY_STR;
-			break;
-		case SAVESTATE_DEVICE_ON:
-			res = SAVESTATE_DEVICE_ON_BY_STR;
-			break;
-		case SAVESTATE_DEVICE_OFF:
-			res = SAVESTATE_DEVICE_OFF_BY_STR;
-			break;
-		default:
-			res = SAVESTATE_NONE_BY_STR;
-			break;
-		}
-		return res;
-	}
-	public int getBattery() {
+
+	public Integer getBattery() {
 		return battery == null ? -1 : battery;
 	}
 	public void setBattery(Integer battery) {
@@ -134,8 +107,12 @@ public class Location {
 		this.agent = agent;
 	}
 	
-	public String getClockAsString(){
-		return DATE_FORMAT.format(clock);
+	public String getCreationDateAsString(String format){
+		if (this.creationDate != null) {
+			return new SimpleDateFormat(format)
+					.format(((DateTime) this.creationDate).toDate());
+		}
+		return null;
 	}
 	
 	@Override

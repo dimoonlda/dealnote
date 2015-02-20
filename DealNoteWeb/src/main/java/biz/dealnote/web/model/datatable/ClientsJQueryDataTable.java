@@ -1,6 +1,5 @@
 package biz.dealnote.web.model.datatable;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -11,12 +10,12 @@ import com.google.gson.JsonPrimitive;
 import biz.dealnote.web.model.Client;
 
 public class ClientsJQueryDataTable extends AbstractJQueryDataTable<Client> {
-	
-	public ClientsJQueryDataTable(Collection<Client> dataToShow, JQueryDataTableParamModel jQueryDataTableParamModel) {
-		super(jQueryDataTableParamModel);
-		locSourceList = new ArrayList<Client>(dataToShow);
+
+	public ClientsJQueryDataTable(Collection<Client> dataToShow,
+			JQueryDataTableParamModel params) {
+		super(dataToShow, params);
 	}
-	
+
 	@Override
 	protected void buildTableRows() {
 		for(Client c : locResultList){

@@ -1,46 +1,45 @@
 package biz.dealnote.web.dao.jpa;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.util.Collection;
 import java.util.List;
 
-import org.hibernate.Query;
-import org.hibernate.SessionFactory;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import org.joda.time.DateTime;
+import org.springframework.stereotype.Repository;
 
 import biz.dealnote.web.dao.LocationDAO;
 import biz.dealnote.web.model.Location;
 
-public class LocationDaoJpa extends BaseDaoJpa implements LocationDAO {
+@Repository
+public class LocationDaoJpa implements LocationDAO {
 	
-	public LocationDaoJpa(SessionFactory sessionFactory) {
-		super(sessionFactory);
-	}
-
+	@PersistenceContext
+	private EntityManager em;
+	
 	@Override
-	public List<Location> getLocationList(Integer agentID, Date byDate){
+	public Collection<Location> getLocationList(Integer agentID, DateTime byDate){
 		return getLocationList(agentID, byDate, byDate);
 	}
 
 	@Override
-	public List<Location> getLocationList(Integer agentID, Date startDate,
-			Date endDate){
+	public Collection<Location> getLocationList(Integer agentID, DateTime startDate,
+			DateTime endDate){
 		List<Location> result = null;
 		try {
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(endDate);
-			cal.add(Calendar.DATE, 1);
+			DateTime nextDate = endDate.plusDays(1);
 
-			java.sql.Date _beginDate = new java.sql.Date(startDate.getTime());
-			java.sql.Date _endDate = new java.sql.Date(cal.getTime().getTime());
-			Query q = getSession()
+			Query q = em
 					.createQuery("from Location location "
 							+ " where location.agent.id=:agentId and "
-							+ " location.clock >= :beginDate and location.clock < :endDate"
-							+ " order by location.clock");
-			q.setInteger("agentId", agentID);
-			q.setTimestamp("beginDate", _beginDate);
-			q.setTimestamp("endDate", _endDate);
-			result = (List<Location>) q.list();
+							+ " location.creationDate >= :beginDate and location.creationDate < :endDate"
+							+ " order by location.creationDate");
+			q.setParameter("agentId", agentID);
+			q.setParameter("beginDate", startDate);
+			q.setParameter("endDate", nextDate);
+			result = q.getResultList();
 		} finally {
 			//TODO: Log
 		}

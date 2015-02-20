@@ -1,12 +1,11 @@
 package biz.dealnote.web.model.datatable;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-
-import biz.dealnote.web.model.Agent;
-import biz.dealnote.web.service.DealNoteService;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -24,9 +23,10 @@ public abstract class AbstractJQueryDataTable<T> implements DataTable {
 	protected int sortColumnIndex;
 	protected int sortDirection;
 	
-	public AbstractJQueryDataTable(JQueryDataTableParamModel params) {
+	public AbstractJQueryDataTable(Collection<T> dataToShow, JQueryDataTableParamModel params) {
 		this.param = params;
 		locResultList = new LinkedList<T>();
+		locSourceList = new ArrayList<T>(dataToShow);
 	}
 	
 	protected void setSortParams(){

@@ -1,6 +1,5 @@
 package biz.dealnote.web.web;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;

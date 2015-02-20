@@ -21,6 +21,9 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><spring:message code="menu.dictionaries" /> <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                   <li><a href='<c:url value="/agents/listAgents"/>'><spring:message code="menu.agents" /></a></li>
+                  <li><a href='<c:url value="/goodsgroup/"/>'><spring:message code="menu.goodsGroups" /></a></li>
+                  <li><a href='<c:url value="/measure/"/>'><spring:message code="menu.measure" /></a></li>
+                  <li><a href='<c:url value="/prioritycolor/"/>'><spring:message code="menu.priorityColor" /></a></li>
                   <li><a href="#"><spring:message code="menu.goods" /></a></li>
                   <li><a href='<c:url value="/clients/listClients"/>'><spring:message code="menu.clients" /></a></li>
                 </ul>
@@ -28,7 +31,7 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><spring:message code="menu.analyse" /> <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="<c:url value='/gps/ShowAgentGPS.do'/>"><spring:message code="menu.gps" /></a></li>
+                  <li><a href="<c:url value='/locations/'/>"><spring:message code="menu.gps" /></a></li>
                   <li><a href="#"><spring:message code="menu.statisticOnOrders" /></a></li>
                 </ul>
               </li>

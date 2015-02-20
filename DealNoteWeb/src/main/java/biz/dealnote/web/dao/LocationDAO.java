@@ -1,7 +1,7 @@
 package biz.dealnote.web.dao;
 
-import java.util.Date;
-import java.util.List;
+import java.util.Collection;
+import org.joda.time.DateTime;
 
 import biz.dealnote.web.model.Location;
 
@@ -13,7 +13,7 @@ public interface LocationDAO {
 	 * @return
 	 * @throws DAOException
 	 */
-	public List<Location> getLocationList(Integer agentID, Date byDate);
+	public Collection<Location> getLocationList(Integer agentID, DateTime byDate);
 	
 	/**
 	 * Получить список координат агента за период.
@@ -23,5 +23,5 @@ public interface LocationDAO {
 	 * @return
 	 * @throws DAOException
 	 */	
-	public List<Location> getLocationList(Integer agentID, Date startDate, Date endtDate);
+	public Collection<Location> getLocationList(Integer agentID, DateTime startDate, DateTime endtDate);
 }

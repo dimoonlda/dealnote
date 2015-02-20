@@ -52,7 +52,12 @@
     <bean class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
                 id="messageSource" p:basenames="classpath:messages/messages"
                 p:fallbackToSystemLocale="false" p:defaultEncoding="UTF-8" />
-
+	
+	<bean class="org.springframework.context.support.MessageSourceAccessor"
+		id="messageSourceAccessor">
+		<constructor-arg ref="messageSource"/>
+	</bean>
+	
     <mvc:interceptors>
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
                     p:paramName="lang"/>

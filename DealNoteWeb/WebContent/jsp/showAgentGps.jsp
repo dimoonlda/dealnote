@@ -1,18 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<jsp:include page="fragments/staticFiles.jsp"/>
+
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Agent's GPS coordinates</title>
-</head>
-<body>
-<c:if test="${requestScope.locations != null }" var="isLocations"/>
-<table width="100%">
-<tr>
-	<td><!-- header -->
-		<jsp:include page="fragments/header.jsp"/>
 			<script type="text/javascript">
 						$(function(){
 							$("#CalendarDatepiker").datepicker({
@@ -31,50 +26,37 @@
 							});
 						});	
 			</script>
-	</td>
-</tr>
+<title><spring:message code="locations.showForm.title"/></title>
+<body>
+<jsp:include page="fragments/header.jsp"/>
+<div class="container">
+<table width="100%">
 <tr>
 	<td><!-- body --> 
-<center><form id="fmFilter" method="POST" action='<c:url value="/gps/ShowAgentGPS.do"/>' >
-	<table border="0" cellspacing="5">
-    <tr>
-	<th  align="right">Choose agent:</th>
-	<td align="left">
-		<jsp:include page="agentsList.jsp">
-			<jsp:param value='${param["agentid"]}' name="agentid"/>
-		</jsp:include>
-	</td></tr>
-	<tr>
-	 	<th  align="right">Set date:</th>
-		<td align="left">
-			<input type="text" name="agentdate" id="CalendarDatepiker" value="${param['agentdate'] }" />
-		</td>
-	</tr>
-    <tr >
-    	<td colspan="2" align="right">
-    		<table width="100%"><tr align="right">
-    			<td><input type="submit" name="showgpsloc" value="Show coordinates"></td>
-    			<td><input formtarget="_blank" type="submit" name="gengpsmap" value="Show map"></td>
-    			<td><input type="reset"></td>
-    		</tr></table>
-    	</td>
-    </tr>	
-	</table>
-</form></center>		
+	<form:form modelAttribute="agentFilterDto" class="form-inline" method="POST">
+		<div class="form-group">
+			<form:label path="agent">
+				<spring:message code="locations.showForm.agentsList.label"/>:	</form:label>
+			<form:select path="agent" items="${agentsList}" itemLabel="name" itemValue="id" class="form-control"/>
+		</div>
+		<spring:message code='locations.showForm.label.locationDate' var="labelLocationDate"/>
+		<form:input path="locationDate" type="text" class="form-control"
+			placeholder="${labelLocationDate }" id="CalendarDatepiker"/>
+		<button type="submit" class="btn btn-default">
+			<spring:message code="locations.showForm.button.showLocations" /></button>
+		
+	</form:form>
 	</td>
 </tr>
-<c:if test="${param['agentdate'] != null && param['agentid'] != null}">
+<c:if test="${agentFilterDto.agent.id != null && agentFilterDto.locationDate != null}">
 	<tr>
 		<td>
 			<jsp:include page="agentsLocationDataTable.jsp"/>
 		</td>
 	</tr>
 </c:if>
-<tr>
-	<td><!-- footer -->
-		<jsp:include page="fragments/footer.jsp"/>
-	</td>
-</tr>
 </table>
+</div>
+<jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>

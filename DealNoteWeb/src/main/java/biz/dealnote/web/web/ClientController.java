@@ -1,13 +1,8 @@
 package biz.dealnote.web.web;
 
-import java.util.Collection;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,13 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
-
 import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.Client;
-import biz.dealnote.web.model.ClientGroup;
-import biz.dealnote.web.model.Route;
-import biz.dealnote.web.model.datatable.ClientsJQueryDataTable;
 import biz.dealnote.web.model.datatable.DataTable;
 import biz.dealnote.web.model.datatable.JQueryDataTableParamModel;
 import biz.dealnote.web.service.DealNoteService;
@@ -52,8 +42,6 @@ public class ClientController {
 	
 	@RequestMapping(value = "/listClients", method = RequestMethod.GET)
 	public String initShowClients(Model model){
-		/*Agent agent = new Agent();
-		model.addAttribute("agent", agent);*/
 		return "showClients";
 	}
 	

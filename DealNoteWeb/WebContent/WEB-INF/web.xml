@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>DealNoteWebTest</display-name>
-<!--   <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>all jsp</web-resource-name>
-      <url-pattern>/*</url-pattern>
-    </web-resource-collection>
-    <auth-constraint>
-      <role-name>testD</role-name>
-    </auth-constraint>
-  </security-constraint>
- -->  
+
   <context-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>classpath:spring/business-config.xml</param-value>
@@ -29,14 +20,6 @@
         <page-encoding>UTF-8</page-encoding>
     </jsp-property-group>
   </jsp-config>
-
-<!--   <login-config>
-    <auth-method>FORM</auth-method>
-    <form-login-config>
-      <form-login-page>/jsp/login.jsp</form-login-page>
-      <form-error-page>/jsp/error/login_error.jsp</form-error-page>
-    </form-login-config>
-  </login-config> -->
 
     <filter>
 	    <filter-name>encodingFilter</filter-name>
@@ -126,85 +109,4 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-<!--   
-  <servlet>
-    <servlet-name>ShowAgentGPS</servlet-name>
-    <servlet-class>biz.dealnote.web.web.AgentGpsController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ShowAgentGPS</servlet-name>
-    <url-pattern>/gps/ShowAgentGPS.do</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>AgentLocationsGson</servlet-name>
-    <servlet-class>biz.dealnote.web.web.LocationGsonController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AgentLocationsGson</servlet-name>
-    <url-pattern>/gps/GetAgentLocationsInGson.do</url-pattern>
-  </servlet-mapping>
-  <servlet>
-  	<servlet-name>AgentsGson</servlet-name>
-  	<servlet-class>biz.dealnote.web.web.AgentsGsonController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>AgentsGson</servlet-name>
-  	<url-pattern>/dictionaries/GetAgentsInGson.do</url-pattern>
-  </servlet-mapping>
-  <servlet>
-  	<servlet-name>ShowClients</servlet-name>
-  	<servlet-class>biz.dealnote.web.web.ClientController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>ShowClients</servlet-name>
-  	<url-pattern>/dictionaries/ShowClients.do</url-pattern>
-  </servlet-mapping>
-  <servlet>
-  	<servlet-name>ClientsGson</servlet-name>
-  	<servlet-class>biz.dealnote.web.web.ClientsGsonController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>ClientsGson</servlet-name>
-  	<url-pattern>/dictionaries/GetClientsInGson.do</url-pattern>
-  </servlet-mapping>
-  <servlet>
-  	<servlet-name>ShowClientInfo</servlet-name>
-  	<servlet-class>biz.dealnote.web.web.ClientInfoController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>ShowClientInfo</servlet-name>
-  	<url-pattern>/dictionaries/ShowClientInfo.do</url-pattern>
-  </servlet-mapping>  
-  <servlet>
-  	<servlet-name>DeleteAgent</servlet-name>
-  	<servlet-class>biz.dealnote.web.web.AgentController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>DeleteAgent</servlet-name>
-  	<url-pattern>/dictionaries/DeleteAgent.do</url-pattern>
-  </servlet-mapping> 
-  <servlet>
-  	<servlet-name>ShowAgentInfo</servlet-name>
-  	<servlet-class>biz.dealnote.web.web.AgentController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>ShowAgentInfo</servlet-name>
-  	<url-pattern>/dictionaries/ShowAgentInfo.do</url-pattern>
-  </servlet-mapping>
-  <servlet>
-  	<servlet-name>EditAgentInfo</servlet-name>
-  	<servlet-class>biz.dealnote.web.web.AgentController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>EditAgentInfo</servlet-name>
-  	<url-pattern>/dictionaries/EditAgentInfo.do</url-pattern>
-  </servlet-mapping>
-  <servlet>
-  	<servlet-name>AddAgent</servlet-name>
-  	<servlet-class>biz.dealnote.web.web.AgentController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>AddAgent</servlet-name>
-  	<url-pattern>/dictionaries/AddAgent.do</url-pattern>
-  </servlet-mapping>     -->  
 </web-app>
