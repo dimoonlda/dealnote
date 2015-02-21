@@ -26,8 +26,8 @@ public class Agent {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="gen_agent")
 	private Integer id;
 	
-	@NotEmpty(message = "{message.field.notempty}")
-	@Size(max = 35, message = "{message.field.size35}")
+	@NotEmpty(message = "{error.message.field.notempty}")
+	@Size(max = 35, message = "{error.message.field.sizeTooLong}")
 	@Column(name="SNAME")
 	private String name;
 	

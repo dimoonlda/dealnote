@@ -1,9 +1,6 @@
 package biz.dealnote.web.dao;
 
 import java.util.Collection;
-import java.util.List;
-
-import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.Client;
 
 public interface ClientDAO {

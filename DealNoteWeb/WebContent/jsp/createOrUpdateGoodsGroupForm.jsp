@@ -36,6 +36,7 @@
 									<spring:message code="goodsGroup.createForm.lable.outerId"/>:
 								</form:label>
 								<div class="col-xs-2"><form:input path="outerId" size="15" class="form-control"/></div>
+								<form:errors path="outerId" cssClass="form_error_message"/>
 							</div>
 							<div class="form-group">
 								<form:label path="name" class="col-sm-2 control-label">
@@ -49,6 +50,7 @@
 									<spring:message code="goodsGroup.createForm.lable.parentId"/>:
 								</form:label>
 								<div class="col-xs-2"><form:input path="parentId" class="form-control"/></div>
+								<form:errors path="parentId" cssClass="form_error_message"/>
 							</div>
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">

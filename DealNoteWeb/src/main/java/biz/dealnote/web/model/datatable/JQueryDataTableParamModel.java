@@ -1,7 +1,5 @@
 package biz.dealnote.web.model.datatable;
 
-import javax.servlet.http.HttpServletRequest;
-
 public class JQueryDataTableParamModel {
     /// Request sequence number sent by DataTable, same value must be returned in response
     private String sEcho;

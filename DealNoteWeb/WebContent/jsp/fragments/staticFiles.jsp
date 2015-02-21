@@ -19,4 +19,8 @@
     <script src='<c:url value="/js/jquery.dataTables.min.js" />' type="text/javascript" ></script>
     
 	<link href='<c:url value="/css/dealnote.css" />' rel="stylesheet" type="text/css" />
+
+	<spring:url value="/css/bootstrap-colorpicker.css" var="colorpickerCss"/>
+    <link href="${colorpickerCss}" rel="stylesheet"/>
+	<script src='<c:url value="/js/bootstrap-colorpicker.min.js" />' type="text/javascript" ></script>
 </head>	

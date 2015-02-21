@@ -21,11 +21,9 @@ public class ClientsJQueryDataTable extends AbstractJQueryDataTable<Client> {
 		for(Client c : locResultList){
 			JsonArray row = new JsonArray();
 			row.add(new JsonPrimitive(c.getId()));
-			row.add(new JsonPrimitive("<a href='../" 
-					+ c.getId() + "'>" 
-					+ c.getName() + "</a>"));
+			row.add(new JsonPrimitive(c.getName()));
 			row.add(new JsonPrimitive(c.getAddressLocation()));
-			row.add(new JsonPrimitive("<a href='../" + c.getId() + "/delete'>D</a>" + " <a href='../" + c.getId() + "/edit'>E</a>"));
+			row.add(new JsonPrimitive("")); //only for 'Action' column in the result table
 			data.add(row);
 		}	
 	}

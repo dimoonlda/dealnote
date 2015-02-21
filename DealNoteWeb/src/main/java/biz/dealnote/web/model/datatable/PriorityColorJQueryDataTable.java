@@ -6,7 +6,6 @@ import java.util.Comparator;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonPrimitive;
-
 import biz.dealnote.web.model.PriorityColor;
 
 public class PriorityColorJQueryDataTable extends AbstractJQueryDataTable<PriorityColor>{
@@ -21,9 +20,9 @@ public class PriorityColorJQueryDataTable extends AbstractJQueryDataTable<Priori
 		for(PriorityColor c : locResultList){
 			JsonArray row = new JsonArray();
 			row.add(new JsonPrimitive(c.getId()));
-			row.add(new JsonPrimitive("<a href='../priorityColor/" + c.getId() + "'>" + c.getColorCode() + "</a>"));
-			row.add(new JsonPrimitive(c.getDescription()));
-			row.add(new JsonPrimitive("<a href='../priorityColor/" + c.getId() + "/delete'>D</a>" + " <a href='../priorityColor/" + c.getId() + "/edit'>E</a>"));
+			row.add(new JsonPrimitive(c.getColorCode()));
+			row.add(new JsonPrimitive(c.getDescription()==null ? "" : c.getDescription()));
+			row.add(new JsonPrimitive("")); //only for 'Action' column in the result table
 			data.add(row);
 		}			
 	}

@@ -18,96 +18,96 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import biz.dealnote.web.model.GoodsGroup;
+import biz.dealnote.web.model.PriorityColor;
 import biz.dealnote.web.model.datatable.DataTable;
 import biz.dealnote.web.model.datatable.JQueryDataTableParamModel;
 import biz.dealnote.web.service.DealNoteService;
 
-@RequestMapping("/goodsgroup")
+@RequestMapping(value="/prioritycolor")
 @Controller
-@SessionAttributes(types = GoodsGroup.class)
-public class GoodsGroupController {
-	
-	private DealNoteService dealNoteService;
+@SessionAttributes(types=PriorityColor.class)
+public class PriorityColorController {
+
+	private final DealNoteService dealNoteService;
 	private DataTable dataTable;
 	
 	@Autowired
-	public GoodsGroupController(DealNoteService dealNoteService) {
+	public PriorityColorController(DealNoteService dealNoteService) {
 		this.dealNoteService = dealNoteService;
 	}
 	
     @InitBinder
     public void setAllowedFields(WebDataBinder dataBinder) {
     	dataBinder.setDisallowedFields("id");
-    	dataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+    	dataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
     }
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String initShowListForm(){
-		return "showGoodsGroups";
+		return "showPriorityColors";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/listgrid", method = RequestMethod.GET, produces="application/json; charset=utf-8;")
 	public String initListForm(JQueryDataTableParamModel params){
-		dataTable = dealNoteService.getGoodsGroupDataTable(params);
+		dataTable = dealNoteService.getPriorityColorDataTable(params);
 		return dataTable.getDataTableAsJson().toString();
 	}
 	
 	@PreAuthorize(value="hasRole('ROLE_USER')")
-	@RequestMapping(value = "/{goodsGroupId}/edit", method = RequestMethod.GET)
-	public ModelAndView initUpdateForm(@PathVariable("goodsGroupId") int goodsGroupId){
-		GoodsGroup group = dealNoteService.getGoodsGroupById(goodsGroupId);
-		return new ModelAndView("createOrUpdateGoodsGroupForm").
-				addObject("goodsGroup", group);
+	@RequestMapping(value = "/{priorityId}/edit", method = RequestMethod.GET)
+	public ModelAndView initUpdateForm(@PathVariable("priorityId") int priorityId){
+		PriorityColor priorityColor = dealNoteService.getPriorityColorById(priorityId);
+		return new ModelAndView("createOrUpdatePriorityColorForm").
+				addObject("priorityColor", priorityColor);
 	}
 	
 	@PreAuthorize(value="hasRole('ROLE_USER')")
-	@RequestMapping(value = "/{goodsGroupId}/edit", method = RequestMethod.PUT)
-	public String processUpdateForm(@Valid @ModelAttribute("goodsGroup") GoodsGroup goodsGroup, BindingResult result,
+	@RequestMapping(value = "/{priorityId}/edit", method = RequestMethod.PUT)
+	public String processUpdateForm(@Valid @ModelAttribute("priorityColor") PriorityColor priorityColor, BindingResult result,
 			SessionStatus status){
 		if(result.hasErrors()){
-			return "createOrUpdateGoodsGroupForm";
+			return "createOrUpdatePriorityColorForm";
 		}else{
-			dealNoteService.save(goodsGroup);
+			dealNoteService.save(priorityColor);
 			status.setComplete();
-			return "redirect:/goodsgroup/";	
+			return "redirect:/prioritycolor/";	
 		}
 	}
 
 	@PreAuthorize(value="hasRole('ROLE_USER')")
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public ModelAndView initCreateForm(){
-		GoodsGroup group = new GoodsGroup();
-		return new ModelAndView("createOrUpdateGoodsGroupForm").
-				addObject("goodsGroup", group);
+		PriorityColor priorityColor = new PriorityColor();
+		return new ModelAndView("createOrUpdatePriorityColorForm").
+				addObject("priorityColor", priorityColor);
 	}
 	
 	@PreAuthorize(value="hasRole('ROLE_USER')")
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
-	public String processCreateForm(@Valid @ModelAttribute("goodsGroup") GoodsGroup goodsGroup, BindingResult result,
+	public String processCreateForm(@Valid @ModelAttribute("priorityColor") PriorityColor priorityColor, BindingResult result,
 			SessionStatus status){
 		if(result.hasErrors()){
-			return "createOrUpdateGoodsGroupForm";
+			return "createOrUpdatePriorityColorForm";
 		}else{
-			dealNoteService.save(goodsGroup);
+			dealNoteService.save(priorityColor);
 			status.setComplete();
-			return "redirect:/goodsgroup/";	
+			return "redirect:/prioritycolor/";	
 		}
 	}
 	
-	@RequestMapping(value = "/{goodsGroupId}", method = RequestMethod.GET)
-	public ModelAndView initShowForm(@PathVariable("goodsGroupId") int goodsGroupId){
-		GoodsGroup group = dealNoteService.getGoodsGroupById(goodsGroupId);
-		return new ModelAndView("showGoodsGroupInfo").
-				addObject("goodsGroup", group);
+	@RequestMapping(value = "/{priorityId}", method = RequestMethod.GET)
+	public ModelAndView initShowForm(@PathVariable("priorityId") int priorityId){
+		PriorityColor priorityColor = dealNoteService.getPriorityColorById(priorityId);
+		return new ModelAndView("showPriorityColorInfo").
+				addObject("priorityColor", priorityColor);
 	}
 	
 	@PreAuthorize(value="hasRole('ROLE_USER')")
-	@RequestMapping(value = "/{goodsGroupId}/delete", method = RequestMethod.GET)
-	public String processDelete(@PathVariable("goodsGroupId") int goodsGroupId){
-		GoodsGroup group = dealNoteService.getGoodsGroupById(goodsGroupId);
-			dealNoteService.delete(group);
-			return "redirect:/goodsgroup/";	
-	}	
+	@RequestMapping(value = "/{priorityId}/delete", method = RequestMethod.GET)
+	public String processDelete(@PathVariable("priorityId") int priorityId){
+		PriorityColor priorityColor = dealNoteService.getPriorityColorById(priorityId);
+			dealNoteService.delete(priorityColor);
+			return "redirect:/prioritycolor/";	
+	}
 }

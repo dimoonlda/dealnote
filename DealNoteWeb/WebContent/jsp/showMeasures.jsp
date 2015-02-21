@@ -25,8 +25,19 @@
 						$(document).ready(function() {
 							$("#measure").dataTable({
 								"bServerSide" : true,
-								"sAjaxSource" : '${showMeasureUrl}/listgrid',
-								"bProcessing" : true
+								"sAjaxSource" : '${showMeasureUrl}listgrid',
+								"bProcessing" : true,
+								"stateSave" : true,
+								"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+		                            var $cell=$('td:eq(1)', nRow);
+		                            var $recId = aData[0];
+		                            var $measureName = aData[1];
+		                            //you can use $cell.text and set only text value 
+		                            $cell.html('<a href="${showMeasureUrl}' + $recId + '">' + $measureName + '</a>');
+		                            $cell=$('td:eq(3)', nRow);
+		                            $cell.html('<a href="${showMeasureUrl}' + $recId + '/delete">D</a>' + ' <a href="${showMeasureUrl}' + $recId + '/edit">E</a>');
+		                            return nRow;
+		                    	}
 							});
 						});
 					</script>

@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -16,12 +17,19 @@ public class GoodsGroup {
 	@GeneratedValue(generator="gen_group", strategy=GenerationType.SEQUENCE)
 	private Integer id;
 	
+	@NotNull(message = "{error.message.field.notempty}")
 	private Integer outerId;
-	@Size(max=35, message="{message.field.size35}")
+	
+	@Size(max=35, message="{error.message.field.sizeTooLong}")
 	private String name;
+	
+	@NotNull(message = "{error.message.field.notempty}")
 	private Integer parentId;
 	
-	public GoodsGroup() {}
+	public GoodsGroup() {
+		this.parentId = 0;
+		this.outerId = 0;
+	}
 
 	public Integer getId() {
 		return id;

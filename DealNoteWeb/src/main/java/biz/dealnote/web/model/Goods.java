@@ -38,19 +38,19 @@ public class Goods {
 	private Integer priority;
 	private Integer clientTypeMask;
 	
-	@Size(max=35, message="{message.field.size35}")
+	@Size(max=35, message="{error.message.field.sizeTooLong}")
 	private String name;
 	
-	@Size(max=50, message="{message.field.size50}")
+	@Size(max=50, message="{error.message.field.sizeTooLong}")
 	private String sertificat;
 	
-	@Size(max=5, message="{message.field.size5}")
+	@Size(max=5, message="{error.message.field.sizeTooLong}")
 	private String ekka;
 	
-	@Size(max=84, message="{message.field.size84}")
+	@Size(max=84, message="{error.message.field.sizeTooLong}")
 	private String fName;
 	
-	@Size(max=5, message="{message.field.size5}")
+	@Size(max=5, message="{error.message.field.sizeTooLong}")
 	private String class1;
 	
 	private Double weight;

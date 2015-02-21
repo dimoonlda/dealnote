@@ -6,7 +6,6 @@ import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
 
-import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.Route;
 import biz.dealnote.web.service.DealNoteService;
 

@@ -64,8 +64,8 @@ public class MeasureController {
 	
 	@PreAuthorize(value="hasRole('ROLE_USER')")
 	@RequestMapping(value = "/{measureId}/edit", method = RequestMethod.PUT)
-	public String processUpdateForm(@Valid @ModelAttribute("measure") Measure measure,
-			SessionStatus status, BindingResult result){
+	public String processUpdateForm(@Valid @ModelAttribute("measure") Measure measure, BindingResult result,
+			SessionStatus status){
 		if(result.hasErrors()){
 			return "createOrUpdateMeasureForm";
 		}else{

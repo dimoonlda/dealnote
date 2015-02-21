@@ -9,6 +9,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 @Table(name = "PRIORITETCOLOR")
 public class PriorityColor {
@@ -17,11 +19,12 @@ public class PriorityColor {
 	@GeneratedValue(generator="gen_priority_color", strategy=GenerationType.SEQUENCE)
 	private Integer id;
 	
-	@Size(max = 35, message="{message.field.size35}")
+	@Size(max = 35, message="{error.message.field.sizeTooLong}")
+	@NotEmpty(message = "{error.message.field.notempty}")
 	private String colorCode;
 	
 	@Column(name="DISCRIPTION")
-	@Size(max = 255, message="{message.field.size255}")
+	@Size(max = 255, message="{error.message.field.sizeTooLong}")
 	private String description;
 	
 	public PriorityColor() {}

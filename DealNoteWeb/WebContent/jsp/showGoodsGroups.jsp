@@ -17,7 +17,7 @@
 				<td><spring:url value="/goodsgroup/" var="showGoodsGroupUrl" />
 					<div>
 						<sec:authorize access="hasRole('ROLE_USER')">
-							<a href="${showGoodsGroupUrl}/new"><spring:message
+							<a href="${showGoodsGroupUrl}new"><spring:message
 									code="goodsGroup.dataTable.button.addGoodsGroup" /></a>
 						</sec:authorize>
 					</div>
@@ -25,8 +25,20 @@
 						$(document).ready(function() {
 							$("#goodsGroup").dataTable({
 								"bServerSide" : true,
-								"sAjaxSource" : '${showGoodsGroupUrl}/listgrid',
-								"bProcessing" : true
+								"sAjaxSource" : '${showGoodsGroupUrl}listgrid',
+								"bProcessing" : true,
+								"stateSave" : true,
+								//this function change cell's value before showing
+						        "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+		                            var $cell=$('td:eq(1)', nRow);
+		                            var $recId = aData[0];
+		                            var $groupName = aData[1];
+		                            //you can use $cell.text and set only text value 
+		                            $cell.html('<a href="${showGoodsGroupUrl}' + $recId + '">' + $groupName + '</a>');
+		                            $cell=$('td:eq(4)', nRow);
+		                            $cell.html('<a href="${showGoodsGroupUrl}' + $recId + '/delete">D</a>' + ' <a href="${showGoodsGroupUrl}' + $recId + '/edit">E</a>');
+		                            return nRow;
+		                    	}
 							});
 						});
 					</script>

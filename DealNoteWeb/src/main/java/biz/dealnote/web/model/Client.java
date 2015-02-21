@@ -27,8 +27,8 @@ public class Client {
 	private Integer id;
 	
 	@NotNull(message = "{message.field.notnull}")
-	@NotEmpty(message = "{message.field.notempty}")
-	@Size(max = 35, message = "{message.field.size35}")
+	@NotEmpty(message = "{error.message.field.notempty}")
+	@Size(max = 35, message = "{error.message.field.sizeTooLong}")
 	private String name;
 	private String phone;
 	private String taxCode;
@@ -39,8 +39,8 @@ public class Client {
 	private Agent agent;
 
 	@NotNull(message = "{message.field.notnull}")
-	@NotEmpty(message = "{message.field.notempty}")
-	@Size(max = 84, message = "{message.field.size84}")
+	@NotEmpty(message = "{error.message.field.notempty}")
+	@Size(max = 84, message = "{error.message.field.sizeTooLong}")
 	private String addressLocation;
 	private String taxNum;
 	private String okpo;

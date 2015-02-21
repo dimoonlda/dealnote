@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>    
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <jsp:include page="fragments/staticFiles.jsp"/>
@@ -29,11 +30,57 @@
 </tr>
 <c:if test="${agent.id != null}">
 	<tr>
-		<td>
-			<jsp:include page="clientsDataTable.jsp">
-				<jsp:param value="${agent.id }" name="agentId"/>
-			</jsp:include>
-		</td>
+		<td><spring:url value="/clients/" var="showClientUrl" /> <script
+							type="text/javascript">
+			$(document)
+					.ready(
+							function() {
+								$("#clients")
+										.dataTable(
+												{
+													"bServerSide" : true,
+													"sAjaxSource" : "${showClientUrl }listgrid/${agent.id }",
+													"bProcessing" : true,
+													"pagingType" : "full_numbers",
+													"stateSave" : true,
+													//this function change cell's value before showing
+											        "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+							                            var $cell=$('td:eq(1)', nRow);
+							                            var $recId = aData[0];
+							                            var $clientName = aData[1];
+							                            //you can use $cell.text and set only text value 
+							                            $cell.html('<a href="${showClientUrl}' + $recId + '">' + $clientName + '</a>');
+							                            $cell=$('td:eq(3)', nRow);
+							                            $cell.html('<a href="${showClientUrl}' + $recId + '/delete">D</a>' + ' <a href="${showClientUrl}' + $recId + '/edit">E</a>');
+							                            return nRow;
+							                    	}
+												});
+							});
+		</script>
+						<div>
+							<sec:authorize access="hasRole('ROLE_USER')">
+								<a href="${showClientUrl}/new"><spring:message
+										code="clients.dataTable.button.addClient" /></a>
+							</sec:authorize>
+						</div>
+						<br>
+
+						<table id="clients" class="display" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th width="10%"><spring:message
+											code="clients.dataTable.header.id" /></th>
+									<th width="40%"><spring:message
+											code="clients.dataTable.header.name" /></th>
+									<th width="45%"><spring:message
+											code="clients.dataTable.header.addressLocation" /></th>
+									<th width="5%"><spring:message
+											code="clients.dataTable.header.action" /></th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table></td>
 	</tr>
 </c:if>
 </table>

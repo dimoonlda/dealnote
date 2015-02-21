@@ -11,8 +11,6 @@ import biz.dealnote.web.model.Measure;
 
 public class MeasureJQueryDataTable extends AbstractJQueryDataTable<Measure>{
 
-	private static final String URL_PATH = "/measure/";
-	
 	public MeasureJQueryDataTable(Collection<Measure> dataToShow,
 			JQueryDataTableParamModel params) {
 		super(dataToShow, params);
@@ -23,10 +21,9 @@ public class MeasureJQueryDataTable extends AbstractJQueryDataTable<Measure>{
 		for(Measure c : locResultList){
 			JsonArray row = new JsonArray();
 			row.add(new JsonPrimitive(c.getId()));
-			row.add(new JsonPrimitive("<a href='.." + URL_PATH + c.getId() + "'>" + c.getName() + "</a>"));
+			row.add(new JsonPrimitive(c.getName()));
 			row.add(new JsonPrimitive(c.getOuterId()));
-			row.add(new JsonPrimitive("<a href='.." + URL_PATH + c.getId() + "/delete'>D</a>" 
-					+ " <a href='.." + URL_PATH + c.getId() + "/edit'>E</a>"));
+			row.add(new JsonPrimitive("")); //only for 'Action' column in the result table
 			data.add(row);
 		}			
 	}

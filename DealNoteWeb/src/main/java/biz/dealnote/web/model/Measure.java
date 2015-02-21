@@ -19,11 +19,11 @@ public class Measure {
 	@GeneratedValue(generator="gen_measure", strategy=GenerationType.SEQUENCE)
 	private Integer id;
 	
+	@NotNull(message = "{error.message.field.notempty}")
 	private Integer outerId;
 	
-	@NotNull(message = "{message.field.notempty}")
-	@NotEmpty(message = "{message.field.notempty}")
-	@Size(max = 35, message = "{message.field.size35}")
+	@NotEmpty(message = "{error.message.field.notempty}")
+	@Size(max = 35, message = "{error.message.field.sizeTooLong}")
 	private String name;
 	
 	public Measure() {}
