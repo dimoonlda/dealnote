@@ -33,7 +33,7 @@ public class ClientController {
 	}
 	
 	@ModelAttribute
-	public void populateAgents(Model model){
+	public void populateExtraData(Model model){
 		model.addAttribute("agentsList", this.dealNoteService.getActiveAgentsList());
 		model.addAttribute("routesList", this.dealNoteService.getRoutes());
 		model.addAttribute("groupsList", this.dealNoteService.getGroups());

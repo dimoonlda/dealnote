@@ -21,10 +21,10 @@ public class GoodsJQueryDataTable extends AbstractJQueryDataTable<Goods>{
 		for(Goods c : locResultList){
 			JsonArray row = new JsonArray();
 			row.add(new JsonPrimitive(c.getId()));
-			row.add(new JsonPrimitive("<a href='../goods/" + c.getId() + "'>" + c.getName() + "</a>"));
+			row.add(new JsonPrimitive(c.getName()));
 			row.add(new JsonPrimitive(c.getOuterId()));
 			row.add(new JsonPrimitive(c.getMeasure().getName()));
-			row.add(new JsonPrimitive("<a href='../goods/" + c.getId() + "/delete'>D</a>" + " <a href='../goods/" + c.getId() + "/edit'>E</a>"));
+			row.add(new JsonPrimitive(""));
 			data.add(row);
 		}			
 	}

@@ -231,6 +231,14 @@ public class Goods {
 		this.goodsData = goodsData;
 	}
 
+	public String getGoodsDataAsString() {
+		return goodsData!=null ? String.valueOf(goodsData) : null;
+	}
+
+	public void setGoodsDataAsString(String goodsData) {
+		this.goodsData = goodsData!=null ? goodsData.toCharArray() : null;
+	}
+
 	public boolean isNew(){
 		return (this.id == null);
 	}

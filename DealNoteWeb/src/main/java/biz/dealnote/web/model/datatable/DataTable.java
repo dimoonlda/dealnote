@@ -15,6 +15,7 @@ public interface DataTable {
 	public void sort();
 	/**
 	 * Do a main work with table data.
+	 * Search, sort.
 	 */
 	public void processData();
 	/**

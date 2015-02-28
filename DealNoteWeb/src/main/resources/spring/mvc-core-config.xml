@@ -39,6 +39,9 @@
                 <bean class="biz.dealnote.web.web.formatters.AgentFormatter"/>
                 <bean class="biz.dealnote.web.web.formatters.RouteFormatter"/>
                 <bean class="biz.dealnote.web.web.formatters.ClientGroupFormatter"/>
+                <bean class="biz.dealnote.web.web.formatters.PriorityColorFormatter"/>
+                <bean class="biz.dealnote.web.web.formatters.MeasureFormatter"/>
+                <bean class="biz.dealnote.web.web.formatters.GoodsGroupFormatter"/>
             </set>
         </property>
     </bean>

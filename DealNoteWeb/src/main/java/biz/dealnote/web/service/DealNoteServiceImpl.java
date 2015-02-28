@@ -29,6 +29,7 @@ import biz.dealnote.web.model.datatable.AgentJQueryDataTable;
 import biz.dealnote.web.model.datatable.ClientsJQueryDataTable;
 import biz.dealnote.web.model.datatable.DataTable;
 import biz.dealnote.web.model.datatable.GoodsGroupJQueryDataTable;
+import biz.dealnote.web.model.datatable.GoodsJQueryDataTable;
 import biz.dealnote.web.model.datatable.JQueryDataTableParamModel;
 import biz.dealnote.web.model.datatable.LocationJQueryDataTable;
 import biz.dealnote.web.model.datatable.MeasureJQueryDataTable;
@@ -312,8 +313,10 @@ public class DealNoteServiceImpl implements DealNoteService{
 
 	@Override
 	public DataTable getGoodsDataTable(JQueryDataTableParamModel params) {
-		// TODO Auto-generated method stub
-		return null;
+		DataTable dataTable = new GoodsJQueryDataTable(goodsDao.getAllGoods(), 
+				params);
+		dataTable.processData();
+		return dataTable;
 	}
 
 }

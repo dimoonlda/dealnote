@@ -24,7 +24,7 @@
                   <li><a href='<c:url value="/goodsgroup/"/>'><spring:message code="menu.goodsGroups" /></a></li>
                   <li><a href='<c:url value="/measure/"/>'><spring:message code="menu.measure" /></a></li>
                   <li><a href='<c:url value="/prioritycolor/"/>'><spring:message code="menu.priorityColor" /></a></li>
-                  <li><a href="#"><spring:message code="menu.goods" /></a></li>
+                  <li><a href='<c:url value="/goods/"/>'><spring:message code="menu.goods" /></a></li>
                   <li><a href='<c:url value="/clients/listClients"/>'><spring:message code="menu.clients" /></a></li>
                 </ul>
               </li>
