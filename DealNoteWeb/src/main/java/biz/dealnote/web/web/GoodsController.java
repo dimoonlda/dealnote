@@ -3,6 +3,7 @@ package biz.dealnote.web.web;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -18,9 +19,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import biz.dealnote.web.model.Goods;
@@ -87,9 +90,48 @@ public class GoodsController {
 		}
 	}
 	
+	@PreAuthorize(value="hasRole('ROLE_USER')")
+	@RequestMapping(value = "/uploadimage", method = RequestMethod.POST)
+	public @ResponseBody String  updateGoodsImage(@ModelAttribute("goods") Goods goods,
+			Model model, HttpServletRequest request,
+			@RequestParam("fileImage") MultipartFile file) throws IOException{
+		if (!file.isEmpty()) {
+			goods.setGoodsImage(file.getBytes());
+			model.addAttribute("goods", goods);
+			if(!goods.isNew()){
+				dealNoteService.save(goods);
+			}
+			return request.getContextPath() + "/goods/currentImage";
+		}
+		return String.format("/goods/%d/image",	goods.getId());
+	}
+	
+	/**
+	 * Return goods image from database using goods ID
+	 * @param goodsId goods ID
+	 * @param response
+	 */
 	@RequestMapping(value = "/{goodsId}/image", method = RequestMethod.GET)
 	public void goodsImage(@PathVariable int goodsId, HttpServletResponse response){
 		Goods goods = dealNoteService.getGoodsById(goodsId);
+		try {
+			OutputStream out = response.getOutputStream();
+			response.setContentType("image/jpeg");
+			out.write(goods.getGoodsImage());
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			//TODO: Log error
+		}
+	}
+	
+	/**
+	 * Return goods image from Session attribute
+	 * @param goods 
+	 * @param response
+	 */
+	@RequestMapping(value = "/currentImage", method = RequestMethod.GET)
+	public void goodsImage(@ModelAttribute(value="goods") Goods goods, HttpServletResponse response){
 		try {
 			OutputStream out = response.getOutputStream();
 			response.setContentType("image/jpeg");

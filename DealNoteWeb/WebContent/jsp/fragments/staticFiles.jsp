@@ -23,4 +23,5 @@
 	<spring:url value="/css/bootstrap-colorpicker.css" var="colorpickerCss"/>
     <link href="${colorpickerCss}" rel="stylesheet"/>
 	<script src='<c:url value="/js/bootstrap-colorpicker.min.js" />' type="text/javascript" ></script>
+	<script src="http://malsup.github.com/jquery.form.js"></script>
 </head>	

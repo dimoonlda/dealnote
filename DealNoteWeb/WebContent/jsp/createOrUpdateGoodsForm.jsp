@@ -155,12 +155,11 @@
 								<form:label path="goodsImage" class="col-sm-2 control-label">
 									<spring:message code="goods.createForm.lable.goodsImage"/>:
 								</form:label>
-								<div class="col-xs-5">
+								<div class="col-xs-5" id="result">
 									<img src='<spring:url value="/goods/${requestScope['goods'].id}/image"/>' 
 										alt="${requestScope['goods'].fName}" 
 										width="300px" height="300px" 
 										class="img-thumbnail"></div>
-								<!-- <div class="col-xs-2"><form:input path="goodsImage" class="form-control"/></div> -->
 							</div>
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
@@ -170,6 +169,34 @@
 							</div>
 						</div>
 				</form:form>
+<script type="text/javascript">
+	//using FormData() object
+	function uploadFormData() {
+		//$('#result').html('');
+		var oMyForm = new FormData();
+		oMyForm.append("fileImage", fileImage.files[0]);
+		$.ajax({
+					url : '<spring:url value="/goods/uploadimage"/>',
+					data : oMyForm,
+					dataType : 'text',
+					processData : false,
+					contentType : false,
+					type : 'POST',
+					success : function(data) {
+						$('#result').html("<img src='" + data + "' width='300px' height='300px' class='img-thumbnail'/>");
+					}
+				});
+	}
+</script>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">
+											<spring:message code="goods.createForm.lable.chooseImage"/>:
+										</label>
+										<div class="col-xs-5"><input type="file" id="fileImage" name="fileImage"/></div>
+									</div>
+								 <button onclick="uploadFormData()" value="submitImage" class="btn btn-default">
+											<spring:message code="goods.createForm.lable.button.submitImage"/>
+								</button>
 			</td>
 		</tr>
 	</table>
