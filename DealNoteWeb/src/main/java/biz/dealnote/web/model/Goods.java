@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 @Table(name="GOODS")
 public class Goods {
@@ -39,6 +41,7 @@ public class Goods {
 	private Integer clientTypeMask;
 	
 	@Size(max=35, message="{error.message.field.sizeTooLong}")
+	@NotEmpty(message="{error.message.field.notempty}")
 	private String name;
 	
 	@Size(max=50, message="{error.message.field.sizeTooLong}")
@@ -48,6 +51,7 @@ public class Goods {
 	private String ekka;
 	
 	@Size(max=84, message="{error.message.field.sizeTooLong}")
+	@NotEmpty(message="{error.message.field.notempty}")
 	private String fName;
 	
 	@Size(max=5, message="{error.message.field.sizeTooLong}")
@@ -62,7 +66,7 @@ public class Goods {
 	
 	private Integer outerId;
 	
-	@NotNull
+	@NotNull(message="{error.message.field.notnull}")
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="MEASUREID")
 	private Measure measure;

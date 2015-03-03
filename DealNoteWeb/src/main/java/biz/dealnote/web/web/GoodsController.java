@@ -98,9 +98,9 @@ public class GoodsController {
 		if (!file.isEmpty()) {
 			goods.setGoodsImage(file.getBytes());
 			model.addAttribute("goods", goods);
-			if(!goods.isNew()){
+		/*	if(!goods.isNew()){
 				dealNoteService.save(goods);
-			}
+			}*/
 			return request.getContextPath() + "/goods/currentImage";
 		}
 		return String.format("/goods/%d/image",	goods.getId());
