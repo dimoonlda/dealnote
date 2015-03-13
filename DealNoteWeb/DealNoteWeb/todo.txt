@@ -1,0 +1,57 @@
++ update model for agent's coordinates
++ update DAO and service layers for agent's coordinates
++ make controller for showing agent's coordinates
++ update view for showing agent's coordinates
+
++ create model for Goods
++ create model for GoodsGroup
++ create model for PriorityColor
++ create model for Measure
++ create DAO and service layers for measure dictionary
++ create DAO and service layers for goods group dictionary
++ create DAO and service layers for priority color dictionary
++ make controller for goods group
++ make view for show goods group list
++ make view for show good group info
++ make view for edit good group
++ make controller for measure
++ make view for show measure list
++ make view for show measure info
++ make view for edit measure
+
++ make one error's message for all error messages which tie with long size(use {max}) 
++ make controller for priority color
++ make view for show priority color list
++ make view for show priority color info
++ make view for edit priority color
++ change all grids like a priority color
+
++ create DAO and service layers for goods dictionary
++ make controller for goods
++ make view for show goods list
++ make view for show good info
++ make view for edit good
+
++ don't do validation when add new goods
+
+- make something with calendar's translation in showAgentGps.jsp
+ 
+ - make test for Client controller
+ - make test for agent's coordinates controller
+ - make test for goods controller
+ - make test for goods group controller
+ - make test for measure controller
+ - make test for priority color controller
+ 
+ - develop Document model
+ - develop DocumentDet model
+ - develop DocType model
+ - develop Document dao
+ - develop DocumentDet dao
+ - develop DocType dao
+ - develop Document service
+ - develop DocumentDet service
+ - develop DocType service
+ - develop Document controller
+ - develop DocumentDet controller
+ - develop DocType controller

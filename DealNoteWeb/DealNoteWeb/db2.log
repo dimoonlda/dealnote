@@ -1,0 +1,29 @@
+/*C3*/SET SCHEMA PUBLIC
+alter table Client drop constraint FK_ihdpepng8cy7b6mpeok1fo0xd
+alter table Location drop constraint FK_cr522cx4pkv2wad4hqcq9crod
+drop table AGENTS if exists
+drop table Client if exists
+drop table Location if exists
+drop sequence GEN_AGENTS_ID
+drop sequence GEN_CLIENT_ID
+drop sequence GEN_LOCATION_ID
+create table AGENTS (id integer not null, ISACTIVE integer, SNAME varchar(255), outerId integer, roleCode integer, primary key (id))
+create table Client (id integer not null, addressLaw varchar(255), addressLocation varchar(255), bankAccount varchar(255), bankName varchar(255), clientTypeId integer, debtDays1 integer, debtDays2 integer, debtSumm1 integer, debtSumm2 integer, defaultDiscount integer, dogNum varchar(255), fName varchar(255), latitude double, longitude double, mfo varchar(255), name varchar(255), okpo varchar(255), outerid integer, parentId integer, phone varchar(255), routeId smallint, stopShipment smallint, taxCode varchar(255), taxNum varchar(255), agentid integer, primary key (id))
+create table Location (id integer not null, accuracy integer, battery integer, clock timestamp, latitude double, longitude double, provider varchar(255), savestate integer, searchtime integer, agentid integer, primary key (id))
+alter table Client add constraint FK_ihdpepng8cy7b6mpeok1fo0xd foreign key (agentid) references AGENTS
+alter table Location add constraint FK_cr522cx4pkv2wad4hqcq9crod foreign key (agentid) references AGENTS
+create sequence GEN_AGENTS_ID start with 1
+create sequence GEN_CLIENT_ID start with 1
+create sequence GEN_LOCATION_ID start with 1
+INSERT INTO AGENTS VALUES(1,NULL,'Test222',NULL,NULL)
+COMMIT
+ALTER SEQUENCE PUBLIC.GEN_AGENTS_ID RESTART WITH 2
+DELETE FROM AGENTS WHERE ID=1
+INSERT INTO AGENTS VALUES(1,NULL,'Test3333',NULL,NULL)
+COMMIT
+DELETE FROM AGENTS WHERE ID=1
+INSERT INTO AGENTS VALUES(1,NULL,'Test3333',NULL,NULL)
+COMMIT
+INSERT INTO AGENTS VALUES(2,NULL,NULL,NULL,NULL)
+COMMIT
+ALTER SEQUENCE PUBLIC.GEN_AGENTS_ID RESTART WITH 3
