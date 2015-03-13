@@ -41,5 +41,6 @@
 	</build>
   <modules>
     <module>DealNoteWeb</module>
+    <module>DealNoteRest</module>
   </modules>
 </project>
