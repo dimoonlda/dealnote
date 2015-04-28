@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bean:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:bean="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:c="http://www.springframework.org/schema/c"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<global-method-security secured-annotations="enabled"/>
+
+	<http realm="Protected API"
+		use-expressions="true"
+		create-session="stateless"
+		entry-point-ref="unauthorizedEntryPoint"
+		authentication-manager-ref="restAuthenticationManager">
+
+		<custom-filter ref="restAuthenticationFilter" position="FORM_LOGIN_FILTER"/>
+
+		<intercept-url pattern="/**" access="isAuthenticated()" requires-channel="https"/>
+	</http>
+
+	<bean:bean id="unauthorizedEntryPoint" class="biz.dealnote.rest.security.CustomAuthenticationEntryPoint"/>
+
+	<bean:bean id="userDetailService" class="biz.dealnote.rest.security.DealNoteUserDetailService"/>
+
+	<authentication-manager id="restAuthenticationManager">
+		<authentication-provider user-service-ref="userDetailService">
+		</authentication-provider>
+	</authentication-manager>
+
+	<bean:bean id="authenticationService" class="biz.dealnote.rest.security.RestAuthenticationService"
+		c:authenticationManager-ref="restAuthenticationManager"/>
+
+	<bean:bean id="restAuthenticationFilter" class="biz.dealnote.rest.security.ClientAuthenticationFilter"
+		c:authenticationService-ref="authenticationService"/>     
+</bean:beans>

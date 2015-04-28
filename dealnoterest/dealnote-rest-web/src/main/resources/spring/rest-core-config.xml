@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    - DispatcherServlet application context for DealNote's web tier.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <context:component-scan base-package="biz.dealnote.rest.controllers"/>
+
+ 	<mvc:annotation-driven validator="validator">
+  	<mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="biz.dealnote.rest.util.HibernateAwareObjectMapper" />
+                </property>
+            </bean>
+        </mvc:message-converters> 
+    </mvc:annotation-driven>
+      
+	<!-- Enable controller method level security -->
+	<security:global-method-security pre-post-annotations="enabled"/>
+
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+
+<!--     <mvc:view-controller path="/" view-name="index" /> -->
+
+    <mvc:default-servlet-handler />
+          
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="validationMessageSource" ref="messageSource"/> 
+    </bean>     
+ 
+    <bean class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+                id="messageSource" p:basenames="classpath:messages/messages"
+                p:fallbackToSystemLocale="false" p:defaultEncoding="UTF-8" />
+	
+	<bean class="org.springframework.context.support.MessageSourceAccessor"
+		id="messageSourceAccessor">
+		<constructor-arg ref="messageSource"/>
+	</bean>
+	
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
+                    p:paramName="lang"/>
+    </mvc:interceptors>
+
+    <bean class="org.springframework.web.servlet.i18n.CookieLocaleResolver"
+    			p:defaultLocale="en" id="localeResolver" p:cookieName="locale"/>
+                
+</beans>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>biz.dealnote</groupId>
+  <artifactId>dealnoterest</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>DealNoteRest</name>
+
+	<properties>
+
+		<!-- Generic properties -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<!-- Spring -->
+		<spring-framework.version>4.1.4.RELEASE</spring-framework.version>
+		<spring-security.version>3.2.5.RELEASE</spring-security.version>
+		
+		<!-- Hibernate / JPA -->
+		<hibernate.version>4.3.7.Final</hibernate.version>
+		<hibernate-validator.version>4.3.2.Final</hibernate-validator.version>
+
+		<!-- Test -->
+		<junit.version>4.12</junit.version>
+		<mockito.version>1.10.19</mockito.version>
+		<powermock.version>1.6.1</powermock.version>
+		
+		<!-- Other libs -->
+		<joda-time.version>2.7</joda-time.version>
+		<joda-time-jsptags.version>1.1.1</joda-time-jsptags.version>
+		<jadira-usertype.version>3.1.0.CR1</jadira-usertype.version>
+		<google-gson.version>2.3.1</google-gson.version>
+		<fasterxml.jackson.version>2.4.3</fasterxml.jackson.version>
+		
+	</properties>
+
+	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>  
+	<modules>
+		<module>dealnote-rest-model</module>
+    	<module>dealnote-rest-web</module>
+  </modules>
+</project>
