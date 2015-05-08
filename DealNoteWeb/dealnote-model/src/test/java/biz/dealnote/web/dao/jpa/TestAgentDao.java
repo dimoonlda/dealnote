@@ -5,25 +5,19 @@ import java.util.Collection;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import biz.dealnote.web.dao.AgentDAO;
 import biz.dealnote.web.model.Agent;
+import biz.dealnote.web.model.DefaultObjectsFactory;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:spring/business-config.xml")
-@ActiveProfiles("test")
-public class TestAgentDao {
+public class TestAgentDao extends AbstractDaoJpaTest{
 	
 	@Autowired
 	private AgentDAO agentDao;
 	
-	private static final String AGENT_NAME = "Test agent";
+	private static final String NEW_AGENT_NAME = "Test agent";
 	
 	@Test
 	@Transactional
@@ -42,7 +36,7 @@ public class TestAgentDao {
 	@Test
 	@Transactional
 	public void testDeleteAgentById(){
-		Agent agent = TestAgentDao.createTestAgent();
+		Agent agent = DefaultObjectsFactory.createDefaultAgent(null);
 		agentDao.save(agent);
 		Collection<Agent> agents = agentDao.getAgentsList();
 		assertEquals(4, agents.size());
@@ -63,7 +57,7 @@ public class TestAgentDao {
 	@Test
 	@Transactional
 	public void testAdd(){
-		Agent agent = TestAgentDao.createTestAgent();
+		Agent agent = DefaultObjectsFactory.createDefaultAgent(null);
 		
 		int size = agentDao.getAgentsList().size();
 		agentDao.save(agent);
@@ -76,29 +70,15 @@ public class TestAgentDao {
 	@Test
 	@Transactional
 	public void testUpdate(){
-		Agent agent = TestAgentDao.createTestAgent();
+		Agent agent = DefaultObjectsFactory.createDefaultAgent(null);
 		agentDao.save(agent);
 		
-		agent.setName("1");
+		agent.setName(NEW_AGENT_NAME);
 		agentDao.save(agent);
 		
 		Agent agentRes = agentDao.getAgentById(agent.getId());
-		assertEquals("1", agentRes.getName());
+		assertEquals(NEW_AGENT_NAME, agentRes.getName());
 		
 		agentDao.deleteAgentById(agent.getId());
-	}
-	
-	public static Agent createTestAgent(){
-		Agent agent = new Agent();
-		agent.setName(AGENT_NAME);
-		agent.setActive(1);
-		agent.setFio(AGENT_NAME);
-		agent.setAdminPass("pass");
-		agent.setMoneyname("money");
-		agent.setMoneyformat("moneyformat");
-		agent.setQtyformat("qtyformat");
-		agent.setWsServiceName("wsServiceName");
-		agent.setGpsByDay("gpsByDay");
-		return agent;
 	}
 }

@@ -3,27 +3,20 @@ package biz.dealnote.web.dao.jpa;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
-
 import biz.dealnote.web.dao.AgentDAO;
 import biz.dealnote.web.dao.AgentGoodsDao;
 import biz.dealnote.web.dao.GoodsDao;
+import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.AgentGoods;
+import biz.dealnote.web.model.DefaultObjectsFactory;
+import biz.dealnote.web.model.Goods;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:spring/business-config.xml")
-@ActiveProfiles("test")
-public class TestAgentGoodsDaoJpa {
+public class TestAgentGoodsDaoJpa extends AbstractDaoJpaTest{
 
-	private static final Integer TEST_AGENT_ID = 444;
 	private static final Integer TEST_AGENT_GOODS_ID = 8;
 	private static final Integer TEST_GOODS_ID = 6;
-	private static final Double TEST_AGENT_GOODS_PRICE = 60.0;
+	private static final Double NEW_AGENT_GOODS_PRICE = 60.0;
 	
 	@Autowired
 	private AgentGoodsDao agentGoodsDao;
@@ -32,40 +25,50 @@ public class TestAgentGoodsDaoJpa {
 	@Autowired
 	private GoodsDao goodsDao;
 	
+	private Agent agent;
+	private Goods goods;
+	
+	private void init(){
+		agent = agentDao.getAgentById(DefaultObjectsFactory.DEFAULT_AGENT_ID);
+		assertNotNull(agent);
+		goods = goodsDao.getGoodsById(TEST_GOODS_ID);
+		assertNotNull(goods);
+	}
+	
 	@Test
-	@Transactional
 	public void testGetAllAgentGoods() {
 		assertEquals(3, agentGoodsDao
 				.getAllAgentGoods().size());
 	}
 
 	@Test
-	@Transactional
 	public void testGetAgentGoodsById() {
 		assertNotNull(agentGoodsDao.getAgentGoodsById(TEST_AGENT_GOODS_ID));
 	}
 
 	@Test
-	@Transactional
 	public void testSave() {
-		AgentGoods agentGoods = createTestAgentGoods();
+		init();
+		AgentGoods agentGoods = DefaultObjectsFactory
+				.createDefaultAgentGoods(null, agent, goods);
 		agentGoodsDao.save(agentGoods);
 		assertNotNull("Object wasn't saved. Id isn't created.", agentGoods.getId());
 		
-		agentGoods.setPrice(TEST_AGENT_GOODS_PRICE);
+		agentGoods.setPrice(NEW_AGENT_GOODS_PRICE);
 		agentGoodsDao.save(agentGoods);
 		
 		agentGoods = agentGoodsDao.getAgentGoodsById(agentGoods.getId());
-		assertEquals("Object wasn't updated.", TEST_AGENT_GOODS_PRICE, agentGoods.getPrice());
+		assertEquals("Object wasn't updated.", NEW_AGENT_GOODS_PRICE, agentGoods.getPrice());
 		
 		agentGoodsDao.delete(agentGoods);
 	}
 
 	@Test
-	@Transactional
 	public void testDelete() {
+		init();
 		int size = agentGoodsDao.getAllAgentGoods().size();
-		AgentGoods agentGoods = createTestAgentGoods();
+		AgentGoods agentGoods = DefaultObjectsFactory
+				.createDefaultAgentGoods(null, agent, goods);
 		agentGoodsDao.save(agentGoods);
 		assertTrue("Object wasn't added.", 
 				size < agentGoodsDao.getAllAgentGoods().size());
@@ -76,18 +79,9 @@ public class TestAgentGoodsDaoJpa {
 	}
 
 	@Test
-	@Transactional
 	public void testGetAgentGoodsByAgent() {
+		init();
 		assertEquals(3, agentGoodsDao
-				.getAgentGoodsByAgent(agentDao.getAgentById(TEST_AGENT_ID)).size());
-	}
-
-	public AgentGoods createTestAgentGoods(){
-		AgentGoods test = new AgentGoods();
-		test.setAgent(agentDao.getAgentById(TEST_AGENT_ID));
-		test.setGoods(goodsDao.getGoodsById(TEST_GOODS_ID));
-		test.setAvailable(0.0);
-		test.setPrice(0.0);
-		return test;
+				.getAgentGoodsByAgent(agent).size());
 	}
 }

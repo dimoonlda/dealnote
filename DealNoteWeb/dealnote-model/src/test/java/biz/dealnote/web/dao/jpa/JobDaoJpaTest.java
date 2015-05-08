@@ -6,12 +6,12 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import biz.dealnote.web.dao.JobDao;
+import biz.dealnote.web.model.DefaultObjectsFactory;
 import biz.dealnote.web.model.Job;
 
 public class JobDaoJpaTest extends AbstractDaoJpaTest{
 
 	private static final Integer TEST_JOB_ID = 10;
-	private static final String TEST_JOB_NAME = "Test Job";
 	private static final String TEST_JOB_ROLE_NAME = "TESTROLE";
 	
 	@Autowired
@@ -30,7 +30,7 @@ public class JobDaoJpaTest extends AbstractDaoJpaTest{
 
 	@Test
 	public void testSave() {
-		Job job = createTestJob();
+		Job job = DefaultObjectsFactory.createDefaultJob(null);
 		jobDao.save(job);
 		assertNotNull("Object wasn't saved. Id isn't created.", job.getId());
 		
@@ -45,7 +45,7 @@ public class JobDaoJpaTest extends AbstractDaoJpaTest{
 
 	@Test
 	public void testDelete() {
-		Job job = createTestJob();
+		Job job = DefaultObjectsFactory.createDefaultJob(null);
 		int size = jobDao.getJobs().size();
 		jobDao.save(job);
 		assertTrue("Object wasn't added.", 
@@ -54,11 +54,5 @@ public class JobDaoJpaTest extends AbstractDaoJpaTest{
 		jobDao.delete(job);
 		assertTrue("Object wasn't removed.", 
 				size == jobDao.getJobs().size());
-	}
-
-	public Job createTestJob(){
-		Job test = new Job();
-		test.setName(TEST_JOB_NAME);
-		return test;
 	}
 }

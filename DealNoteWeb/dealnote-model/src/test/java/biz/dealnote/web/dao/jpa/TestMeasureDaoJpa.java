@@ -3,24 +3,16 @@ package biz.dealnote.web.dao.jpa;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import biz.dealnote.web.dao.MeasureDao;
+import biz.dealnote.web.model.DefaultObjectsFactory;
 import biz.dealnote.web.model.Measure;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:spring/business-config.xml")
-@ActiveProfiles("test")
-public class TestMeasureDaoJpa {
+public class TestMeasureDaoJpa extends AbstractDaoJpaTest{
 
-	private static final Integer TEST_ID = 1;
-	private static final String TEST_NAME = "tt";
-	private static final Integer TEST_OUTER_ID = 0;
+	private static final String NEW_MEASURE_NAME = "New name";
 	
 	@Autowired
 	private MeasureDao measureDao;
@@ -34,21 +26,21 @@ public class TestMeasureDaoJpa {
 	@Test
 	@Transactional
 	public void testGetMeasureById() {
-		assertNotNull(measureDao.getMeasureById(TestMeasureDaoJpa.TEST_ID));
+		assertNotNull(measureDao.getMeasureById(DefaultObjectsFactory.DEFAULT_MEASURE_ID));
 	}
 
 	@Test
 	@Transactional
 	public void testSave() {
-		Measure measure = TestMeasureDaoJpa.createMeasure();
+		Measure measure = DefaultObjectsFactory.createDefaultMeasure(null);
 		measureDao.save(measure);
 		assertNotNull(measure.getId());
 		
-		measure.setName(TestMeasureDaoJpa.TEST_NAME);
+		measure.setName(NEW_MEASURE_NAME);
 		measureDao.save(measure);
 		
 		measure = measureDao.getMeasureById(measure.getId());
-		assertEquals(TestMeasureDaoJpa.TEST_NAME, measure.getName());
+		assertEquals(NEW_MEASURE_NAME, measure.getName());
 		
 		measureDao.delete(measure);
 	}
@@ -57,7 +49,7 @@ public class TestMeasureDaoJpa {
 	@Transactional
 	public void testDelete() {
 		int size = measureDao.getAllMeasure().size();
-		Measure measure = TestMeasureDaoJpa.createMeasure();
+		Measure measure = DefaultObjectsFactory.createDefaultMeasure(null);
 		measureDao.save(measure);
 		assertTrue(size < measureDao.getAllMeasure().size());
 		
@@ -65,10 +57,5 @@ public class TestMeasureDaoJpa {
 		assertTrue(size == measureDao.getAllMeasure().size());
 	}
 
-	public static Measure createMeasure(){
-		Measure test = new Measure();
-		test.setName(TestMeasureDaoJpa.TEST_NAME);
-		test.setOuterId(TestMeasureDaoJpa.TEST_OUTER_ID);
-		return test;
-	}
+
 }

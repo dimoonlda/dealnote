@@ -6,18 +6,24 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import biz.dealnote.web.dao.PartDao;
+import biz.dealnote.web.model.DefaultObjectsFactory;
 import biz.dealnote.web.model.Part;
 
 public class PartDaoJpaTest extends AbstractDaoJpaTest{
 
 	private static final Integer TEST_PART_ID = 1010;
 	private static final Integer TEST_PARENT_ID = 1000;
-	private static final String TEST_PART_NAME = "Test Part";
-	private static final String TEST_PART_ROLE_NAME = "TESTROLE";
 	private static final Integer TEST_SORTPOS = 1000;
 	
 	@Autowired
 	private PartDao partDao;
+	
+	private Part parent;
+	
+	private void init(){
+		parent = partDao.getPartById(TEST_PARENT_ID);
+		assertNotNull(parent);
+	}
 	
 	@Test
 	public void testGetParts() {
@@ -32,7 +38,8 @@ public class PartDaoJpaTest extends AbstractDaoJpaTest{
 
 	@Test
 	public void testSave() {
-		Part part = createTestPart();
+		init();
+		Part part = DefaultObjectsFactory.createDefaultPart(null, parent);
 		partDao.save(part);
 		assertNotNull("Object wasn't saved. Id isn't created.", part.getId());
 		
@@ -48,7 +55,8 @@ public class PartDaoJpaTest extends AbstractDaoJpaTest{
 
 	@Test
 	public void testDelete() {
-		Part part = createTestPart();
+		init();
+		Part part = DefaultObjectsFactory.createDefaultPart(null, parent);
 		int size = partDao.getParts().size();
 		partDao.save(part);
 		assertTrue("Object wasn't added.", 
@@ -57,13 +65,5 @@ public class PartDaoJpaTest extends AbstractDaoJpaTest{
 		partDao.delete(part);
 		assertTrue("Object wasn't removed.", 
 				size == partDao.getParts().size());
-	}
-
-	public Part createTestPart(){
-		Part test = new Part();
-		test.setName(TEST_PART_NAME);
-		test.setRoleName(TEST_PART_ROLE_NAME);
-		partDao.getPartById(TEST_PARENT_ID).addPart(test);
-		return test;
 	}
 }
