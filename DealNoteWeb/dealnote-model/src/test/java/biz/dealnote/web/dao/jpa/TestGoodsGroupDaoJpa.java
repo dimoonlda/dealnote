@@ -18,19 +18,16 @@ public class TestGoodsGroupDaoJpa extends AbstractDaoJpaTest{
 	private GoodsGroupDao goodsGroupDao;
 	
 	@Test
-	@Transactional
 	public void testGetAllGoodsGroups() {
 		assertEquals(3, goodsGroupDao.getAllGoodsGroups().size());
 	}
 
 	@Test
-	@Transactional
 	public void testGetGoodsGroupById() {
 		assertNotNull(goodsGroupDao.getGoodsGroupById(DefaultObjectsFactory.DEFAULT_GOODS_GROUP_ID));
 	}
 
 	@Test
-	@Transactional
 	public void testSave() {
 		GoodsGroup group = DefaultObjectsFactory.createDefaultGoodsGroup(null);
 		goodsGroupDao.save(group);
@@ -41,12 +38,9 @@ public class TestGoodsGroupDaoJpa extends AbstractDaoJpaTest{
 		
 		group = goodsGroupDao.getGoodsGroupById(group.getId());
 		assertEquals("Object wasn't updated.", NEW_GROUP_NAME, group.getName());
-		
-		goodsGroupDao.delete(group);
 	}
 
 	@Test
-	@Transactional
 	public void testDelete() {
 		int size = goodsGroupDao.getAllGoodsGroups().size();
 		GoodsGroup group = DefaultObjectsFactory.createDefaultGoodsGroup(null);

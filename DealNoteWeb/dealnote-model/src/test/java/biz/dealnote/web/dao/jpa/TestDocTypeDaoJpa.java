@@ -38,8 +38,6 @@ public class TestDocTypeDaoJpa extends AbstractDaoJpaTest{
 		
 		type = docTypeDao.getDocTypeById(type.getId());
 		assertEquals("Object wasn't updated.", NEW_TYPE_NAME, type.getName());
-		
-		docTypeDao.delete(type);
 	}
 
 	@Test

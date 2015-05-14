@@ -29,7 +29,7 @@ public class TestClientGroupDaoJpa extends AbstractDaoJpaTest{
 	
 	@Test
 	public void testSave() {
-		ClientGroup group = DefaultObjectsFactory.createTestClientGroup(null);
+		ClientGroup group = DefaultObjectsFactory.createDefaultClientGroup(null);
 		clientGroupDao.save(group);
 		assertNotNull("Object wasn't saved. Id isn't created.", group.getId());
 		
@@ -38,14 +38,12 @@ public class TestClientGroupDaoJpa extends AbstractDaoJpaTest{
 		
 		group = clientGroupDao.getGroupById(group.getId());
 		assertEquals("Object wasn't updated.", NEW_GROUP_NAME, group.getName());
-		
-		clientGroupDao.delete(group);
 	}
 
 	@Test
 	public void testDelete() {
 		int size = clientGroupDao.getGroups().size();
-		ClientGroup group = DefaultObjectsFactory.createTestClientGroup(null);
+		ClientGroup group = DefaultObjectsFactory.createDefaultClientGroup(null);
 		clientGroupDao.save(group);
 		assertTrue("Object wasn't added.", 
 				size < clientGroupDao.getGroups().size());

@@ -40,19 +40,16 @@ public class TestClientDaoJpa extends AbstractDaoJpaTest{
 	}
 	
 	@Test
-	@Transactional
 	public void testGetClientsByAgent() {
 		assertEquals(10, clientDao.getClientsByAgent(agent.getId()).size());
 	}
 
 	@Test
-	@Transactional
 	public void testGetClietnById() {
 		assertNotNull(clientDao.getClietnById(TEST_CLIENT_ID));
 	}
 
 	@Test
-	@Transactional
 	public void testSave() {
 		Client client = DefaultObjectsFactory
 				.createDefaultClient(null, agent, clientGroup);
@@ -64,12 +61,9 @@ public class TestClientDaoJpa extends AbstractDaoJpaTest{
 		
 		client = clientDao.getClietnById(client.getId());
 		assertEquals("Object wasn't updated.", NEW_CLIENT_NAME, client.getName());
-		
-		clientDao.deleteById(client.getId());
 	}
 
 	@Test
-	@Transactional
 	public void testDeleteById() {
 		int size = clientDao.getClientsByAgent(agent.getId()).size();
 		Client client = DefaultObjectsFactory

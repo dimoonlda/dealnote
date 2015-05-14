@@ -20,21 +20,18 @@ public class TestAgentDao extends AbstractDaoJpaTest{
 	private static final String NEW_AGENT_NAME = "Test agent";
 	
 	@Test
-	@Transactional
 	public void testGetActiveAgentsList(){
 		Collection<Agent> agents = agentDao.getActiveAgentsList();
 		assertEquals(2, agents.size());
 	}
 	
 	@Test
-	@Transactional
 	public void testGetAgentsList(){
 		Collection<Agent> agents = agentDao.getAgentsList();
 		assertEquals(3, agents.size());
 	}
 	
 	@Test
-	@Transactional
 	public void testDeleteAgentById(){
 		Agent agent = DefaultObjectsFactory.createDefaultAgent(null);
 		agentDao.save(agent);
@@ -49,13 +46,11 @@ public class TestAgentDao extends AbstractDaoJpaTest{
 	}
 	
 	@Test
-	@Transactional
 	public void testGetAgentById(){
 		assertNotNull(agentDao.getAgentById(444));
 	}
 	
 	@Test
-	@Transactional
 	public void testAdd(){
 		Agent agent = DefaultObjectsFactory.createDefaultAgent(null);
 		
@@ -63,12 +58,9 @@ public class TestAgentDao extends AbstractDaoJpaTest{
 		agentDao.save(agent);
 		
 		assertTrue(size < agentDao.getAgentsList().size());
-		
-		agentDao.deleteAgentById(agent.getId());
 	}
 	
 	@Test
-	@Transactional
 	public void testUpdate(){
 		Agent agent = DefaultObjectsFactory.createDefaultAgent(null);
 		agentDao.save(agent);
@@ -78,7 +70,5 @@ public class TestAgentDao extends AbstractDaoJpaTest{
 		
 		Agent agentRes = agentDao.getAgentById(agent.getId());
 		assertEquals(NEW_AGENT_NAME, agentRes.getName());
-		
-		agentDao.deleteAgentById(agent.getId());
 	}
 }

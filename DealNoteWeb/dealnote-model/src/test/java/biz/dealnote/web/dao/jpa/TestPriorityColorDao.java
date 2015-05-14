@@ -42,8 +42,6 @@ public class TestPriorityColorDao extends AbstractDaoJpaTest{
 		
 		color = priorityColorDao.getPriorityColorById(color.getId());
 		assertEquals("TEST", color.getDescription());
-		
-		priorityColorDao.delete(color);
 	}
 
 	@Test

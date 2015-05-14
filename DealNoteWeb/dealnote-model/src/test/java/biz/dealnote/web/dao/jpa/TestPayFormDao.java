@@ -18,19 +18,16 @@ public class TestPayFormDao extends AbstractDaoJpaTest{
 	private PayFormDao payFormDao;
 	
 	@Test
-	@Transactional
 	public void testGetAllPayForms() {
 		assertEquals(3, payFormDao.getAllPayForms().size());
 	}
 
 	@Test
-	@Transactional
 	public void testGetPayFormById() {
 		assertNotNull(payFormDao.getPayFormById(DefaultObjectsFactory.DEFAULT_PAY_FORM_ID));
 	}
 
 	@Test
-	@Transactional
 	public void testSave() {
 		PayForm form = DefaultObjectsFactory.createDefaultPayForm(null);
 		payFormDao.save(form);
@@ -41,12 +38,9 @@ public class TestPayFormDao extends AbstractDaoJpaTest{
 		
 		form = payFormDao.getPayFormById(form.getId());
 		assertEquals(NEW_PAY_FORM_NAME, form.getName());
-		
-		payFormDao.delete(form);
 	}
 
 	@Test
-	@Transactional
 	public void testDelete() {
 		int size = payFormDao.getAllPayForms().size();
 		PayForm form = DefaultObjectsFactory.createDefaultPayForm(null);

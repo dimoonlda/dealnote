@@ -62,8 +62,6 @@ public class DocumentDetailDaoJpaTest extends AbstractDaoJpaTest{
 				.collect(Collectors.toList())
 				.get(0);
 		assertEquals("Object wasn't updated.", NEW_ITEM_COUNT, detail.getItemcount());
-		
-		documentDetailDao.delete(detail);
 	}
 
 	@Test

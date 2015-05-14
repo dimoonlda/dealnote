@@ -41,8 +41,6 @@ public class UserDaoJpaTest extends AbstractDaoJpaTest{
 		assertEquals("Object wasn't updated.", 
 				NEW_USER_FIO, 
 				user.getFio());
-		
-		userDao.delete(user);
 	}
 
 	@Test

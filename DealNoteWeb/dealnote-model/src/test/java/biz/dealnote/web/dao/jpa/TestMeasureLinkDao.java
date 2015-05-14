@@ -89,8 +89,6 @@ public class TestMeasureLinkDao extends AbstractDaoJpaTest{
 		
 		link = measureLinkDao.getMeasureLinkById(link.getId());
 		assertEquals(TestMeasureLinkDao.NEW_SRC_VALUE, link.getSrcValue());
-		
-		measureLinkDao.delete(link.getId());
 	}
 	
 	@Test

@@ -61,8 +61,6 @@ public class DeviceSerialNumberDaoJpaTest extends AbstractDaoJpaTest{
 		sn = deviceSerialNumberDao.getDeviceSerialNumberById(sn.getId());
 		assertEquals("Object wasn't updated.", TEST_DESCRIPTION, sn.getDescription());
 		assertNotNull("User wasn't saved.", sn.getUser());
-		
-		deviceSerialNumberDao.delete(sn);
 	}
 
 	@Test

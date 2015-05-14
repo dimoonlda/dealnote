@@ -17,6 +17,24 @@
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-remote-resources-plugin</artifactId>
+				<version>1.5</version>
+				<configuration>
+					<resourceBundles>
+						<resourceBundle>biz.dealnote:dealnote-shared-resources:${shared.resources}</resourceBundle>
+					</resourceBundles>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>process</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		
+			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.4</version>
 				<configuration>
@@ -27,6 +45,12 @@
 		</plugins>
 	</build>
 	<dependencies>
+		<dependency>
+			<groupId>biz.dealnote</groupId>
+			<artifactId>dealnote-shared-resources</artifactId>
+			<version>${shared.resources}</version>
+		</dependency>
+	
 		<dependency>
 			<groupId>biz.dealnote</groupId>
 			<artifactId>dealnote-model</artifactId>

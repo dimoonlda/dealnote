@@ -18,19 +18,16 @@ public class TestMeasureDaoJpa extends AbstractDaoJpaTest{
 	private MeasureDao measureDao;
 	
 	@Test
-	@Transactional
 	public void testGetAllMeasure() {
 		assertEquals(15, measureDao.getAllMeasure().size());
 	}
 
 	@Test
-	@Transactional
 	public void testGetMeasureById() {
 		assertNotNull(measureDao.getMeasureById(DefaultObjectsFactory.DEFAULT_MEASURE_ID));
 	}
 
 	@Test
-	@Transactional
 	public void testSave() {
 		Measure measure = DefaultObjectsFactory.createDefaultMeasure(null);
 		measureDao.save(measure);
@@ -41,12 +38,9 @@ public class TestMeasureDaoJpa extends AbstractDaoJpaTest{
 		
 		measure = measureDao.getMeasureById(measure.getId());
 		assertEquals(NEW_MEASURE_NAME, measure.getName());
-		
-		measureDao.delete(measure);
 	}
 
 	@Test
-	@Transactional
 	public void testDelete() {
 		int size = measureDao.getAllMeasure().size();
 		Measure measure = DefaultObjectsFactory.createDefaultMeasure(null);

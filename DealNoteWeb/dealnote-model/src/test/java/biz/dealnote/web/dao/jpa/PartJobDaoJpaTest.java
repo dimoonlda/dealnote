@@ -78,8 +78,6 @@ public class PartJobDaoJpaTest extends AbstractDaoJpaTest{
 		
 		partJob = partJobDao.getPartJobById(partJob.getId());
 		assertEquals("Object wasn't updated.", NEW_IS_ACTIVE, partJob.getIsActive());
-		
-		partJobDao.delete(partJob);
 	}
 
 	@Test

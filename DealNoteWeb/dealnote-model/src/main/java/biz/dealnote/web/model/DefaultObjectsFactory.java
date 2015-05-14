@@ -119,7 +119,7 @@ public final class DefaultObjectsFactory {
 		return test;
 	}
 	
-	public static ClientGroup createTestClientGroup(Integer id){
+	public static ClientGroup createDefaultClientGroup(Integer id){
 		ClientGroup test = new ClientGroup();
 		test.setId(id);
 		test.setName(DEFAULT_NAME);
@@ -172,6 +172,7 @@ public final class DefaultObjectsFactory {
 		Job test = new Job();
 		test.setId(id);
 		test.setName(DEFAULT_NAME);
+		test.setRoleName("ROLE_NAME");
 		return test;
 	}
 	
@@ -185,7 +186,10 @@ public final class DefaultObjectsFactory {
 		detail.setDocument(doc);
 		return detail;
 	}
-	
+	public static Document createDefaultDocument(Integer id){
+		return createDefaultDocument(id, null, null, null, null, null);
+	}
+			
 	public static Document createDefaultDocument(Integer id, 
 			DateTime docDate,
 			Agent agent, 
@@ -199,9 +203,10 @@ public final class DefaultObjectsFactory {
 		test.setDocDate(docDate != null ? docDate : DateTime.now());
 		test.setDocType(docType);
 		test.setSaleType((short)2);
-		
-		details.forEach(detail -> detail.setDocument(test));
-		test.getDetails().addAll(details);
+		if(details != null){
+			details.forEach(detail -> detail.setDocument(test));
+			test.getDetails().addAll(details);
+		}
 		return test;
 	}
 	
@@ -210,6 +215,14 @@ public final class DefaultObjectsFactory {
 		test.setId(id);
 		test.setSerialNumber("TEST_SERIAL_NUMBER");
 		test.setUser(user);
+		return test;
+	}
+	
+	public static Route createDefaultRoute(Integer id){
+		Route test = new Route();
+		test.setId(id);
+		test.setName(DEFAULT_NAME);
+		test.setOuterId(0);
 		return test;
 	}
 }

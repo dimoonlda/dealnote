@@ -74,8 +74,6 @@ public class DocumentDaoJpaTest extends AbstractDaoJpaTest{
 		
 		doc = documentDao.getDocById(doc.getId());
 		assertEquals("Object wasn't updated.", TEST_DOCUMENT_DESCRIPTION, doc.getDescript());
-		
-		documentDao.delete(doc);
 	}
 
 	@Test

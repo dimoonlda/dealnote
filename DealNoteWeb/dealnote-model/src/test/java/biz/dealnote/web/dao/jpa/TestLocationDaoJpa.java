@@ -14,7 +14,6 @@ import biz.dealnote.web.model.Location;
 
 public class TestLocationDaoJpa extends AbstractDaoJpaTest{
 
-	//private static final Integer TEST_ID = 1;
 	private static final DateTime TEST_DATE = new DateTime(2013, 8, 20, 0, 0);
 	private static final Integer TEST_AGENT_ID = 444;
 	private static final String NEW_PROVIDER = "Test";
@@ -54,8 +53,6 @@ public class TestLocationDaoJpa extends AbstractDaoJpaTest{
 		
 		loc.setProvider(NEW_PROVIDER);
 		locationDao.save(loc);
-		
-		locationDao.delete(loc);
 	}
 
 	@Test

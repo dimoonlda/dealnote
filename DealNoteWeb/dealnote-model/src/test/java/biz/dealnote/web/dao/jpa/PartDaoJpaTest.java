@@ -49,8 +49,6 @@ public class PartDaoJpaTest extends AbstractDaoJpaTest{
 		part = partDao.getPartById(part.getId());
 		assertEquals("Object wasn't updated.", TEST_SORTPOS, part.getSortPos());
 		assertNotNull("Parent wasn't set up.", part.getParent());
-		
-		partDao.delete(part);
 	}
 
 	@Test

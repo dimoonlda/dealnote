@@ -57,8 +57,6 @@ public class TestGoodsDaoJpa extends AbstractDaoJpaTest{
 		
 		goods = goodsDao.getGoodsById(goods.getId());
 		assertEquals("Object wasn't updated.", NEW_GOODS_NAME, goods.getName());
-		
-		goodsDao.delete(goods);
 	}
 
 	@Test

@@ -39,8 +39,6 @@ public class JobDaoJpaTest extends AbstractDaoJpaTest{
 		
 		job = jobDao.getJobById(job.getId());
 		assertEquals("Object wasn't updated.", TEST_JOB_ROLE_NAME, job.getRoleName());
-		
-		jobDao.delete(job);
 	}
 
 	@Test

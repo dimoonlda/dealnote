@@ -7,7 +7,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>dealnote-model</artifactId>
-	<version>0.0.7-SNAPSHOT</version>
+	<version>0.0.8-SNAPSHOT</version>
 	<name>DealNote model</name>
 
 	<dependencies>
@@ -110,7 +110,7 @@
 				<version>1.5</version>
 				<configuration>
 					<resourceBundles>
-						<resourceBundle>biz.dealnote:dealnote-shared-resources:${shared.resources}</resourceBundle>
+						<resourceBundle>biz.dealnote:dealnote-shared-resources:0.0.1-SNAPSHOT</resourceBundle>
 					</resourceBundles>
 				</configuration>
 				<executions>
