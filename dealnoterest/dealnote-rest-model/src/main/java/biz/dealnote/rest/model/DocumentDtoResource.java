@@ -1,7 +1,6 @@
 package biz.dealnote.rest.model;
 
-import java.util.Collection;
-
+import java.util.Arrays;
 import biz.dealnote.rest.model.dto.DocumentDto;
 
 public class DocumentDtoResource extends AbstractModelResource<DocumentDto> {
@@ -11,11 +10,11 @@ public class DocumentDtoResource extends AbstractModelResource<DocumentDto> {
 	public DocumentDtoResource() {}
 
 	public DocumentDtoResource(RestClientInfo restClient, 
-			Collection<DocumentDto> data) {
-		super(data);
+			DocumentDto data){
+		super(Arrays.asList(data));
 		this.restClient = restClient;
 	}
-
+	
 	public RestClientInfo getRestClient() {
 		return restClient;
 	}
