@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import biz.dealnote.rest.controllers.DealNoteRestController;
 import biz.dealnote.rest.controllers.exceptions.CreateDtoException;
 import biz.dealnote.rest.model.dto.AgentGoodsDto;
 import biz.dealnote.rest.model.dto.AgentSettingsDto;
@@ -25,6 +24,7 @@ import biz.dealnote.rest.model.dto.MeasureDto;
 import biz.dealnote.rest.model.dto.MeasureLinkDto;
 import biz.dealnote.rest.model.dto.PriorityColorDto;
 import biz.dealnote.rest.model.dto.RouteDto;
+import biz.dealnote.rest.model.dto.WsServerDto;
 import biz.dealnote.web.dao.AgentDAO;
 import biz.dealnote.web.dao.ClientDAO;
 import biz.dealnote.web.dao.DocTypeDao;
@@ -45,6 +45,7 @@ import biz.dealnote.web.model.Measure;
 import biz.dealnote.web.model.MeasureLink;
 import biz.dealnote.web.model.PriorityColor;
 import biz.dealnote.web.model.Route;
+import biz.dealnote.web.model.WsServer;
 
 @Service
 public class DtoConverterServiceImpl implements DtoConverterService {
@@ -347,7 +348,7 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 	}
 
 	@Override
-	public Optional<Document> biuldDocument(DocumentDto docDto) {
+	public Optional<Document> buildDocument(DocumentDto docDto) {
 		final Document document = new Document();
 		try{
 			document.setAgent(agentDao.getAgentById(docDto.agentId));
@@ -393,6 +394,27 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 			logger.error(String.format("Error when building document detail."), e);
 		}
 		return Optional.ofNullable(detail);
+	}
+
+	@Override
+	public WsServerDto buildWsServerDto(WsServer server) {
+		WsServerDto dto = new WsServerDto(server.getId(), 
+				server.getServerAddress(), 
+				server.getDescription(),
+				server.getIsDefault());
+		return dto;
+	}
+
+	@Override
+	public Collection<WsServerDto> buildWsServerDtoCollection(
+			Collection<WsServer> serversCol) throws CreateDtoException {
+		try{
+			return serversCol.stream()
+					.map((g) -> buildWsServerDto(g))
+					.collect(Collectors.toList());
+		}catch(Exception e){
+			throw new CreateDtoException("Build WsServerDto collection exception. ", e);
+		}
 	}
 
 }

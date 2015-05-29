@@ -18,6 +18,7 @@ import biz.dealnote.web.dao.MeasureDao;
 import biz.dealnote.web.dao.MeasureLinkDao;
 import biz.dealnote.web.dao.PriorityColorDao;
 import biz.dealnote.web.dao.RouteDao;
+import biz.dealnote.web.dao.WsServerDao;
 import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.AgentGoods;
 import biz.dealnote.web.model.Client;
@@ -30,6 +31,7 @@ import biz.dealnote.web.model.Measure;
 import biz.dealnote.web.model.MeasureLink;
 import biz.dealnote.web.model.PriorityColor;
 import biz.dealnote.web.model.Route;
+import biz.dealnote.web.model.WsServer;
 
 @Service
 public class DealNoteRestServiceImpl implements DealNoteRestService {
@@ -46,20 +48,16 @@ public class DealNoteRestServiceImpl implements DealNoteRestService {
 	private MeasureLinkDao measureLinkDao;
 	private LocationDAO locationDao;
 	private DocumentDao documentDao;
+	private WsServerDao wsServerDao;
+	
 	
 	@Autowired
 	public DealNoteRestServiceImpl(GoodsGroupDao goodsGroupDao,
-			ClientDAO clientDao,
-			ClientGroupDao clientGroupDao,
-			MeasureDao measureDao,
-			RouteDao routeDao,
-			GoodsDao goodsDao,
-			AgentDAO agentDao,
-			AgentGoodsDao agentGoodsDao,
-			PriorityColorDao priorityColorDao,
-			MeasureLinkDao measureLinkDao,
-			LocationDAO locationDao,
-			DocumentDao documentDao) {
+			ClientDAO clientDao, ClientGroupDao clientGroupDao,
+			MeasureDao measureDao, RouteDao routeDao, GoodsDao goodsDao,
+			AgentDAO agentDao, AgentGoodsDao agentGoodsDao,
+			PriorityColorDao priorityColorDao, MeasureLinkDao measureLinkDao,
+			LocationDAO locationDao, DocumentDao documentDao, WsServerDao wsServerDao) {
 		this.goodsGroupDao = goodsGroupDao;
 		this.clientDao = clientDao;
 		this.clientGroupDao = clientGroupDao;
@@ -72,8 +70,9 @@ public class DealNoteRestServiceImpl implements DealNoteRestService {
 		this.measureLinkDao = measureLinkDao;
 		this.locationDao = locationDao;
 		this.documentDao = documentDao;
+		this.wsServerDao = wsServerDao;
 	}
-	
+
 	@Transactional(readOnly = true)
 	@Override
 	public GoodsGroup getGoodsGroupById(int id) {
@@ -119,7 +118,7 @@ public class DealNoteRestServiceImpl implements DealNoteRestService {
 	@Override
 	@Transactional(readOnly = true)
 	public Agent getAgentById(int id) {
-		return (Agent) agentDao.getAgentById(id);
+		return agentDao.getAgentById(id);
 	}
 
 	@Override
@@ -171,5 +170,11 @@ public class DealNoteRestServiceImpl implements DealNoteRestService {
 	@Transactional
 	public void save(Document doc) {
 		documentDao.save(doc);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Collection<WsServer> getWsServers() {
+		return wsServerDao.getServers();
 	}
 }

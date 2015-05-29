@@ -18,9 +18,19 @@
 
     <context:property-placeholder location="classpath:spring/data-access.properties" system-properties-mode="OVERRIDE"/>
 	
-	<beans profile="test">
+		<beans profile="test">
     	<jdbc:embedded-database id="dataSource" type="HSQL">
         	<jdbc:script location="classpath:sql/schema.sql"/>
+        	<jdbc:script location="classpath:sql/measures.sql"/>
+        	<jdbc:script location="classpath:sql/goods.sql"/>
+        	<jdbc:script location="classpath:sql/measurelink.sql"/>
+   			<jdbc:script location="classpath:sql/payform.sql"/>     	        	
+        	<jdbc:script location="classpath:sql/doctype.sql"/>
+        	<jdbc:script location="classpath:sql/document.sql"/>
+        	<jdbc:script location="classpath:sql/locationSaveState.sql"/>
+        	<jdbc:script location="classpath:sql/location.sql"/>
+        	<jdbc:script location="classpath:sql/user.sql"/>
+        	<jdbc:script location="classpath:sql/partjobs.sql"/>
         	<jdbc:script location="classpath:sql/test-data.sql"/>
     	</jdbc:embedded-database>
 	</beans>

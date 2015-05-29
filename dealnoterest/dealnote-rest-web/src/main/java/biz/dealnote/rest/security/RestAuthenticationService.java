@@ -14,11 +14,10 @@ import biz.dealnote.web.dao.UserDao;
 
 public class RestAuthenticationService implements AuthenticationService {
 
-	@Autowired
 	private UserDao userDao;
 	
-	@Autowired
-	private ApplicationContext applicationContext;
+//	@Autowired
+//	private ApplicationContext applicationContext;
 
 	private final AuthenticationManager authenticationManager;
 
@@ -49,6 +48,11 @@ public class RestAuthenticationService implements AuthenticationService {
 			logger.error(String.format("User authentication error: login = %s", userName), e);
 		}
 		return false;
+	}
+	
+	@Autowired
+	public void setUserDao(UserDao userDao){
+		this.userDao = userDao;
 	}
 
 }

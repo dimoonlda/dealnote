@@ -21,4 +21,7 @@ public class DealNoteUserDetailService implements UserDetailsService {
 		return new UserContext(user);
 	}
 
+	public void setUserDao(UserDao userDao){
+		this.userDao = userDao;
+	}
 }

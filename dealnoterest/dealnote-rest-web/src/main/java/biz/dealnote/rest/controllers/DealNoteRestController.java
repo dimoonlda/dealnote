@@ -2,13 +2,12 @@ package biz.dealnote.rest.controllers;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +30,7 @@ import biz.dealnote.rest.model.MeasureLinksDtoResource;
 import biz.dealnote.rest.model.PriorityColorDtoResource;
 import biz.dealnote.rest.model.RestClientInfo;
 import biz.dealnote.rest.model.RoutesDtoResource;
+import biz.dealnote.rest.model.WsServerDtoResource;
 import biz.dealnote.rest.model.dto.AgentGoodsDto;
 import biz.dealnote.rest.model.dto.AgentSettingsDto;
 import biz.dealnote.rest.model.dto.ClientDto;
@@ -38,17 +38,16 @@ import biz.dealnote.rest.model.dto.ClientGroupDto;
 import biz.dealnote.rest.model.dto.DocumentDto;
 import biz.dealnote.rest.model.dto.GoodsDto;
 import biz.dealnote.rest.model.dto.GoodsGroupDto;
-import biz.dealnote.rest.model.dto.LocationDto;
 import biz.dealnote.rest.model.dto.MeasureDto;
 import biz.dealnote.rest.model.dto.MeasureLinkDto;
 import biz.dealnote.rest.model.dto.PriorityColorDto;
 import biz.dealnote.rest.model.dto.RouteDto;
+import biz.dealnote.rest.model.dto.WsServerDto;
 import biz.dealnote.rest.service.DealNoteRestService;
 import biz.dealnote.rest.service.DtoConverterService;
 import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.Document;
 import biz.dealnote.web.model.Location;
-import biz.dealnote.web.model.PriorityColor;
 
 @RestController
 @RequestMapping("/restfull")
@@ -60,19 +59,15 @@ public class DealNoteRestController {
 	
 	private DealNoteRestService dealNoteRestService;
 	
-	@Autowired
 	private DtoConverterService dtoConverterService;
 	
 	@Autowired
-	public DealNoteRestController(DealNoteRestService dealNoteRestService) {
+	public DealNoteRestController(DealNoteRestService dealNoteRestService,
+			DtoConverterService dtoConverterService) {
 		this.dealNoteRestService = dealNoteRestService;
+		this.dtoConverterService = dtoConverterService;
 	}
 	
-	@RequestMapping(value="/test", method=RequestMethod.GET)
-	public RestClientInfo test(){
-		return new RestClientInfo(1, 100, "1234567890", "test", "testPass");
-	}
-		
 	@RequestMapping(value = "/goodsgroups", method = RequestMethod.POST)
 	public GoodsGroupDtoResource getAllGoodsGroup(@RequestBody RestClientInfo client) throws RequestHandledException{
 		try{
@@ -157,6 +152,23 @@ public class DealNoteRestController {
 			
 			throw new RequestHandledException(
 					String.format("Exception when getting routes for agentId: %d", client.getAgentId()), ex);
+		}
+	}
+
+	@RequestMapping(value = "/wsservers", method = RequestMethod.POST)
+	public WsServerDtoResource getWsServers(@RequestBody RestClientInfo client) throws RequestHandledException{
+		try{
+			checkClient(client);
+			checkAgentAndReturn(client.getAgentId());
+			Collection<WsServerDto> servers = dtoConverterService
+					.buildWsServerDtoCollection(dealNoteRestService.getWsServers());
+			logger.info(String.format("%s: got servers list. Size: %d", client, servers.size()));
+			return new WsServerDtoResource(servers);
+		}catch(Exception ex){
+			logger.error(String.format("%s: error when getting servers list. ", client), ex);
+			
+			throw new RequestHandledException(
+					String.format("Exception when getting servers for agentId: %d", client.getAgentId()), ex);
 		}
 	}
 
@@ -277,9 +289,14 @@ public class DealNoteRestController {
 		}
 		
 	}
-	
+	/**
+	 * Save Document in DB.
+	 * @param docRes posted data
+	 * @return id of saved document or -1 when document is null
+	 * @throws RequestHandledException When there is a failure in processing posted data.
+	 */
 	@RequestMapping(value = "/documents", method = RequestMethod.POST)
-	public void saveDocument(@RequestBody DocumentDtoResource docRes) 
+	public ResponseEntity<Integer> saveDocument(@RequestBody DocumentDtoResource docRes) 
 			throws RequestHandledException{
 		RestClientInfo client = docRes.getRestClient();
 		try{
@@ -289,25 +306,24 @@ public class DealNoteRestController {
 			Document doc = null;
 			if(!docRes.getDataArray().isEmpty()){
 				DocumentDto docDto = docRes.getDataArray().iterator().next();
-				doc = dtoConverterService.biuldDocument(docDto)
+				doc = dtoConverterService.buildDocument(docDto)
 						.orElseThrow(NullPointerException::new);
 				dealNoteRestService.save(doc);
 				logger.info(String.format("%s: saved agent's document. ID: %d", client, doc.getId()));
 			}
-			
+			return new ResponseEntity<Integer>(doc.getId(), HttpStatus.OK);
 		}catch(Exception ex){
 			logger.error(String.format("%s: error when saving document. ", client), ex);
 		
 			throw new RequestHandledException(
 					String.format("Exception when saving document for agentId: %d", client.getAgentId()), ex);
 		}
-
 	}
 
 	/**
 	 * Check if client has right data.
 	 * @param client
-	 * @throws WrongRestClientException
+	 * @throws WrongRestClientException 
 	 */
 	private void checkClient(RestClientInfo client) throws WrongRestClientException{
 		if(client == null){

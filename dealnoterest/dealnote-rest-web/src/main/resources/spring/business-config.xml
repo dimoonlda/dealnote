@@ -55,7 +55,7 @@
 					p:databasePlatform="org.hibernate.dialect.HSQLDialect" />
 			</property>
 			<property name="persistenceUnitName" value="dealNote" />
-			<property name="packagesToScan" value="biz.dealnote.web.model" />
+			<property name="packagesToScan" value="biz.dealnote.web" />
 		</bean>
 	</beans>
 	

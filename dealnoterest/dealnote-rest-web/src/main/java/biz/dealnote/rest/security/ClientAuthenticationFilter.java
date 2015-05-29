@@ -42,7 +42,7 @@ public class ClientAuthenticationFilter extends GenericFilterBean {
 				|| serialNumber == null 
 				|| !authenticationService
 					.authenticateAndCheckSerialNumber(userName, passwd, serialNumber)){
-			response.sendError( HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized: Authentication token was either missing or invalid." );
+			response.sendError( HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized: Authentication pair of login and password were missing or invalid." );
 		}else{
 			chain.doFilter(request, response);
 		}

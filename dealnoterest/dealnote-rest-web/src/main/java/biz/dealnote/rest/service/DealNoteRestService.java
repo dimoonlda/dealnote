@@ -14,6 +14,7 @@ import biz.dealnote.web.model.Measure;
 import biz.dealnote.web.model.MeasureLink;
 import biz.dealnote.web.model.PriorityColor;
 import biz.dealnote.web.model.Route;
+import biz.dealnote.web.model.WsServer;
 
 public interface DealNoteRestService {
 
@@ -33,4 +34,5 @@ public interface DealNoteRestService {
 	public void deleteLocation(Location location);
 	public void save(PriorityColor priority);
 	public void save(Document doc);
+	public Collection<WsServer> getWsServers();
 }
