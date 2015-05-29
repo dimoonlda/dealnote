@@ -225,4 +225,13 @@ public final class DefaultObjectsFactory {
 		test.setOuterId(0);
 		return test;
 	}
+	
+	public static WsServer createDefaultWsServer(Integer id){
+		WsServer test = new WsServer();
+		test.setId(id);
+		test.setServerAddress(DEFAULT_NAME);
+		test.setDescription(DEFAULT_DESCRIPTION);
+		test.setIsDefault(DEFAULT_IS_ACTIVE);
+		return test;
+	}
 }
