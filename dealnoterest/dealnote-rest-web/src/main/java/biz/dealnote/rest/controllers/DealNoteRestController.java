@@ -23,12 +23,14 @@ import biz.dealnote.rest.model.AgentGoodsDtoResource;
 import biz.dealnote.rest.model.AgentSettingsDtoResource;
 import biz.dealnote.rest.model.ClientGroupsDtoResource;
 import biz.dealnote.rest.model.ClientDtoResource;
+import biz.dealnote.rest.model.DocTypeDtoResource;
 import biz.dealnote.rest.model.DocumentDtoResource;
 import biz.dealnote.rest.model.GoodsGroupDtoResource;
 import biz.dealnote.rest.model.GoodsDtoResource;
 import biz.dealnote.rest.model.LocationDtoResource;
 import biz.dealnote.rest.model.MeasureDtoResource;
 import biz.dealnote.rest.model.MeasureLinksDtoResource;
+import biz.dealnote.rest.model.PayFormDtoResource;
 import biz.dealnote.rest.model.PriorityColorDtoResource;
 import biz.dealnote.rest.model.RestClientInfo;
 import biz.dealnote.rest.model.RoutesDtoResource;
@@ -37,11 +39,13 @@ import biz.dealnote.rest.model.dto.AgentGoodsDto;
 import biz.dealnote.rest.model.dto.AgentSettingsDto;
 import biz.dealnote.rest.model.dto.ClientDto;
 import biz.dealnote.rest.model.dto.ClientGroupDto;
+import biz.dealnote.rest.model.dto.DocTypeDto;
 import biz.dealnote.rest.model.dto.DocumentDto;
 import biz.dealnote.rest.model.dto.GoodsDto;
 import biz.dealnote.rest.model.dto.GoodsGroupDto;
 import biz.dealnote.rest.model.dto.MeasureDto;
 import biz.dealnote.rest.model.dto.MeasureLinkDto;
+import biz.dealnote.rest.model.dto.PayFormDto;
 import biz.dealnote.rest.model.dto.PriorityColorDto;
 import biz.dealnote.rest.model.dto.RouteDto;
 import biz.dealnote.rest.model.dto.WsServerDto;
@@ -188,6 +192,40 @@ public class DealNoteRestController {
 			
 			throw new RequestHandledException(
 					String.format("Exception when getting priority color for agentId: %d", client.getAgentId()), ex);
+		}
+	}
+
+	@RequestMapping(value = "/documenttypes", method = RequestMethod.POST)
+	public DocTypeDtoResource getDocumentTypes(@RequestBody RestClientInfo client) throws RequestHandledException{
+		try{
+			checkClient(client);
+			checkAgentAndReturn(client.getAgentId());
+			Collection<DocTypeDto> types = dtoConverterService
+					.buildDocTypeDtoCollection(dealNoteRestService.getDocTypes());
+			logger.info(String.format("%s: got document types. Size: %d", client, types.size()));
+			return new DocTypeDtoResource(types);
+		}catch(Exception ex){
+			logger.error(String.format("%s: error when getting document types. ", client), ex);
+			
+			throw new RequestHandledException(
+					String.format("Exception when getting document types for agentId: %d", client.getAgentId()), ex);
+		}
+	}
+
+	@RequestMapping(value = "/payforms", method = RequestMethod.POST)
+	public PayFormDtoResource getPayForms(@RequestBody RestClientInfo client) throws RequestHandledException{
+		try{
+			checkClient(client);
+			checkAgentAndReturn(client.getAgentId());
+			Collection<PayFormDto> forms = dtoConverterService
+					.buildPayFormDtoCollection(dealNoteRestService.getPayForms());
+			logger.info(String.format("%s: got pay forms. Size: %d", client, forms.size()));
+			return new PayFormDtoResource(forms);
+		}catch(Exception ex){
+			logger.error(String.format("%s: error when getting pay forms. ", client), ex);
+			
+			throw new RequestHandledException(
+					String.format("Exception when getting pay forms for agentId: %d", client.getAgentId()), ex);
 		}
 	}
 

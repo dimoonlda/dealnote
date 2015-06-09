@@ -24,12 +24,14 @@ import biz.dealnote.rest.model.dto.AgentGoodsDto;
 import biz.dealnote.rest.model.dto.AgentSettingsDto;
 import biz.dealnote.rest.model.dto.ClientDto;
 import biz.dealnote.rest.model.dto.ClientGroupDto;
+import biz.dealnote.rest.model.dto.DocTypeDto;
 import biz.dealnote.rest.model.dto.DocumentDto;
 import biz.dealnote.rest.model.dto.GoodsDto;
 import biz.dealnote.rest.model.dto.GoodsGroupDto;
 import biz.dealnote.rest.model.dto.LocationDto;
 import biz.dealnote.rest.model.dto.MeasureDto;
 import biz.dealnote.rest.model.dto.MeasureLinkDto;
+import biz.dealnote.rest.model.dto.PayFormDto;
 import biz.dealnote.rest.model.dto.PriorityColorDto;
 import biz.dealnote.rest.model.dto.RouteDto;
 import biz.dealnote.rest.model.dto.WsServerDto;
@@ -44,8 +46,8 @@ import biz.dealnote.web.model.Location;
 public class DealNoteRestControllerTest{
 
 	private static final String REQUEST_BODY = "{\"clientType\":\"1\",\"agentId\":\"444\"}"; 
-	private static final String LOCATION_REQUEST_BODY = "{\"restClient\":{\"clientType\":\"1\",\"agentId\":\"444\",\"serialNumber\":\"123456789\",\"login\":\"test\",\"pass\":\"testpass\"},\"size\":2,\"dataArray\":[{\"longitude\":1212323.56,\"latitude\":456734522.0,\"creationDate\":1427654365,\"provider\":\"gps\",\"accuracy\":1,\"searchtime\":87,\"savestate\":1,\"battery\":45,\"agentId\":444},{\"longitude\":1212323.56,\"latitude\":456734522.0,\"creationDate\":1427654365,\"provider\":\"gps\",\"accuracy\":1,\"searchtime\":22,\"savestate\":1,\"battery\":77,\"agentId\":444}]}";
-	private static final String DOCUMENT_REQUEST_BODY = "{\"restClient\":{\"clientType\":\"1\",\"agentId\":\"444\",\"serialNumber\":\"123456789\",\"login\":\"test\",\"pass\":\"testpass\"},\"size\":1,\"dataArray\":[{\"id\":121,\"clientId\":3,\"agentId\":444,\"docTypeId\":1,\"linkId\":123234,\"docDate\":1429041182,\"discount\":8,\"saleType\":1,\"termDate\":1429041182,\"sumWithoutVat\":123.0,\"sumWithVat\":522.0,\"descript\":\"Test кирилица\",\"regNum\":\"W444\",\"longitude\":50.2345,\"latitude\":51.5436677,\"itemCount\":222,\"details\":[{\"id\":12,\"goodsId\":2,\"itemcount\":12.0,\"priceWithoutVat\":1.2,\"priceWithVat\":1.8},{\"id\":13,\"goodsId\":3,\"itemcount\":142,\"priceWithoutVat\":123.99,\"priceWithVat\":134.0}]}]}";
+	private static final String LOCATION_REQUEST_BODY = "{\"restClient\":{\"clientType\":\"1\",\"agentId\":\"444\"},\"size\":2,\"dataArray\":[{\"longitude\":1212323.56,\"latitude\":456734522.0,\"creationDate\":1427654365,\"provider\":\"gps\",\"accuracy\":1,\"searchtime\":87,\"savestate\":1,\"battery\":45,\"agentId\":444},{\"longitude\":1212323.56,\"latitude\":456734522.0,\"creationDate\":1427654365,\"provider\":\"gps\",\"accuracy\":1,\"searchtime\":22,\"savestate\":1,\"battery\":77,\"agentId\":444}]}";
+	private static final String DOCUMENT_REQUEST_BODY = "{\"restClient\":{\"clientType\":\"1\",\"agentId\":\"444\"},\"size\":1,\"dataArray\":[{\"id\":121,\"clientId\":3,\"agentId\":444,\"docTypeId\":1,\"linkId\":123234,\"docDate\":1429041182,\"discount\":8,\"saleType\":1,\"termDate\":1429041182,\"sumWithoutVat\":123.0,\"sumWithVat\":522.0,\"descript\":\"Test кирилица\",\"regNum\":\"W444\",\"longitude\":50.2345,\"latitude\":51.5436677,\"itemCount\":222,\"details\":[{\"id\":12,\"goodsId\":2,\"itemcount\":12.0,\"priceWithoutVat\":1.2,\"priceWithVat\":1.8},{\"id\":13,\"goodsId\":3,\"itemcount\":142,\"priceWithoutVat\":123.99,\"priceWithVat\":134.0}]}]}";
 	private static final String CONTENT_TYPE = "application/json;charset=UTF-8";
 	private static final Agent AGENT = createDefaultAgent(DEFAULT_AGENT_ID, createDefaultUser(1));
 	
@@ -171,6 +173,38 @@ public class DealNoteRestControllerTest{
 				new PriorityColorDto(2, null, null)));
 		
 		this.mockMvc.perform(post("/restfull/prioritycolors")
+				.accept(MediaType.parseMediaType(CONTENT_TYPE))
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(REQUEST_BODY))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(CONTENT_TYPE))
+        .andExpect(jsonPath("$.size").value(2))
+        .andExpect(jsonPath("$.dataArray[0].id").value(1));
+	}
+
+	@Test
+	public void testGetDocumentTypes() throws Exception{
+		when(dtoConverterService.buildDocTypeDtoCollection(anyCollection()))
+		.thenReturn(Arrays.asList(new DocTypeDto(1), 
+				new DocTypeDto(2)));
+		
+		this.mockMvc.perform(post("/restfull/documenttypes")
+				.accept(MediaType.parseMediaType(CONTENT_TYPE))
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(REQUEST_BODY))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(CONTENT_TYPE))
+        .andExpect(jsonPath("$.size").value(2))
+        .andExpect(jsonPath("$.dataArray[0].id").value(1));
+	}
+
+	@Test
+	public void testGetPayForms() throws Exception{
+		when(dtoConverterService.buildPayFormDtoCollection(anyCollection()))
+		.thenReturn(Arrays.asList(new PayFormDto(1, null, null), 
+				new PayFormDto(2, null, null)));
+		
+		this.mockMvc.perform(post("/restfull/payforms")
 				.accept(MediaType.parseMediaType(CONTENT_TYPE))
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(REQUEST_BODY))
