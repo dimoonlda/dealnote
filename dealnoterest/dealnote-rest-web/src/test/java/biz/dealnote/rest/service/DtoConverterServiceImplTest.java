@@ -2,6 +2,7 @@ package biz.dealnote.rest.service;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -33,12 +34,15 @@ import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.AgentGoods;
 import biz.dealnote.web.model.Client;
 import biz.dealnote.web.model.ClientGroup;
+import biz.dealnote.web.model.DefaultObjectsFactory;
+import biz.dealnote.web.model.DocType;
 import biz.dealnote.web.model.Document;
 import biz.dealnote.web.model.DocumentDetail;
 import biz.dealnote.web.model.Goods;
 import biz.dealnote.web.model.GoodsGroup;
 import biz.dealnote.web.model.Measure;
 import biz.dealnote.web.model.MeasureLink;
+import biz.dealnote.web.model.PayForm;
 import biz.dealnote.web.model.PriorityColor;
 import biz.dealnote.web.model.Route;
 import biz.dealnote.web.model.WsServer;
@@ -326,4 +330,31 @@ public class DtoConverterServiceImplTest extends AbstractTest{
 		assertNotNull("WsServerDto object wasn't created.", 
 				dtoConverterService.buildWsServerDto(server));
 	}
+	
+	@Test
+	public void testBuildPayFormDto(){
+		PayForm payForm = DefaultObjectsFactory.createDefaultPayForm(1);
+		assertEquals(payForm.getId(), dtoConverterService.buildPayFormDto(payForm).id);
+	}
+	
+	@Test
+	public void testBuildPayFormDtoCollection() throws CreateDtoException{
+		Collection<PayForm> forms = Arrays.asList(DefaultObjectsFactory.createDefaultPayForm(1),
+				DefaultObjectsFactory.createDefaultPayForm(2));
+		assertEquals(forms.size(), dtoConverterService.buildPayFormDtoCollection(forms).size());
+	}
+
+	@Test
+	public void testBuildDocTypeDto(){
+		DocType type = DefaultObjectsFactory.createDefaultDocType(1);
+		assertEquals(type.getId(), dtoConverterService.buildDocTypeDto(type).id);
+	}
+
+	@Test
+	public void testBuildDocTypeDtoCollection() throws CreateDtoException{
+		Collection<DocType> types = Arrays.asList(DefaultObjectsFactory.createDefaultDocType(1),
+				DefaultObjectsFactory.createDefaultDocType(2));
+		assertEquals(types.size(), dtoConverterService.buildDocTypeDtoCollection(types).size());
+	}
+
 }

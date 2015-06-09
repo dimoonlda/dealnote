@@ -15,12 +15,14 @@ import biz.dealnote.web.dao.AgentDAO;
 import biz.dealnote.web.dao.AgentGoodsDao;
 import biz.dealnote.web.dao.ClientDAO;
 import biz.dealnote.web.dao.ClientGroupDao;
+import biz.dealnote.web.dao.DocTypeDao;
 import biz.dealnote.web.dao.DocumentDao;
 import biz.dealnote.web.dao.GoodsDao;
 import biz.dealnote.web.dao.GoodsGroupDao;
 import biz.dealnote.web.dao.LocationDAO;
 import biz.dealnote.web.dao.MeasureDao;
 import biz.dealnote.web.dao.MeasureLinkDao;
+import biz.dealnote.web.dao.PayFormDao;
 import biz.dealnote.web.dao.PriorityColorDao;
 import biz.dealnote.web.dao.RouteDao;
 import biz.dealnote.web.dao.WsServerDao;
@@ -28,11 +30,13 @@ import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.AgentGoods;
 import biz.dealnote.web.model.Client;
 import biz.dealnote.web.model.ClientGroup;
+import biz.dealnote.web.model.DocType;
 import biz.dealnote.web.model.Document;
 import biz.dealnote.web.model.Goods;
 import biz.dealnote.web.model.Location;
 import biz.dealnote.web.model.Measure;
 import biz.dealnote.web.model.MeasureLink;
+import biz.dealnote.web.model.PayForm;
 import biz.dealnote.web.model.PriorityColor;
 import biz.dealnote.web.model.Route;
 import biz.dealnote.web.model.WsServer;
@@ -67,6 +71,10 @@ public class DealNoteRestServiceImplTest{
 	private DocumentDao documentDao;
 	@Mock
 	private WsServerDao wsServerDao;
+	@Mock
+	private DocTypeDao docTypeDao;
+	@Mock
+	private PayFormDao payFormDao;
 	
 	private final Agent testAgent = createDefaultAgent(DEFAULT_AGENT_ID);
 	
@@ -87,7 +95,9 @@ public class DealNoteRestServiceImplTest{
 				measureLinkDao,
 				locationDao, 
 				documentDao,
-				wsServerDao);
+				wsServerDao,
+				payFormDao,
+				docTypeDao);
 	}
 	
 	@Test
@@ -242,5 +252,23 @@ public class DealNoteRestServiceImplTest{
 		when(wsServerDao.getServers()).thenReturn(servers);
 		assertEquals(servers.size(), 
 				dealNoteRestService.getWsServers().size());
+	}
+	
+	@Test
+	public void testGetPayForms(){
+		Collection<PayForm> forms = Arrays.asList(createDefaultPayForm(1),
+				createDefaultPayForm(2),
+				createDefaultPayForm(3));
+		when(payFormDao.getAllPayForms()).thenReturn(forms);
+		assertEquals(forms.size(), dealNoteRestService.getPayForms().size());
+	}
+	
+	@Test
+	public void testGetDocTypes(){
+		Collection<DocType> types = Arrays.asList(createDefaultDocType(1),
+				createDefaultDocType(2),
+				createDefaultDocType(3));
+		when(docTypeDao.getAllDocTypes()).thenReturn(types);
+		assertEquals(types.size(), dealNoteRestService.getDocTypes().size());
 	}
 }

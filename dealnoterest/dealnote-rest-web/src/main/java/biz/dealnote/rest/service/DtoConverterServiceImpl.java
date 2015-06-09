@@ -445,8 +445,18 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 	}
 
 	@Override
-	public DocTypeDto buildDocTypeDto(DocType docType) {
-		return null;
+	public DocTypeDto buildDocTypeDto(DocType docType){
+		DocTypeDto type = new DocTypeDto();
+		type.id = docType.getId();
+		type.accIncrNoVat = docType.getAccIncrNoVat();
+		type.accIncrWithVat = docType.getAccIncrWithVat();
+		type.days = docType.getDays();
+		type.discountFirst = docType.getDiscountFirst();
+		type.name = docType.getName();
+		type.outerId = docType.getOuterId();
+		type.payFormId = docType.getPayForm().getId();
+		type.vatOverSum = docType.getVatOverSum();
+		return type;
 	}
 
 	@Override
