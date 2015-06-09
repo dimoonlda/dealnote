@@ -16,4 +16,11 @@ public class WsServerDto {
 		this.description = description;
 		this.isDefault = isDefault;
 	}
+
+	@Override
+	public String toString() {
+		return "WsServerDto [id=" + id + ", serverAddress=" + serverAddress
+				+ ", description=" + description + ", isDefault=" + isDefault
+				+ "]";
+	}
 }

@@ -22,4 +22,18 @@ public class ClientDto {
 	public Double latitude;
 	public Integer outerId;
 	public Integer isNotActive;
+	
+	@Override
+	public String toString() {
+		return "ClientDto [id=" + id + ", name=" + name + ", phone=" + phone
+				+ ", taxCode=" + taxCode + ", addressLocation="
+				+ addressLocation + ", taxNum=" + taxNum + ", okpo=" + okpo
+				+ ", mfo=" + mfo + ", bankName=" + bankName + ", bankAccount="
+				+ bankAccount + ", dogNum=" + dogNum + ", fName=" + fName
+				+ ", addressLaw=" + addressLaw + ", stopShipment="
+				+ stopShipment + ", routeId=" + routeId + ", groupId="
+				+ groupId + ", defaultDiscount=" + defaultDiscount
+				+ ", longitude=" + longitude + ", latitude=" + latitude
+				+ ", outerId=" + outerId + ", isNotActive=" + isNotActive + "]";
+	}
 }

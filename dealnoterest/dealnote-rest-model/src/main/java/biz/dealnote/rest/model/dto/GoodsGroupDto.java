@@ -15,4 +15,10 @@ public class GoodsGroupDto {
 		this.name = name;
 		this.parentId = parentId;
 	}
+
+	@Override
+	public String toString() {
+		return "GoodsGroupDto [id=" + id + ", outerId=" + outerId + ", name="
+				+ name + ", parentId=" + parentId + "]";
+	}
 }

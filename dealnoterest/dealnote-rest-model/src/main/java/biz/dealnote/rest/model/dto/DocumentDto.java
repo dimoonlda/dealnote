@@ -24,5 +24,16 @@ public class DocumentDto {
 	
 	public DocumentDto() {}
 
-	
+	@Override
+	public String toString() {
+		return "DocumentDto [id=" + id + ", clientId=" + clientId
+				+ ", agentId=" + agentId + ", docTypeId=" + docTypeId
+				+ ", linkId=" + linkId + ", docDate=" + docDate + ", discount="
+				+ discount + ", saleType=" + saleType + ", termDate="
+				+ termDate + ", sumWithoutVat=" + sumWithoutVat
+				+ ", sumWithVat=" + sumWithVat + ", descript=" + descript
+				+ ", regNum=" + regNum + ", longitude=" + longitude
+				+ ", latitude=" + latitude + ", itemCount=" + itemCount
+				+ ", details=" + details + "]";
+	}
 }

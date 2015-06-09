@@ -12,4 +12,10 @@ public class MeasureDto {
 		this.outerId = outerId;
 		this.name = name;
 	}
+
+	@Override
+	public String toString() {
+		return "MeasureDto [id=" + id + ", outerId=" + outerId + ", name="
+				+ name + "]";
+	}
 }

@@ -13,5 +13,14 @@ public class GoodsDto {
 	public Integer outerId;
 	public Integer measureId;
     public String goodsData;
-
+	
+    @Override
+	public String toString() {
+		return "GoodsDto [id=" + id + ", goodsGroupId=" + goodsGroupId
+				+ ", sortPos=" + sortPos + ", vatCoef=" + vatCoef + ", name="
+				+ name + ", fName=" + fName + ", weight=" + weight
+				+ ", isActive=" + isActive + ", priorityColorId="
+				+ priorityColorId + ", outerId=" + outerId + ", measureId="
+				+ measureId + ", goodsData=" + goodsData + "]";
+	}
 }

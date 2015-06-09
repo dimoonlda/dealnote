@@ -12,4 +12,10 @@ public class PriorityColorDto {
 		this.colorCode = colorCode;
 		this.description = description;
 	}
+
+	@Override
+	public String toString() {
+		return "PriorityColorDto [id=" + id + ", colorCode=" + colorCode
+				+ ", description=" + description + "]";
+	}
 }

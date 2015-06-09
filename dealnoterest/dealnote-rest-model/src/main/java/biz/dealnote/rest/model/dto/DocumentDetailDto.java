@@ -17,4 +17,11 @@ public class DocumentDetailDto {
 		this.priceWithoutVat = priceWithoutVat;
 		this.priceWithVat = priceWithVat;
 	}
+
+	@Override
+	public String toString() {
+		return "DocumentDetailDto [id=" + id + ", goodsId=" + goodsId
+				+ ", itemcount=" + itemcount + ", priceWithoutVat="
+				+ priceWithoutVat + ", priceWithVat=" + priceWithVat + "]";
+	}
 }

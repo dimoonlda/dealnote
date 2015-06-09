@@ -17,4 +17,11 @@ public class MeasureLinkDto {
 		this.srcValue = srcValue;
 		this.dstValue = dstValue;
 	}
+
+	@Override
+	public String toString() {
+		return "MeasureLinkDto [goodsId=" + goodsId + ", measureSrcId="
+				+ measureSrcId + ", measureDstId=" + measureDstId
+				+ ", srcValue=" + srcValue + ", dstValue=" + dstValue + "]";
+	}
 }

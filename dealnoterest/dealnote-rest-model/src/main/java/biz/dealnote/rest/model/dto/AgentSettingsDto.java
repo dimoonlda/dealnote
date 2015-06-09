@@ -25,4 +25,22 @@ public class AgentSettingsDto {
 	public String gpsByDay;
 	public Integer isAppStat;
 	public Integer isGPSBeforeOrder;
+	
+	@Override
+	public String toString() {
+		return "AgentSettingsDto [id=" + id + ", agentClientId="
+				+ agentClientId + ", strictstopship=" + strictstopship
+				+ ", regnumprefix1=" + regnumprefix1 + ", regnumnext1="
+				+ regnumnext1 + ", regnumprefix2=" + regnumprefix2
+				+ ", regnumnext2=" + regnumnext2 + ", vsandps=" + vsandps
+				+ ", autoDiscount=" + autoDiscount + ", fio=" + fio
+				+ ", email=" + email + ", adminPass=" + adminPass
+				+ ", moneyname=" + moneyname + ", moneyformat=" + moneyformat
+				+ ", qtyformat=" + qtyformat + ", dayDelDoc=" + dayDelDoc
+				+ ", isGPS=" + isGPS + ", frequencyGetGPS=" + frequencyGetGPS
+				+ ", frequencySendGPS=" + frequencySendGPS + ", gpsFromHour="
+				+ gpsFromHour + ", gpsToHour=" + gpsToHour + ", gpsByDay="
+				+ gpsByDay + ", isAppStat=" + isAppStat + ", isGPSBeforeOrder="
+				+ isGPSBeforeOrder + "]";
+	}
 }

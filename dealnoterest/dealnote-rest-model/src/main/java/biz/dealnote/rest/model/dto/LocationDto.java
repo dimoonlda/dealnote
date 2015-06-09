@@ -10,5 +10,13 @@ public class LocationDto {
 	public Integer savestate;
 	public Integer battery;
 	public Integer agentId;
-
+	
+	@Override
+	public String toString() {
+		return "LocationDto [longitude=" + longitude + ", latitude=" + latitude
+				+ ", creationDate=" + creationDate + ", provider=" + provider
+				+ ", accuracy=" + accuracy + ", searchtime=" + searchtime
+				+ ", savestate=" + savestate + ", battery=" + battery
+				+ ", agentId=" + agentId + "]";
+	}
 }

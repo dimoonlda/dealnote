@@ -13,4 +13,10 @@ public class AgentDto {
 		this.name = name;
 		this.active = active;
 	}
+
+	@Override
+	public String toString() {
+		return "AgentDto [id=" + id + ", name=" + name + ", active=" + active
+				+ "]";
+	}
 }

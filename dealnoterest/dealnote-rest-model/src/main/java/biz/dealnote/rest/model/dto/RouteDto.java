@@ -13,4 +13,10 @@ public class RouteDto {
 		this.name = name;
 		this.outerId = outerId;
 	}
+
+	@Override
+	public String toString() {
+		return "RouteDto [id=" + id + ", name=" + name + ", outerId=" + outerId
+				+ "]";
+	}
 }

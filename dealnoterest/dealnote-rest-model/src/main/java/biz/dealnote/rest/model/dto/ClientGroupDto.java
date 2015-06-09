@@ -12,4 +12,10 @@ public class ClientGroupDto {
 		this.name = name;
 		this.outerId = outerId;
 	}
+
+	@Override
+	public String toString() {
+		return "ClientGroupDto [id=" + id + ", name=" + name + ", outerId="
+				+ outerId + "]";
+	}
 }

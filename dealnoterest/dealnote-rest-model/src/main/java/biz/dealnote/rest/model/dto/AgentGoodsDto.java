@@ -12,4 +12,10 @@ public class AgentGoodsDto {
 		this.price = price;
 		this.available = available;
 	}
+
+	@Override
+	public String toString() {
+		return "AgentGoodsDto [price=" + price + ", available=" + available
+				+ ", goods=" + goods + "]";
+	}
 }
