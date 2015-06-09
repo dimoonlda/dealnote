@@ -15,7 +15,7 @@
 			<version>${joda-time.version}</version>
 		</dependency>
   </dependencies>
-  <version>0.0.4-SNAPSHOT</version>
+  <version>0.0.5-SNAPSHOT</version>
   	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>

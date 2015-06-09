@@ -11,6 +11,12 @@ public class DocTypeDto {
 	public Short discountFirst;
 	public Short vatOverSum;
 	
+	public DocTypeDto() {}
+	
+	public DocTypeDto(Integer id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return "DocTypeDto [id=" + id + ", payFormId=" + payFormId
