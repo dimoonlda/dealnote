@@ -1,7 +1,5 @@
 package biz.dealnote.rest.model.dto;
 
-import org.joda.time.DateTime;
-
 public class AgentSettingsDto {
 	public Integer id;
 	public Integer agentClientId;
@@ -25,9 +23,6 @@ public class AgentSettingsDto {
 	public Integer gpsFromHour;
 	public Integer gpsToHour;
 	public String gpsByDay;
-	public String wsServiceName;
-	public String wsUserName;
-	public String wsUserPass;	
 	public Integer isAppStat;
 	public Integer isGPSBeforeOrder;
 }
