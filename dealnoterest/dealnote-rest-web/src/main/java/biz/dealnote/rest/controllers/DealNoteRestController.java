@@ -8,6 +8,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -334,37 +336,23 @@ public class DealNoteRestController {
 	}
 	
 	/**
-	 * Check if agent with agentId presents in database.
+	 * Check if agent with ID = agentId presents in database and this agent has
+	 * relation with user authenticated in service.
 	 * If agent presents then method will return this sgent object
 	 * @param agentId - agent ID
 	 * @return 
-	 * @throws WrongAgentException
+	 * @throws WrongAgentException when agent's user is null 
+	 * or dosen't match with authenticated user 
 	 */
 	private Agent checkAgentAndReturn(int agentId) throws WrongAgentException{
-		try{
+			UserDetails springUser = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Agent agent = dealNoteRestService.getAgentById(agentId);
-			return agent;
-		}catch(Exception e){
-			throw new WrongAgentException("Wrong agent.");
-		}
-		
+			if(agent.getUser() != null 
+					&& agent.getUser().getName().equalsIgnoreCase(springUser.getUsername())){
+				return agent;	
+			}else{
+				throw new WrongAgentException("Wrong agent with id = " + agentId);
+			}
 	}
 	
-//	@ResponseStatus(value = HttpStatus.NOT_FOUND)
-//	@ExceptionHandler(GoodsGroupNotFound.class)
-//	private void groupNotFound(){
-//		//TODO: e.g. logging this exception
-//		System.out.println("Error!!!");
-//	}
 }
-
-//@ResponseStatus(value=HttpStatus.NOT_FOUND, reason="No such group found")
-//class GoodsGroupNotFound extends RuntimeException{
-//
-//	private static final long serialVersionUID = 1L;
-//
-//	public GoodsGroupNotFound(int id) {
-//		System.out.println("groupId: " + id);
-//	}
-//	
-//}

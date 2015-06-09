@@ -15,6 +15,7 @@ import biz.dealnote.rest.model.dto.AgentGoodsDto;
 import biz.dealnote.rest.model.dto.AgentSettingsDto;
 import biz.dealnote.rest.model.dto.ClientDto;
 import biz.dealnote.rest.model.dto.ClientGroupDto;
+import biz.dealnote.rest.model.dto.DocTypeDto;
 import biz.dealnote.rest.model.dto.DocumentDetailDto;
 import biz.dealnote.rest.model.dto.DocumentDto;
 import biz.dealnote.rest.model.dto.GoodsDto;
@@ -22,6 +23,7 @@ import biz.dealnote.rest.model.dto.GoodsGroupDto;
 import biz.dealnote.rest.model.dto.LocationDto;
 import biz.dealnote.rest.model.dto.MeasureDto;
 import biz.dealnote.rest.model.dto.MeasureLinkDto;
+import biz.dealnote.rest.model.dto.PayFormDto;
 import biz.dealnote.rest.model.dto.PriorityColorDto;
 import biz.dealnote.rest.model.dto.RouteDto;
 import biz.dealnote.rest.model.dto.WsServerDto;
@@ -32,10 +34,12 @@ import biz.dealnote.web.dao.DocumentDao;
 import biz.dealnote.web.dao.GoodsDao;
 import biz.dealnote.web.dao.LocationDAO;
 import biz.dealnote.web.dao.LocationSaveStateDao;
+import biz.dealnote.web.dao.PayFormDao;
 import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.AgentGoods;
 import biz.dealnote.web.model.Client;
 import biz.dealnote.web.model.ClientGroup;
+import biz.dealnote.web.model.DocType;
 import biz.dealnote.web.model.Document;
 import biz.dealnote.web.model.DocumentDetail;
 import biz.dealnote.web.model.Goods;
@@ -43,6 +47,7 @@ import biz.dealnote.web.model.GoodsGroup;
 import biz.dealnote.web.model.Location;
 import biz.dealnote.web.model.Measure;
 import biz.dealnote.web.model.MeasureLink;
+import biz.dealnote.web.model.PayForm;
 import biz.dealnote.web.model.PriorityColor;
 import biz.dealnote.web.model.Route;
 import biz.dealnote.web.model.WsServer;
@@ -71,6 +76,9 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 	private DocTypeDao docTypeDao;
 	
 	@Autowired
+	private PayFormDao payFormDao;
+	
+	@Autowired
 	private LocationSaveStateDao locationSaveStateDao;
 	
 	@Override
@@ -89,7 +97,7 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 					.map((route) -> buildRouteDto(route))
 					.collect(Collectors.toList());
 		}catch(Exception e){
-			throw new CreateDtoException("Build RouteDto collection exception. ", e);
+			throw new CreateDtoException(String.format("Build RouteDto collection exception for: %s.", routes), e);
 		}
 	}
 
@@ -109,7 +117,7 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 					.map((priorityColor) -> buildPriorityColorDto(priorityColor))
 					.collect(Collectors.toList());
 		}catch(Exception e){
-			throw new CreateDtoException("Build PriorityColorDto collection exception. ", e);
+			throw new CreateDtoException(String.format("Build PriorityColorDto collection exception for: %s.", priorityColors), e);
 		}
 	}
 
@@ -130,7 +138,7 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 					.map((measure) -> buildMeasureDto(measure))
 					.collect(Collectors.toList());
 		}catch(Exception e){
-			throw new CreateDtoException("Build MeasureDto collection exception. ", e);
+			throw new CreateDtoException(String.format("Build MeasureDto collection exception for: %s.", measures), e);
 		}
 	}
 
@@ -163,7 +171,6 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 		dto.regnumprefix2 = agent.getRegnumprefix2();
 		dto.strictstopship = agent.getStrictstopship();
 		dto.vsandps = agent.getVsandps();
-		dto.wsServiceName = agent.getWsServiceName();
 		return dto;
 	}
 
@@ -187,7 +194,7 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 					.map((measureLink) -> buildMeasureLinkDto(measureLink))
 					.collect(Collectors.toList());
 		}catch(Exception e){
-			throw new CreateDtoException("Build MeasureLinkDto collection exception. ", e);
+			throw new CreateDtoException(String.format("Build MeasureLinkDto collection exception for: %s.", measureLinks), e);
 		}
 	}
 
@@ -209,7 +216,7 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 					.map((group) -> buildGoodsGroupDto(group))
 					.collect(Collectors.toList());
 		}catch(Exception e){
-			throw new CreateDtoException("Build GoodsGroupDto collection exception. ", e);
+			throw new CreateDtoException(String.format("Build GoodsGroupDto collection exception for: %s.", groups), e);
 		}
 	}
 
@@ -243,7 +250,7 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 					.map((g) -> buildGoodsDto(g))
 					.collect(Collectors.toList());
 		}catch(Exception e){
-			throw new CreateDtoException("Build GoodsDto collection exception. ", e);
+			throw new CreateDtoException(String.format("Build GoodsDto collection exception for: %s.", goods), e);
 		}
 	}
 
@@ -264,7 +271,7 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 					.map((g) -> buildClientGroupDto(g))
 					.collect(Collectors.toList());
 		}catch(Exception e){
-			throw new CreateDtoException("Build ClientGroupDto collection exception. ", e);
+			throw new CreateDtoException(String.format("Build ClientGroupDto collection exception for: %s.", clientGroups), e);
 		}
 	}
 
@@ -304,7 +311,7 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 					.map((g) -> buildClientDto(g))
 					.collect(Collectors.toList());
 		}catch(Exception e){
-			throw new CreateDtoException("Build ClientDto collection exception. ", e);
+			throw new CreateDtoException(String.format("Build ClientDto collection exception for: %s. ", clients), e);
 		}
 	}
 
@@ -326,7 +333,7 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 					.map((g) -> buildAgentGoodsDto(g))
 					.collect(Collectors.toList());
 		}catch(Exception e){
-			throw new CreateDtoException("Build AgentGoodsDto collection exception. ", e);
+			throw new CreateDtoException(String.format("Build AgentGoodsDto collection exception for: %s. ", goods), e);
 		}
 	}
 
@@ -373,8 +380,8 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 						.orElseThrow(NullPointerException::new));
 			});
 		}catch(Exception e){
-			logger.error(String.format("Error when building document on agentId: %d.", 
-					docDto.agentId), e);
+			logger.error(String.format("Error when building document(%s) on agentId: %d.", 
+					document, docDto.agentId), e);
 			return Optional.empty();
 		}
 		return Optional.ofNullable(document);
@@ -390,8 +397,8 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 			detail.setPriceWithoutVat(detailDto.priceWithoutVat);
 			detail.setPriceWithVat(detailDto.priceWithVat);
 		}catch(Exception e){
+			logger.error(String.format("Error when building document detail: %s.", detail), e);
 			detail = null;
-			logger.error(String.format("Error when building document detail."), e);
 		}
 		return Optional.ofNullable(detail);
 	}
@@ -413,7 +420,44 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 					.map((g) -> buildWsServerDto(g))
 					.collect(Collectors.toList());
 		}catch(Exception e){
-			throw new CreateDtoException("Build WsServerDto collection exception. ", e);
+			throw new CreateDtoException(String.format("Build WsServerDto collection exception for: . ", serversCol), e);
+		}
+	}
+
+	@Override
+	public PayFormDto buildPayFormDto(PayForm payForm) {
+		PayFormDto form = new PayFormDto(payForm.getId(), 
+				payForm.getName(), 
+				payForm.getOuterId());
+		return form;
+	}
+
+	@Override
+	public Collection<PayFormDto> buildPayFormDtoCollection(
+			Collection<PayForm> payFormCol) throws CreateDtoException {
+		try{
+			return payFormCol.stream()
+					.map((f) -> buildPayFormDto(f))
+					.collect(Collectors.toList());
+		}catch(Exception e){
+			throw new CreateDtoException(String.format("Build PayFormDto collection exception for: %s. ", payFormCol), e);
+		}
+	}
+
+	@Override
+	public DocTypeDto buildDocTypeDto(DocType docType) {
+		return null;
+	}
+
+	@Override
+	public Collection<DocTypeDto> buildDocTypeDtoCollection(
+			Collection<DocType> docTypeCol) throws CreateDtoException {
+		try{
+			return docTypeCol.stream()
+					.map((t) -> buildDocTypeDto(t))
+					.collect(Collectors.toList());
+		}catch(Exception e){
+			throw new CreateDtoException(String.format("Build DocTypeDto collection exception for: %s. ", docTypeCol), e);
 		}
 	}
 

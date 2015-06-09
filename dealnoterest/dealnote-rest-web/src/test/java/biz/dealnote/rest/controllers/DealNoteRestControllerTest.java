@@ -11,6 +11,9 @@ import static org.mockito.Mockito.*;
 
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -30,6 +33,7 @@ import biz.dealnote.rest.model.dto.MeasureLinkDto;
 import biz.dealnote.rest.model.dto.PriorityColorDto;
 import biz.dealnote.rest.model.dto.RouteDto;
 import biz.dealnote.rest.model.dto.WsServerDto;
+import biz.dealnote.rest.security.UserContext;
 import biz.dealnote.rest.service.DealNoteRestService;
 import biz.dealnote.rest.service.DtoConverterService;
 import biz.dealnote.web.model.Agent;
@@ -39,11 +43,11 @@ import biz.dealnote.web.model.Location;
 
 public class DealNoteRestControllerTest{
 
-	private static final String REQUEST_BODY = "{\"clientType\":\"1\",\"agentId\":\"444\",\"serialNumber\":\"123456789\",\"login\":\"test\",\"pass\":\"testpass\"}"; 
+	private static final String REQUEST_BODY = "{\"clientType\":\"1\",\"agentId\":\"444\"}"; 
 	private static final String LOCATION_REQUEST_BODY = "{\"restClient\":{\"clientType\":\"1\",\"agentId\":\"444\",\"serialNumber\":\"123456789\",\"login\":\"test\",\"pass\":\"testpass\"},\"size\":2,\"dataArray\":[{\"longitude\":1212323.56,\"latitude\":456734522.0,\"creationDate\":1427654365,\"provider\":\"gps\",\"accuracy\":1,\"searchtime\":87,\"savestate\":1,\"battery\":45,\"agentId\":444},{\"longitude\":1212323.56,\"latitude\":456734522.0,\"creationDate\":1427654365,\"provider\":\"gps\",\"accuracy\":1,\"searchtime\":22,\"savestate\":1,\"battery\":77,\"agentId\":444}]}";
 	private static final String DOCUMENT_REQUEST_BODY = "{\"restClient\":{\"clientType\":\"1\",\"agentId\":\"444\",\"serialNumber\":\"123456789\",\"login\":\"test\",\"pass\":\"testpass\"},\"size\":1,\"dataArray\":[{\"id\":121,\"clientId\":3,\"agentId\":444,\"docTypeId\":1,\"linkId\":123234,\"docDate\":1429041182,\"discount\":8,\"saleType\":1,\"termDate\":1429041182,\"sumWithoutVat\":123.0,\"sumWithVat\":522.0,\"descript\":\"Test кирилица\",\"regNum\":\"W444\",\"longitude\":50.2345,\"latitude\":51.5436677,\"itemCount\":222,\"details\":[{\"id\":12,\"goodsId\":2,\"itemcount\":12.0,\"priceWithoutVat\":1.2,\"priceWithVat\":1.8},{\"id\":13,\"goodsId\":3,\"itemcount\":142,\"priceWithoutVat\":123.99,\"priceWithVat\":134.0}]}]}";
 	private static final String CONTENT_TYPE = "application/json;charset=UTF-8";
-	private static final Agent AGENT = createDefaultAgent(DEFAULT_AGENT_ID);
+	private static final Agent AGENT = createDefaultAgent(DEFAULT_AGENT_ID, createDefaultUser(1));
 	
 	private MockMvc mockMvc;
 	@Mock
@@ -58,6 +62,12 @@ public class DealNoteRestControllerTest{
     			new DealNoteRestController(dealNoteRestService, dtoConverterService))
     			.build();
     	when(dealNoteRestService.getAgentById(anyInt())).thenReturn(AGENT);
+    	
+    	Authentication authentication = mock(Authentication.class);
+    	when(authentication.getPrincipal()).thenReturn(new UserContext(AGENT.getUser()));
+    	SecurityContext securityContext = mock(SecurityContext.class);
+    	when(securityContext.getAuthentication()).thenReturn(authentication);
+    	SecurityContextHolder.setContext(securityContext);
     }
     
 	@Test

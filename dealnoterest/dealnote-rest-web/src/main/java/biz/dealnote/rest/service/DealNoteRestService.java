@@ -6,12 +6,14 @@ import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.AgentGoods;
 import biz.dealnote.web.model.Client;
 import biz.dealnote.web.model.ClientGroup;
+import biz.dealnote.web.model.DocType;
 import biz.dealnote.web.model.Document;
 import biz.dealnote.web.model.Goods;
 import biz.dealnote.web.model.GoodsGroup;
 import biz.dealnote.web.model.Location;
 import biz.dealnote.web.model.Measure;
 import biz.dealnote.web.model.MeasureLink;
+import biz.dealnote.web.model.PayForm;
 import biz.dealnote.web.model.PriorityColor;
 import biz.dealnote.web.model.Route;
 import biz.dealnote.web.model.WsServer;
@@ -35,4 +37,6 @@ public interface DealNoteRestService {
 	public void save(PriorityColor priority);
 	public void save(Document doc);
 	public Collection<WsServer> getWsServers();
+	public Collection<PayForm> getPayForms();
+	public Collection<DocType> getDocTypes();
 }

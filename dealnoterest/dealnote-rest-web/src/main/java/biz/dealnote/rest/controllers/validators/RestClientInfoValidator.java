@@ -17,9 +17,5 @@ public class RestClientInfoValidator {
 			errors.rejectValue("agentId", "required", "agentId is null.");
 		}
 		
-		if(client.getSerialNumber().isEmpty()){
-			errors.rejectValue("serialNumber", "required", "serialNumber is empty.");
-		}
-
 	}
 }
