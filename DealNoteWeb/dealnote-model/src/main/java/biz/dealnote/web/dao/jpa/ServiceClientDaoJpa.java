@@ -25,6 +25,7 @@ public class ServiceClientDaoJpa implements ServiceClientDao {
 	@Override
 	public ServiceClient getServiceClientById(int clientId) {
 		return em.createQuery("from ServiceClient c where c.id = :id", ServiceClient.class)
+				.setParameter("id", clientId)
 				.getSingleResult();
 	}
 
@@ -42,6 +43,13 @@ public class ServiceClientDaoJpa implements ServiceClientDao {
 		if(client != null){
 			em.remove(client);
 		}
+	}
+
+	@Override
+	public ServiceClient getServiceClientByTypeCode(int code) {
+		return em.createQuery("from ServiceClient c where c.typeCode = :code", ServiceClient.class)
+				.setParameter("code", code)
+				.getSingleResult();
 	}
 
 }

@@ -9,4 +9,5 @@ public interface ServiceClientDao {
 	public ServiceClient getServiceClientById(int clientId);
 	public void save(ServiceClient client);
 	public void delete(ServiceClient client);
+	public ServiceClient getServiceClientByTypeCode(int code);
 }
