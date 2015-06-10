@@ -67,8 +67,13 @@ public final class DefaultObjectsFactory {
 		agent.setMoneyname("money");
 		agent.setMoneyformat("moneyformat");
 		agent.setQtyformat("qtyformat");
-		agent.setWsServiceName("wsServiceName");
 		agent.setGpsByDay("gpsByDay");
+		return agent;
+	}
+	
+	public static Agent createDefaultAgent(Integer id, User user){
+		Agent agent = createDefaultAgent(id);
+		agent.setUser(user);
 		return agent;
 	}
 	
@@ -116,6 +121,7 @@ public final class DefaultObjectsFactory {
 		DocType test = new DocType();
 		test.setId(id);
 		test.setName(DEFAULT_NAME);
+		test.setPayForm(createDefaultPayForm(DEFAULT_PAY_FORM_ID));
 		return test;
 	}
 	
@@ -233,5 +239,15 @@ public final class DefaultObjectsFactory {
 		test.setDescription(DEFAULT_DESCRIPTION);
 		test.setIsDefault(DEFAULT_IS_ACTIVE);
 		return test;
+	}
+	
+	public static SystemSets createDefaultSystemSets(Integer id){
+		SystemSets sets = new SystemSets();
+		sets.setId(id);
+		sets.setDbType("dbType");
+		sets.setDbVersion("dbVersion");
+		sets.setMobileSwapVersion(10);
+		sets.setWebServiceAdderess("webServiceAdderess");
+		return sets;
 	}
 }

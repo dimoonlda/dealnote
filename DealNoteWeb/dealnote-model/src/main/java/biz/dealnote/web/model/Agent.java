@@ -52,6 +52,9 @@ public class Agent {
 	@NotNull(message = "{message.field.notnull}")
 	private Integer roleCode;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USERID")
+	private User user;
 	/**
 	 * Код клиента из справочника клиентов, 
 	 * чьи реквизиты будут использоваться как реквизиты поставщика 
@@ -177,11 +180,6 @@ public class Agent {
 	 */
 	@NotNull(message = "{message.field.notnull}")
 	private String gpsByDay;
-	/**
-	 * Путь к Web-сервису
-	 */
-	@NotNull(message = "{message.field.notnull}")
-	private String wsServiceName;
 	/**
 	 * Собирать статистику по приложениям
 	 * 1-да, 0-нет
@@ -459,14 +457,6 @@ public class Agent {
 		this.gpsByDay = gpsByDay;
 	}
 
-	public String getWsServiceName() {
-		return wsServiceName;
-	}
-
-	public void setWsServiceName(String wsServiceName) {
-		this.wsServiceName = wsServiceName;
-	}
-
 	public Integer getIsAppStat() {
 		return isAppStat;
 	}
@@ -481,6 +471,14 @@ public class Agent {
 
 	public void setIsGPSBeforeOrder(Integer isGPSBeforeOrder) {
 		this.isGPSBeforeOrder = isGPSBeforeOrder;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@JsonIgnore
