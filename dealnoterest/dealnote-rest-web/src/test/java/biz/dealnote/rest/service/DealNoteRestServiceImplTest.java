@@ -25,6 +25,8 @@ import biz.dealnote.web.dao.MeasureLinkDao;
 import biz.dealnote.web.dao.PayFormDao;
 import biz.dealnote.web.dao.PriorityColorDao;
 import biz.dealnote.web.dao.RouteDao;
+import biz.dealnote.web.dao.ServiceClientDao;
+import biz.dealnote.web.dao.SystemSetsDao;
 import biz.dealnote.web.dao.WsServerDao;
 import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.AgentGoods;
@@ -39,6 +41,8 @@ import biz.dealnote.web.model.MeasureLink;
 import biz.dealnote.web.model.PayForm;
 import biz.dealnote.web.model.PriorityColor;
 import biz.dealnote.web.model.Route;
+import biz.dealnote.web.model.ServiceClient;
+import biz.dealnote.web.model.SystemSets;
 import biz.dealnote.web.model.WsServer;
 import static biz.dealnote.web.model.DefaultObjectsFactory.*;
 import biz.dealnote.web.model.GoodsGroup;
@@ -75,6 +79,10 @@ public class DealNoteRestServiceImplTest{
 	private DocTypeDao docTypeDao;
 	@Mock
 	private PayFormDao payFormDao;
+	@Mock
+	private SystemSetsDao sysSetsDao;
+	@Mock
+	private ServiceClientDao serviceClientDao;
 	
 	private final Agent testAgent = createDefaultAgent(DEFAULT_AGENT_ID);
 	
@@ -97,7 +105,9 @@ public class DealNoteRestServiceImplTest{
 				documentDao,
 				wsServerDao,
 				payFormDao,
-				docTypeDao);
+				docTypeDao,
+				sysSetsDao,
+				serviceClientDao);
 	}
 	
 	@Test
@@ -270,5 +280,19 @@ public class DealNoteRestServiceImplTest{
 				createDefaultDocType(3));
 		when(docTypeDao.getAllDocTypes()).thenReturn(types);
 		assertEquals(types.size(), dealNoteRestService.getDocTypes().size());
+	}
+	
+	@Test
+	public void testGetSystemSets(){
+		SystemSets sets = createDefaultSystemSets(1);
+		when(sysSetsDao.getSystemSetsById(anyInt())).thenReturn(sets);
+		assertEquals(sets, dealNoteRestService.getSystemSets());
+	}
+	
+	@Test
+	public void testGetServiceClientByTypeCode(){
+		ServiceClient client = createDefaultServiceClient(1);
+		when(serviceClientDao.getServiceClientByTypeCode(client.getTypeCode())).thenReturn(client);
+		assertEquals(client, dealNoteRestService.getServiceClientByTypeCode(client.getTypeCode()));
 	}
 }

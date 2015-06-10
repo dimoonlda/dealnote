@@ -25,6 +25,7 @@ import biz.dealnote.rest.model.dto.MeasureDto;
 import biz.dealnote.rest.model.dto.MeasureLinkDto;
 import biz.dealnote.rest.model.dto.PayFormDto;
 import biz.dealnote.rest.model.dto.PriorityColorDto;
+import biz.dealnote.rest.model.dto.RestServiceInfoDto;
 import biz.dealnote.rest.model.dto.RouteDto;
 import biz.dealnote.rest.model.dto.WsServerDto;
 import biz.dealnote.web.dao.AgentDAO;
@@ -35,6 +36,8 @@ import biz.dealnote.web.dao.GoodsDao;
 import biz.dealnote.web.dao.LocationDAO;
 import biz.dealnote.web.dao.LocationSaveStateDao;
 import biz.dealnote.web.dao.PayFormDao;
+import biz.dealnote.web.dao.ServiceClientDao;
+import biz.dealnote.web.dao.SystemSetsDao;
 import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.AgentGoods;
 import biz.dealnote.web.model.Client;
@@ -50,6 +53,8 @@ import biz.dealnote.web.model.MeasureLink;
 import biz.dealnote.web.model.PayForm;
 import biz.dealnote.web.model.PriorityColor;
 import biz.dealnote.web.model.Route;
+import biz.dealnote.web.model.ServiceClient;
+import biz.dealnote.web.model.SystemSets;
 import biz.dealnote.web.model.WsServer;
 
 @Service
@@ -80,6 +85,12 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 	
 	@Autowired
 	private LocationSaveStateDao locationSaveStateDao;
+	
+	@Autowired
+	private SystemSetsDao systemSetsDao;
+	
+	@Autowired
+	private ServiceClientDao serviceClientDao;
 	
 	@Override
 	public RouteDto buildRouteDto(Route route) {
@@ -469,6 +480,17 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 		}catch(Exception e){
 			throw new CreateDtoException(String.format("Build DocTypeDto collection exception for: %s. ", docTypeCol), e);
 		}
+	}
+
+	@Override
+	public RestServiceInfoDto buildRestServiceInfoDto(
+			ServiceClient serviceClient, SystemSets systemSets) {
+		RestServiceInfoDto info = new RestServiceInfoDto();
+		info.dbVersion = systemSets.getDbVersion();
+		info.mobileClientCurrentVersion = serviceClient.getVersion();
+		info.mobileClientUrlUpdate = serviceClient.getUrl();
+		info.mobileSwapVersion = systemSets.getMobileSwapVersion();
+		return info;
 	}
 
 }

@@ -47,6 +47,7 @@ import biz.dealnote.rest.model.dto.MeasureDto;
 import biz.dealnote.rest.model.dto.MeasureLinkDto;
 import biz.dealnote.rest.model.dto.PayFormDto;
 import biz.dealnote.rest.model.dto.PriorityColorDto;
+import biz.dealnote.rest.model.dto.RestServiceInfoDto;
 import biz.dealnote.rest.model.dto.RouteDto;
 import biz.dealnote.rest.model.dto.WsServerDto;
 import biz.dealnote.rest.service.DealNoteRestService;
@@ -54,6 +55,7 @@ import biz.dealnote.rest.service.DtoConverterService;
 import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.Document;
 import biz.dealnote.web.model.Location;
+import biz.dealnote.web.model.ServiceClient;
 
 @RestController
 @RequestMapping("/restfull")
@@ -226,6 +228,27 @@ public class DealNoteRestController {
 			
 			throw new RequestHandledException(
 					String.format("Exception when getting pay forms for agentId: %d", client.getAgentId()), ex);
+		}
+	}
+
+	@RequestMapping(value = "/serviceinfo", method = RequestMethod.POST)
+	public RestServiceInfoDto getServiceInfo(@RequestBody RestClientInfo client) throws RequestHandledException{
+		try{
+			checkClient(client);
+			ServiceClient serviceClientInfo = null;
+			if(client.getClientType()==null
+					|| (serviceClientInfo = dealNoteRestService.getServiceClientByTypeCode(client.getClientType()))==null){
+				throw new IllegalArgumentException("ClientType in RestClientInfo is illegal. client: " + client);
+			}
+			RestServiceInfoDto result = dtoConverterService.buildRestServiceInfoDto(serviceClientInfo, 
+					dealNoteRestService.getSystemSets());
+			logger.info(String.format("%s: got service information: %s.", client, result));
+			return result;
+		}catch(Exception ex){
+			logger.error(String.format("%s: error when service information. ", client), ex);
+			
+			throw new RequestHandledException(
+					String.format("Exception when getting service information for agentId: %d", client.getAgentId()), ex);
 		}
 	}
 

@@ -8,7 +8,7 @@ public class RestServiceInfoDto {
 	/**
 	 * Version of data's swap for mobile clients 
 	 */
-	public String mobileSwapVersion;
+	public Integer mobileSwapVersion;
 	/**
 	 * Url for downloading current mobile version
 	 */

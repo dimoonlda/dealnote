@@ -18,6 +18,7 @@ import biz.dealnote.rest.model.dto.MeasureDto;
 import biz.dealnote.rest.model.dto.MeasureLinkDto;
 import biz.dealnote.rest.model.dto.PayFormDto;
 import biz.dealnote.rest.model.dto.PriorityColorDto;
+import biz.dealnote.rest.model.dto.RestServiceInfoDto;
 import biz.dealnote.rest.model.dto.RouteDto;
 import biz.dealnote.rest.model.dto.WsServerDto;
 import biz.dealnote.web.model.Agent;
@@ -35,6 +36,8 @@ import biz.dealnote.web.model.MeasureLink;
 import biz.dealnote.web.model.PayForm;
 import biz.dealnote.web.model.PriorityColor;
 import biz.dealnote.web.model.Route;
+import biz.dealnote.web.model.ServiceClient;
+import biz.dealnote.web.model.SystemSets;
 import biz.dealnote.web.model.WsServer;
 
 public interface DtoConverterService {
@@ -92,4 +95,7 @@ public interface DtoConverterService {
 	public DocTypeDto buildDocTypeDto(DocType docType);
 	public Collection<DocTypeDto> buildDocTypeDtoCollection(Collection<DocType> docTypeCol) 
 			throws CreateDtoException;
+	
+	public RestServiceInfoDto buildRestServiceInfoDto(ServiceClient serviceClient, 
+			SystemSets systemSets);
 }

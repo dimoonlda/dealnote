@@ -20,6 +20,8 @@ import biz.dealnote.web.dao.MeasureLinkDao;
 import biz.dealnote.web.dao.PayFormDao;
 import biz.dealnote.web.dao.PriorityColorDao;
 import biz.dealnote.web.dao.RouteDao;
+import biz.dealnote.web.dao.ServiceClientDao;
+import biz.dealnote.web.dao.SystemSetsDao;
 import biz.dealnote.web.dao.WsServerDao;
 import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.AgentGoods;
@@ -35,6 +37,8 @@ import biz.dealnote.web.model.MeasureLink;
 import biz.dealnote.web.model.PayForm;
 import biz.dealnote.web.model.PriorityColor;
 import biz.dealnote.web.model.Route;
+import biz.dealnote.web.model.ServiceClient;
+import biz.dealnote.web.model.SystemSets;
 import biz.dealnote.web.model.WsServer;
 
 @Service
@@ -55,7 +59,8 @@ public class DealNoteRestServiceImpl implements DealNoteRestService {
 	private WsServerDao wsServerDao;
 	private DocTypeDao docTypeDao;
 	private PayFormDao payFormDao;
-	
+	private SystemSetsDao systemSetsDao;
+	private ServiceClientDao serviceClientDao;
 	
 	@Autowired
 	public DealNoteRestServiceImpl(GoodsGroupDao goodsGroupDao,
@@ -64,7 +69,8 @@ public class DealNoteRestServiceImpl implements DealNoteRestService {
 			AgentDAO agentDao, AgentGoodsDao agentGoodsDao,
 			PriorityColorDao priorityColorDao, MeasureLinkDao measureLinkDao,
 			LocationDAO locationDao, DocumentDao documentDao, WsServerDao wsServerDao,
-			PayFormDao payFormDao, DocTypeDao docTypeDao) {
+			PayFormDao payFormDao, DocTypeDao docTypeDao, SystemSetsDao systemSetsDao,
+			ServiceClientDao serviceClientDao) {
 		this.goodsGroupDao = goodsGroupDao;
 		this.clientDao = clientDao;
 		this.clientGroupDao = clientGroupDao;
@@ -80,6 +86,8 @@ public class DealNoteRestServiceImpl implements DealNoteRestService {
 		this.wsServerDao = wsServerDao;
 		this.payFormDao = payFormDao;
 		this.docTypeDao = docTypeDao;
+		this.systemSetsDao = systemSetsDao;
+		this.serviceClientDao = serviceClientDao;
 	}
 
 	@Transactional(readOnly = true)
@@ -197,5 +205,15 @@ public class DealNoteRestServiceImpl implements DealNoteRestService {
 	@Transactional(readOnly = true)
 	public Collection<DocType> getDocTypes() {
 		return docTypeDao.getAllDocTypes();
+	}
+
+	@Override
+	public SystemSets getSystemSets() {
+		return systemSetsDao.getSystemSetsById(1);
+	}
+
+	@Override
+	public ServiceClient getServiceClientByTypeCode(int code) {
+		return serviceClientDao.getServiceClientByTypeCode(code);
 	}
 }

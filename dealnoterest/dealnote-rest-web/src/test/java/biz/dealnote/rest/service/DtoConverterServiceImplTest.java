@@ -12,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import biz.dealnote.rest.AbstractTest;
 import biz.dealnote.rest.controllers.exceptions.CreateDtoException;
-import biz.dealnote.rest.model.dto.AgentSettingsDto;
 import biz.dealnote.rest.model.dto.DocumentDetailDto;
 import biz.dealnote.rest.model.dto.DocumentDto;
 import biz.dealnote.rest.model.dto.LocationDto;
+import biz.dealnote.rest.model.dto.RestServiceInfoDto;
 import biz.dealnote.web.dao.AgentDAO;
 import biz.dealnote.web.dao.AgentGoodsDao;
 import biz.dealnote.web.dao.ClientDAO;
@@ -45,6 +45,8 @@ import biz.dealnote.web.model.MeasureLink;
 import biz.dealnote.web.model.PayForm;
 import biz.dealnote.web.model.PriorityColor;
 import biz.dealnote.web.model.Route;
+import biz.dealnote.web.model.ServiceClient;
+import biz.dealnote.web.model.SystemSets;
 import biz.dealnote.web.model.WsServer;
 
 public class DtoConverterServiceImplTest extends AbstractTest{
@@ -357,4 +359,13 @@ public class DtoConverterServiceImplTest extends AbstractTest{
 		assertEquals(types.size(), dtoConverterService.buildDocTypeDtoCollection(types).size());
 	}
 
+	@Test
+	public void testBuildRestServiceInfoDto(){
+		SystemSets sets = DefaultObjectsFactory.createDefaultSystemSets(1);
+		ServiceClient client = DefaultObjectsFactory.createDefaultServiceClient(1);
+		RestServiceInfoDto info = dtoConverterService.buildRestServiceInfoDto(client, sets);
+		assertNotNull(info);
+		assertEquals(sets.getMobileSwapVersion(), info.mobileSwapVersion);
+		assertEquals(client.getUrl(), info.mobileClientUrlUpdate);
+	}
 }

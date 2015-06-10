@@ -16,6 +16,8 @@ import biz.dealnote.web.model.MeasureLink;
 import biz.dealnote.web.model.PayForm;
 import biz.dealnote.web.model.PriorityColor;
 import biz.dealnote.web.model.Route;
+import biz.dealnote.web.model.ServiceClient;
+import biz.dealnote.web.model.SystemSets;
 import biz.dealnote.web.model.WsServer;
 
 public interface DealNoteRestService {
@@ -39,4 +41,6 @@ public interface DealNoteRestService {
 	public Collection<WsServer> getWsServers();
 	public Collection<PayForm> getPayForms();
 	public Collection<DocType> getDocTypes();
+	public SystemSets getSystemSets();
+	public ServiceClient getServiceClientByTypeCode(int code);
 }
