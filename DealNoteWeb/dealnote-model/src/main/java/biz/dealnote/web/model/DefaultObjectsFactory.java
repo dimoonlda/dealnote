@@ -250,4 +250,14 @@ public final class DefaultObjectsFactory {
 		sets.setWebServiceAdderess("webServiceAdderess");
 		return sets;
 	}
+	
+	public static ServiceClient createDefaultServiceClient(Integer id){
+		ServiceClient client = new ServiceClient();
+		client.setId(id);
+		client.setName(DEFAULT_NAME);
+		client.setTypeCode(1);
+		client.setUrl("url");
+		client.setVersion("version");
+		return client;
+	}
 }

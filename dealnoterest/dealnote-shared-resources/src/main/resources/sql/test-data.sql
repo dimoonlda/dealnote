@@ -297,3 +297,12 @@ INSERT INTO SYSSETS (ID, WEBSERVICEADDRESS, BD_VER, DBFTYPE, MOBILESWAPVERSION)
              VALUES (1, 'http://192.168.20.13:8080/DTraderDaemon/serviceimpl?wsdl', 'ver. 1.0.9', 'FOXPRO_26', 10);
 
 COMMIT WORK;
+
+INSERT INTO SERVICECLIENT (ID, TYPECODE, NAME, FILEPATH, FILEVERSION)
+                   VALUES (1, 1, 'Android', 'https://dealnote.biz/download/mobileclient.apk', '14');
+INSERT INTO SERVICECLIENT (ID, TYPECODE, NAME, FILEPATH, FILEVERSION)
+                   VALUES (2, 2, 'iOS', 'https://dealnote.biz/download/mobileclient.bin', '12');
+INSERT INTO SERVICECLIENT (ID, TYPECODE, NAME, FILEPATH, FILEVERSION)
+                   VALUES (3, 3, 'Windows', 'https://dealnote.biz/download/mobileclient.exe', '55');
+
+COMMIT WORK;
