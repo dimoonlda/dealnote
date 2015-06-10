@@ -6,14 +6,6 @@ package biz.dealnote.rest.model;
  *
  */
 public class RestClientInfo {
-	/**
-	 * Clients from mobile app
-	 */
-	public static final Integer REST_MOBILE_CLIENT_TYPE = 1;
-	/**
-	 * Clients from web app
-	 */
-	public static final Integer REST_WEB_CLIENT_TYPE = 2;
 	
 	private Integer clientType;
 	private Integer agentId;
