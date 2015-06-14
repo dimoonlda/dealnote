@@ -1,10 +1,13 @@
 package biz.dealnote.web.model;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -38,6 +41,14 @@ public class ServiceClient {
 	@NotNull(message = "{message.field.notnull}")
 	@NotEmpty(message = "{error.message.field.notempty}")
 	private String version;
+
+	@Column(name = "FILENAME")
+	private String fileName;
+
+	@Lob
+	@Basic(fetch=FetchType.LAZY)
+	@Column(name="FILESRC", columnDefinition="mediumblob")
+	private byte[] file;
 
 	public Integer getId() {
 		return id;
@@ -79,6 +90,22 @@ public class ServiceClient {
 		this.version = version;
 	}
 	
+	public byte[] getFile() {
+		return file;
+	}
+
+	public void setFile(byte[] file) {
+		this.file = file;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
 	public boolean isNew(){
 		return this.id == null;
 	}
