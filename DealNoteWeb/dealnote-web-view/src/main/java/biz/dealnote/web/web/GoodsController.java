@@ -114,8 +114,7 @@ public class GoodsController {
 	@RequestMapping(value = "/{goodsId}/image", method = RequestMethod.GET)
 	public void goodsImage(@PathVariable int goodsId, HttpServletResponse response){
 		Goods goods = dealNoteService.getGoodsById(goodsId);
-		try {
-			OutputStream out = response.getOutputStream();
+		try(OutputStream out = response.getOutputStream()) {
 			response.setContentType("image/jpeg");
 			out.write(goods.getGoodsImage());
 			out.flush();
@@ -132,8 +131,7 @@ public class GoodsController {
 	 */
 	@RequestMapping(value = "/currentImage", method = RequestMethod.GET)
 	public void goodsImage(@ModelAttribute(value="goods") Goods goods, HttpServletResponse response){
-		try {
-			OutputStream out = response.getOutputStream();
+		try(OutputStream out = response.getOutputStream()) {
 			response.setContentType("image/jpeg");
 			out.write(goods.getGoodsImage());
 			out.flush();

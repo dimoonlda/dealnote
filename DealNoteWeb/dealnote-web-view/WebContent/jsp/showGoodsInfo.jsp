@@ -50,26 +50,11 @@
 		<th><spring:message code="goods.showInfoForm.lable.sortPos"/>:</th>
 		<td>${requestScope['goods'].sortPos}</td></tr>
 	<tr>
-		<th><spring:message code="goods.showInfoForm.lable.assortment"/>:</th>
-		<td>${requestScope['goods'].assortment}</td></tr>
-	<tr>
-		<th><spring:message code="goods.showInfoForm.lable.vatType"/>:</th>
-		<td>${requestScope['goods'].vatType}</td></tr>
-	<tr>
-		<th><spring:message code="goods.showInfoForm.lable.priority"/>:</th>
-		<td>${requestScope['goods'].priority}</td></tr>
-	<tr>
-		<th><spring:message code="goods.showInfoForm.lable.clientTypeMask"/>:</th>
-		<td>${requestScope['goods'].clientTypeMask}</td></tr>
+		<th><spring:message code="goods.showInfoForm.lable.vatCoef"/>:</th>
+		<td>${requestScope['goods'].vatCoef}</td></tr>
 	<tr>
 		<th><spring:message code="goods.showInfoForm.lable.sertificat"/>:</th>
 		<td>${requestScope['goods'].sertificat}</td></tr>
-	<tr>
-		<th><spring:message code="goods.showInfoForm.lable.ekka"/>:</th>
-		<td>${requestScope['goods'].ekka}</td></tr>
-	<tr>
-		<th><spring:message code="goods.showInfoForm.lable.class1"/>:</th>
-		<td>${requestScope['goods'].class1}</td></tr>
 	<tr>
 		<th><spring:message code="goods.showInfoForm.lable.goodsData"/>:</th>
 		<td>${requestScope['goods'].goodsDataAsString}</td></tr>

@@ -96,32 +96,11 @@
 								<form:errors path="sortPos" cssClass="form_error_message"/>
 							</div>
 							<div class="form-group">
-								<form:label path="assortment" class="col-sm-2 control-label">
-									<spring:message code="goods.createForm.lable.assortment"/>:
+								<form:label path="vatCoef" class="col-sm-2 control-label">
+									<spring:message code="goods.createForm.lable.vatCoef"/>:
 								</form:label>
-								<div class="col-xs-2"><form:input path="assortment" class="form-control"/></div>
-								<form:errors path="assortment" cssClass="form_error_message"/>
-							</div>
-							<div class="form-group">
-								<form:label path="vatType" class="col-sm-2 control-label">
-									<spring:message code="goods.createForm.lable.vatType"/>:
-								</form:label>
-								<div class="col-xs-2"><form:input path="vatType" class="form-control"/></div>
-								<form:errors path="vatType" cssClass="form_error_message"/>
-							</div>
-							<div class="form-group">
-								<form:label path="priority" class="col-sm-2 control-label">
-									<spring:message code="goods.createForm.lable.priority"/>:
-								</form:label>
-								<div class="col-xs-2"><form:input path="priority" class="form-control"/></div>
-								<form:errors path="priority" cssClass="form_error_message"/>
-							</div>
-							<div class="form-group">
-								<form:label path="clientTypeMask" class="col-sm-2 control-label">
-									<spring:message code="goods.createForm.lable.clientTypeMask"/>:
-								</form:label>
-								<div class="col-xs-2"><form:input path="clientTypeMask" class="form-control"/></div>
-								<form:errors path="clientTypeMask" cssClass="form_error_message"/>
+								<div class="col-xs-2"><form:input path="vatCoef" class="form-control"/></div>
+								<form:errors path="vatCoef" cssClass="form_error_message"/>
 							</div>
 							<div class="form-group">
 								<form:label path="sertificat" class="col-sm-2 control-label">
@@ -129,20 +108,6 @@
 								</form:label>
 								<div class="col-xs-5"><form:input path="sertificat" class="form-control"/></div>
 								<form:errors path="sertificat" cssClass="form_error_message"/>
-							</div>
-							<div class="form-group">
-								<form:label path="ekka" class="col-sm-2 control-label">
-									<spring:message code="goods.createForm.lable.ekka"/>:
-								</form:label>
-								<div class="col-xs-3"><form:input path="ekka" class="form-control"/></div>
-								<form:errors path="ekka" cssClass="form_error_message"/>
-							</div>
-							<div class="form-group">
-								<form:label path="class1" class="col-sm-2 control-label">
-									<spring:message code="goods.createForm.lable.class1"/>:
-								</form:label>
-								<div class="col-xs-2"><form:input path="class1" class="form-control"/></div>
-								<form:errors path="class1" cssClass="form_error_message"/>
 							</div>
 							<div class="form-group">
 								<form:label path="goodsDataAsString" class="col-sm-2 control-label">

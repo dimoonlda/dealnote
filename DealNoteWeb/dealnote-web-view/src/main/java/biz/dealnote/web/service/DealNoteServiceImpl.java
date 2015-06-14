@@ -16,6 +16,7 @@ import biz.dealnote.web.dao.LocationDAO;
 import biz.dealnote.web.dao.MeasureDao;
 import biz.dealnote.web.dao.PriorityColorDao;
 import biz.dealnote.web.dao.RouteDao;
+import biz.dealnote.web.dao.ServiceClientDao;
 import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.Client;
 import biz.dealnote.web.model.ClientGroup;
@@ -34,6 +35,7 @@ import biz.dealnote.web.model.datatable.JQueryDataTableParamModel;
 import biz.dealnote.web.model.datatable.LocationJQueryDataTable;
 import biz.dealnote.web.model.datatable.MeasureJQueryDataTable;
 import biz.dealnote.web.model.datatable.PriorityColorJQueryDataTable;
+import biz.dealnote.web.model.datatable.ServiceClientJQueryDataTable;
 
 @Service
 public class DealNoteServiceImpl implements DealNoteService{
@@ -318,5 +320,4 @@ public class DealNoteServiceImpl implements DealNoteService{
 		dataTable.processData();
 		return dataTable;
 	}
-
 }

@@ -35,6 +35,12 @@
                   <li><a href="#"><spring:message code="menu.statisticOnOrders" /></a></li>
                 </ul>
               </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><spring:message code="menu.tools" /> <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="<c:url value='/serviceClients/'/>"><spring:message code="menu.mobileClients" /></a></li>
+                </ul>
+              </li>
               <li>
               	<sec:authorize access="isAuthenticated()">
               		<a href='<spring:url value="/j_spring_security_logout"/>'>
