@@ -2,8 +2,10 @@ package biz.dealnote.rest.service;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +17,7 @@ import biz.dealnote.web.dao.AgentDAO;
 import biz.dealnote.web.dao.AgentGoodsDao;
 import biz.dealnote.web.dao.ClientDAO;
 import biz.dealnote.web.dao.ClientGroupDao;
+import biz.dealnote.web.dao.DocClassDetDao;
 import biz.dealnote.web.dao.DocTypeDao;
 import biz.dealnote.web.dao.DocumentDao;
 import biz.dealnote.web.dao.GoodsDao;
@@ -32,6 +35,7 @@ import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.AgentGoods;
 import biz.dealnote.web.model.Client;
 import biz.dealnote.web.model.ClientGroup;
+import biz.dealnote.web.model.DocClassDet;
 import biz.dealnote.web.model.DocType;
 import biz.dealnote.web.model.Document;
 import biz.dealnote.web.model.Goods;
@@ -83,6 +87,8 @@ public class DealNoteRestServiceImplTest{
 	private SystemSetsDao sysSetsDao;
 	@Mock
 	private ServiceClientDao serviceClientDao;
+	@Mock
+	private DocClassDetDao docClassDetDao;
 	
 	private final Agent testAgent = createDefaultAgent(DEFAULT_AGENT_ID);
 	
@@ -107,7 +113,8 @@ public class DealNoteRestServiceImplTest{
 				payFormDao,
 				docTypeDao,
 				sysSetsDao,
-				serviceClientDao);
+				serviceClientDao,
+				docClassDetDao);
 	}
 	
 	@Test
@@ -294,5 +301,16 @@ public class DealNoteRestServiceImplTest{
 		ServiceClient client = createDefaultServiceClient(1);
 		when(serviceClientDao.getServiceClientByTypeCode(client.getTypeCode())).thenReturn(client);
 		assertEquals(client, dealNoteRestService.getServiceClientByTypeCode(client.getTypeCode()));
+	}
+	
+	@Test
+	public void testGetDocClassDetByAgent(){
+		Agent agent = createDefaultAgent(DEFAULT_AGENT_ID);
+		List<DocClassDet> classDets = Arrays.asList(createDefaultDocClassDet(1),
+				createDefaultDocClassDet(2));
+		when(docClassDetDao.getDocClassDetsByAgent(any(Agent.class))).thenReturn(classDets);
+		List<DocClassDet> result = new ArrayList<>(dealNoteRestService.getDocClassDetByAgent(agent));
+		assertEquals(classDets.size(), result.size());
+		assertEquals(classDets.get(0), result.get(0));
 	}
 }

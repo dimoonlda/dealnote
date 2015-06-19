@@ -4,12 +4,8 @@ public class AgentSettingsDto {
 	public Integer id;
 	public Integer agentClientId;
 	public Integer strictstopship;
-	public String regnumprefix1;
-	public Integer regnumnext1;
-	public String regnumprefix2;
-	public Integer regnumnext2;
 	public Integer vsandps;
-	public Integer autoDiscount;
+	public Short allowDiscount;
 	public String fio;
 	public String email;
 	public String adminPass;
@@ -30,10 +26,8 @@ public class AgentSettingsDto {
 	public String toString() {
 		return "AgentSettingsDto [id=" + id + ", agentClientId="
 				+ agentClientId + ", strictstopship=" + strictstopship
-				+ ", regnumprefix1=" + regnumprefix1 + ", regnumnext1="
-				+ regnumnext1 + ", regnumprefix2=" + regnumprefix2
-				+ ", regnumnext2=" + regnumnext2 + ", vsandps=" + vsandps
-				+ ", autoDiscount=" + autoDiscount + ", fio=" + fio
+				+ ", vsandps=" + vsandps
+				+ ", allowDiscount=" + allowDiscount + ", fio=" + fio
 				+ ", email=" + email + ", adminPass=" + adminPass
 				+ ", moneyname=" + moneyname + ", moneyformat=" + moneyformat
 				+ ", qtyformat=" + qtyformat + ", dayDelDoc=" + dayDelDoc

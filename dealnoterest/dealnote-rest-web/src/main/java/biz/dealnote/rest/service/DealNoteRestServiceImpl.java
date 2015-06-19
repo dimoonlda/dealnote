@@ -10,6 +10,7 @@ import biz.dealnote.web.dao.AgentDAO;
 import biz.dealnote.web.dao.AgentGoodsDao;
 import biz.dealnote.web.dao.ClientDAO;
 import biz.dealnote.web.dao.ClientGroupDao;
+import biz.dealnote.web.dao.DocClassDetDao;
 import biz.dealnote.web.dao.DocTypeDao;
 import biz.dealnote.web.dao.DocumentDao;
 import biz.dealnote.web.dao.GoodsDao;
@@ -27,6 +28,7 @@ import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.AgentGoods;
 import biz.dealnote.web.model.Client;
 import biz.dealnote.web.model.ClientGroup;
+import biz.dealnote.web.model.DocClassDet;
 import biz.dealnote.web.model.DocType;
 import biz.dealnote.web.model.Document;
 import biz.dealnote.web.model.Goods;
@@ -61,6 +63,7 @@ public class DealNoteRestServiceImpl implements DealNoteRestService {
 	private PayFormDao payFormDao;
 	private SystemSetsDao systemSetsDao;
 	private ServiceClientDao serviceClientDao;
+	private DocClassDetDao docClassDetDao;
 	
 	@Autowired
 	public DealNoteRestServiceImpl(GoodsGroupDao goodsGroupDao,
@@ -70,7 +73,7 @@ public class DealNoteRestServiceImpl implements DealNoteRestService {
 			PriorityColorDao priorityColorDao, MeasureLinkDao measureLinkDao,
 			LocationDAO locationDao, DocumentDao documentDao, WsServerDao wsServerDao,
 			PayFormDao payFormDao, DocTypeDao docTypeDao, SystemSetsDao systemSetsDao,
-			ServiceClientDao serviceClientDao) {
+			ServiceClientDao serviceClientDao, DocClassDetDao docClassDetDao) {
 		this.goodsGroupDao = goodsGroupDao;
 		this.clientDao = clientDao;
 		this.clientGroupDao = clientGroupDao;
@@ -88,6 +91,7 @@ public class DealNoteRestServiceImpl implements DealNoteRestService {
 		this.docTypeDao = docTypeDao;
 		this.systemSetsDao = systemSetsDao;
 		this.serviceClientDao = serviceClientDao;
+		this.docClassDetDao = docClassDetDao;
 	}
 
 	@Transactional(readOnly = true)
@@ -208,12 +212,20 @@ public class DealNoteRestServiceImpl implements DealNoteRestService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public SystemSets getSystemSets() {
 		return systemSetsDao.getSystemSetsById(1);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public ServiceClient getServiceClientByTypeCode(int code) {
 		return serviceClientDao.getServiceClientByTypeCode(code);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Collection<DocClassDet> getDocClassDetByAgent(Agent agent) {
+		return docClassDetDao.getDocClassDetsByAgent(agent);
 	}
 }

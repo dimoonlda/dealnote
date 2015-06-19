@@ -6,6 +6,7 @@ import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.AgentGoods;
 import biz.dealnote.web.model.Client;
 import biz.dealnote.web.model.ClientGroup;
+import biz.dealnote.web.model.DocClassDet;
 import biz.dealnote.web.model.DocType;
 import biz.dealnote.web.model.Document;
 import biz.dealnote.web.model.Goods;
@@ -43,4 +44,6 @@ public interface DealNoteRestService {
 	public Collection<DocType> getDocTypes();
 	public SystemSets getSystemSets();
 	public ServiceClient getServiceClientByTypeCode(int code);
+	
+	public Collection<DocClassDet> getDocClassDetByAgent(Agent agent); 
 }

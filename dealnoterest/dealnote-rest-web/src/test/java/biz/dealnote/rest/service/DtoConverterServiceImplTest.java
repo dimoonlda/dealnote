@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import biz.dealnote.rest.AbstractTest;
 import biz.dealnote.rest.controllers.exceptions.CreateDtoException;
+import biz.dealnote.rest.model.dto.DocClassDetDto;
 import biz.dealnote.rest.model.dto.DocumentDetailDto;
 import biz.dealnote.rest.model.dto.DocumentDto;
 import biz.dealnote.rest.model.dto.LocationDto;
@@ -20,6 +21,7 @@ import biz.dealnote.web.dao.AgentDAO;
 import biz.dealnote.web.dao.AgentGoodsDao;
 import biz.dealnote.web.dao.ClientDAO;
 import biz.dealnote.web.dao.ClientGroupDao;
+import biz.dealnote.web.dao.DocClassDetDao;
 import biz.dealnote.web.dao.DocumentDao;
 import biz.dealnote.web.dao.DocumentDetailDao;
 import biz.dealnote.web.dao.GoodsDao;
@@ -34,7 +36,8 @@ import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.AgentGoods;
 import biz.dealnote.web.model.Client;
 import biz.dealnote.web.model.ClientGroup;
-import biz.dealnote.web.model.DefaultObjectsFactory;
+import static biz.dealnote.web.model.DefaultObjectsFactory.*;
+import biz.dealnote.web.model.DocClassDet;
 import biz.dealnote.web.model.DocType;
 import biz.dealnote.web.model.Document;
 import biz.dealnote.web.model.DocumentDetail;
@@ -335,37 +338,54 @@ public class DtoConverterServiceImplTest extends AbstractTest{
 	
 	@Test
 	public void testBuildPayFormDto(){
-		PayForm payForm = DefaultObjectsFactory.createDefaultPayForm(1);
+		PayForm payForm = createDefaultPayForm(1);
 		assertEquals(payForm.getId(), dtoConverterService.buildPayFormDto(payForm).id);
 	}
 	
 	@Test
 	public void testBuildPayFormDtoCollection() throws CreateDtoException{
-		Collection<PayForm> forms = Arrays.asList(DefaultObjectsFactory.createDefaultPayForm(1),
-				DefaultObjectsFactory.createDefaultPayForm(2));
+		Collection<PayForm> forms = Arrays.asList(createDefaultPayForm(1),
+				createDefaultPayForm(2));
 		assertEquals(forms.size(), dtoConverterService.buildPayFormDtoCollection(forms).size());
 	}
 
 	@Test
 	public void testBuildDocTypeDto(){
-		DocType type = DefaultObjectsFactory.createDefaultDocType(1);
+		DocType type = createDefaultDocType(1);
 		assertEquals(type.getId(), dtoConverterService.buildDocTypeDto(type).id);
 	}
 
 	@Test
 	public void testBuildDocTypeDtoCollection() throws CreateDtoException{
-		Collection<DocType> types = Arrays.asList(DefaultObjectsFactory.createDefaultDocType(1),
-				DefaultObjectsFactory.createDefaultDocType(2));
+		Collection<DocType> types = Arrays.asList(createDefaultDocType(1),
+				createDefaultDocType(2));
 		assertEquals(types.size(), dtoConverterService.buildDocTypeDtoCollection(types).size());
 	}
 
 	@Test
 	public void testBuildRestServiceInfoDto(){
-		SystemSets sets = DefaultObjectsFactory.createDefaultSystemSets(1);
-		ServiceClient client = DefaultObjectsFactory.createDefaultServiceClient(1);
+		SystemSets sets = createDefaultSystemSets(1);
+		ServiceClient client = createDefaultServiceClient(1);
 		RestServiceInfoDto info = dtoConverterService.buildRestServiceInfoDto(client, sets);
 		assertNotNull(info);
 		assertEquals(sets.getMobileSwapVersion(), info.mobileSwapVersion);
 		assertEquals(client.getUrl(), info.mobileClientUrlUpdate);
+	}
+	
+	@Test
+	public void testBuildDocClassDetDto() {
+		DocClassDet classDet = createDefaultDocClassDet(1);
+		DocClassDetDto classDetDto = dtoConverterService.buildDocClassDetDto(classDet);
+		assertNotNull(classDetDto);
+		assertEquals(classDet.getRegNumPrefix(), classDetDto.regNumPrefix);
+	}
+	
+	@Test
+	public void testBuildDocClassDetDtoCollection() throws CreateDtoException{
+		Collection<DocClassDet> classDets = Arrays.asList(createDefaultDocClassDet(1),
+				createDefaultDocClassDet(2));
+		Collection<DocClassDetDto> classDetDtos = 
+				dtoConverterService.buildDocClassDetDtoCollection(classDets);
+		assertEquals(classDets.size(), classDetDtos.size());
 	}
 }

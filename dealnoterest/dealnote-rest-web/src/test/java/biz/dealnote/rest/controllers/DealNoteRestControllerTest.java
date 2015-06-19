@@ -24,6 +24,7 @@ import biz.dealnote.rest.model.dto.AgentGoodsDto;
 import biz.dealnote.rest.model.dto.AgentSettingsDto;
 import biz.dealnote.rest.model.dto.ClientDto;
 import biz.dealnote.rest.model.dto.ClientGroupDto;
+import biz.dealnote.rest.model.dto.DocClassDetDto;
 import biz.dealnote.rest.model.dto.DocTypeDto;
 import biz.dealnote.rest.model.dto.DocumentDto;
 import biz.dealnote.rest.model.dto.GoodsDto;
@@ -86,7 +87,7 @@ public class DealNoteRestControllerTest{
         .andExpect(content().contentType(CONTENT_TYPE))
         .andExpect(jsonPath("$.size").value(2));
 	}
-	
+
 	@Test
 	public void testGetClientsByAgentId() throws Exception{
 		when(dtoConverterService.buildClientDtoCollection(anyCollection()))
@@ -109,6 +110,22 @@ public class DealNoteRestControllerTest{
 				new ClientGroupDto(2, null, null)));
 		
 		this.mockMvc.perform(post("/restfull/clientgroups")
+				.accept(MediaType.parseMediaType(CONTENT_TYPE))
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(REQUEST_BODY))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(CONTENT_TYPE))
+        .andExpect(jsonPath("$.size").value(2))
+        .andExpect(jsonPath("$.dataArray[0].id").value(1));
+	}
+
+	@Test
+	public void testGetDocClassDets() throws Exception{
+		when(dtoConverterService.buildDocClassDetDtoCollection(anyCollection()))
+		.thenReturn(Arrays.asList(new DocClassDetDto(1), 
+				new DocClassDetDto(2)));
+		
+		this.mockMvc.perform(post("/restfull/docclassdets")
 				.accept(MediaType.parseMediaType(CONTENT_TYPE))
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(REQUEST_BODY))

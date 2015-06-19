@@ -22,6 +22,7 @@ public final class DefaultObjectsFactory {
 	public static final Integer DEFAULT_CLIENT_ID = 2;
 	public static final Integer DEFAULT_GOODS_ID = 2;
 	public static final Integer DEFAULT_DOC_TYPE_ID = 2;
+	public static final Integer DEFAULT_DOC_CLASS_ID = 1;
 	
 	public static PriorityColor createDefaultPriorityColor(Integer id){
 		PriorityColor test = new PriorityColor();
@@ -122,6 +123,7 @@ public final class DefaultObjectsFactory {
 		test.setId(id);
 		test.setName(DEFAULT_NAME);
 		test.setPayForm(createDefaultPayForm(DEFAULT_PAY_FORM_ID));
+		test.setDocClass(createDefaultDocClass(DEFAULT_DOC_CLASS_ID));
 		return test;
 	}
 	

@@ -4,6 +4,7 @@ public class DocTypeDto {
 	public Integer id;
 	public Integer payFormId;
 	public Integer outerId;
+	public Integer docClassId;
 	public Integer days;
 	public Short accIncrNoVat;
 	public Short accIncrWithVat;
@@ -20,7 +21,7 @@ public class DocTypeDto {
 	@Override
 	public String toString() {
 		return "DocTypeDto [id=" + id + ", payFormId=" + payFormId
-				+ ", outerId=" + outerId + ", days=" + days + ", accIncrNoVat="
+				+ ", outerId=" + outerId + ", docClassId=" + docClassId + ", days=" + days + ", accIncrNoVat="
 				+ accIncrNoVat + ", accIncrWithVat=" + accIncrWithVat
 				+ ", name=" + name + ", discountFirst=" + discountFirst
 				+ ", vatOverSum=" + vatOverSum + "]";

@@ -23,6 +23,7 @@ import biz.dealnote.rest.model.AgentGoodsDtoResource;
 import biz.dealnote.rest.model.AgentSettingsDtoResource;
 import biz.dealnote.rest.model.ClientGroupsDtoResource;
 import biz.dealnote.rest.model.ClientDtoResource;
+import biz.dealnote.rest.model.DocClassDetDtoResource;
 import biz.dealnote.rest.model.DocTypeDtoResource;
 import biz.dealnote.rest.model.DocumentDtoResource;
 import biz.dealnote.rest.model.GoodsGroupDtoResource;
@@ -39,6 +40,7 @@ import biz.dealnote.rest.model.dto.AgentGoodsDto;
 import biz.dealnote.rest.model.dto.AgentSettingsDto;
 import biz.dealnote.rest.model.dto.ClientDto;
 import biz.dealnote.rest.model.dto.ClientGroupDto;
+import biz.dealnote.rest.model.dto.DocClassDetDto;
 import biz.dealnote.rest.model.dto.DocTypeDto;
 import biz.dealnote.rest.model.dto.DocumentDto;
 import biz.dealnote.rest.model.dto.GoodsDto;
@@ -160,6 +162,23 @@ public class DealNoteRestController {
 			
 			throw new RequestHandledException(
 					String.format("Exception when getting routes for agentId: %d", client.getAgentId()), ex);
+		}
+	}
+
+	@RequestMapping(value = "/docclassdets", method = RequestMethod.POST)
+	public DocClassDetDtoResource getDocClassDets(@RequestBody RestClientInfo client) throws RequestHandledException{
+		try{
+			checkClient(client);
+			Agent agent = checkAgentAndReturn(client.getAgentId());
+			Collection<DocClassDetDto> classDets = dtoConverterService
+					.buildDocClassDetDtoCollection(dealNoteRestService.getDocClassDetByAgent(agent));
+			logger.info(String.format("%s: got document class detiles. Size: %d", client, classDets.size()));
+			return new DocClassDetDtoResource(classDets);
+		}catch(Exception ex){
+			logger.error(String.format("%s: error when getting document class detiles. ", client), ex);
+			
+			throw new RequestHandledException(
+					String.format("Exception when getting document class detiles for agentId: %d", client.getAgentId()), ex);
 		}
 	}
 

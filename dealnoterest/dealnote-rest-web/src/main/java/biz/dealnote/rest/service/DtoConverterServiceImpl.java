@@ -15,6 +15,7 @@ import biz.dealnote.rest.model.dto.AgentGoodsDto;
 import biz.dealnote.rest.model.dto.AgentSettingsDto;
 import biz.dealnote.rest.model.dto.ClientDto;
 import biz.dealnote.rest.model.dto.ClientGroupDto;
+import biz.dealnote.rest.model.dto.DocClassDetDto;
 import biz.dealnote.rest.model.dto.DocTypeDto;
 import biz.dealnote.rest.model.dto.DocumentDetailDto;
 import biz.dealnote.rest.model.dto.DocumentDto;
@@ -30,6 +31,7 @@ import biz.dealnote.rest.model.dto.RouteDto;
 import biz.dealnote.rest.model.dto.WsServerDto;
 import biz.dealnote.web.dao.AgentDAO;
 import biz.dealnote.web.dao.ClientDAO;
+import biz.dealnote.web.dao.DocClassDetDao;
 import biz.dealnote.web.dao.DocTypeDao;
 import biz.dealnote.web.dao.DocumentDao;
 import biz.dealnote.web.dao.GoodsDao;
@@ -42,6 +44,7 @@ import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.AgentGoods;
 import biz.dealnote.web.model.Client;
 import biz.dealnote.web.model.ClientGroup;
+import biz.dealnote.web.model.DocClassDet;
 import biz.dealnote.web.model.DocType;
 import biz.dealnote.web.model.Document;
 import biz.dealnote.web.model.DocumentDetail;
@@ -91,6 +94,9 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 	
 	@Autowired
 	private ServiceClientDao serviceClientDao;
+	
+	@Autowired
+	private DocClassDetDao docClassDetDao;
 	
 	@Override
 	public RouteDto buildRouteDto(Route route) {
@@ -160,7 +166,7 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 		AgentSettingsDto dto = new AgentSettingsDto();
 		dto.adminPass = agent.getAdminPass();
 		dto.agentClientId = agent.getAgentAsClient() != null ? agent.getAgentAsClient().getId() : null;
-		dto.autoDiscount = agent.getAutoDiscount();
+		dto.allowDiscount = agent.getAllowDiscount();
 		dto.dayDelDoc = agent.getDayDelDoc();
 		dto.email = agent.getEmail();
 		dto.fio = agent.getFio();
@@ -176,10 +182,6 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 		dto.moneyformat = agent.getMoneyformat();
 		dto.moneyname = agent.getMoneyname();
 		dto.qtyformat = agent.getQtyformat();
-		dto.regnumnext1 = agent.getRegnumnext1();
-		dto.regnumnext2 = agent.getRegnumnext2();
-		dto.regnumprefix1 = agent.getRegnumprefix1();
-		dto.regnumprefix2 = agent.getRegnumprefix2();
 		dto.strictstopship = agent.getStrictstopship();
 		dto.vsandps = agent.getVsandps();
 		return dto;
@@ -465,6 +467,7 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 		type.discountFirst = docType.getDiscountFirst();
 		type.name = docType.getName();
 		type.outerId = docType.getOuterId();
+		type.docClassId = docType.getDocClass().getId();
 		type.payFormId = docType.getPayForm().getId();
 		type.vatOverSum = docType.getVatOverSum();
 		return type;
@@ -491,6 +494,28 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 		info.mobileClientUrlUpdate = serviceClient.getUrl();
 		info.mobileSwapVersion = systemSets.getMobileSwapVersion();
 		return info;
+	}
+
+	@Override
+	public DocClassDetDto buildDocClassDetDto(DocClassDet docClassDet) {
+		DocClassDetDto classDet = new DocClassDetDto();
+		classDet.id = docClassDet.getId();
+		classDet.docClassId = docClassDet.getDocClass().getId();
+		classDet.regNumNext = docClassDet.getRegNumNext();
+		classDet.regNumPrefix = docClassDet.getRegNumPrefix();
+		return classDet;
+	}
+
+	@Override
+	public Collection<DocClassDetDto> buildDocClassDetDtoCollection(
+			Collection<DocClassDet> docClassDetCol) throws CreateDtoException {
+		try{
+			return docClassDetCol.stream()
+					.map((t) -> buildDocClassDetDto(t))
+					.collect(Collectors.toList());
+		}catch(Exception e){
+			throw new CreateDtoException(String.format("Build DocClassDetDto collection exception for: %s. ", docClassDetCol), e);
+		}
 	}
 
 }

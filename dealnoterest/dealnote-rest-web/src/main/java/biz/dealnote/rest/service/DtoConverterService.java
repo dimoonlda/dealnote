@@ -8,6 +8,7 @@ import biz.dealnote.rest.model.dto.AgentGoodsDto;
 import biz.dealnote.rest.model.dto.AgentSettingsDto;
 import biz.dealnote.rest.model.dto.ClientDto;
 import biz.dealnote.rest.model.dto.ClientGroupDto;
+import biz.dealnote.rest.model.dto.DocClassDetDto;
 import biz.dealnote.rest.model.dto.DocTypeDto;
 import biz.dealnote.rest.model.dto.DocumentDetailDto;
 import biz.dealnote.rest.model.dto.DocumentDto;
@@ -25,6 +26,7 @@ import biz.dealnote.web.model.Agent;
 import biz.dealnote.web.model.AgentGoods;
 import biz.dealnote.web.model.Client;
 import biz.dealnote.web.model.ClientGroup;
+import biz.dealnote.web.model.DocClassDet;
 import biz.dealnote.web.model.DocType;
 import biz.dealnote.web.model.Document;
 import biz.dealnote.web.model.DocumentDetail;
@@ -98,4 +100,9 @@ public interface DtoConverterService {
 	
 	public RestServiceInfoDto buildRestServiceInfoDto(ServiceClient serviceClient, 
 			SystemSets systemSets);
+	
+	public DocClassDetDto buildDocClassDetDto(DocClassDet docClassDet);
+	public Collection<DocClassDetDto> buildDocClassDetDtoCollection(Collection<DocClassDet> docClassDetCol) 
+			throws CreateDtoException;
+
 }
