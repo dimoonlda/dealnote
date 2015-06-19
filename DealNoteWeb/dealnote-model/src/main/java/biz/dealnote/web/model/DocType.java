@@ -21,6 +21,11 @@ public class DocType {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PAYFORMID")
 	private PayForm payForm;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "DOCCLASSID")
+	private DocClass docClass;
+	
 	private Integer outerId;
 	private Integer days;
 	private Short accIncrNoVat;
@@ -88,6 +93,15 @@ public class DocType {
 	public void setVatOverSum(Short vatOverSum) {
 		this.vatOverSum = vatOverSum;
 	}
+	
+	public DocClass getDocClass() {
+		return docClass;
+	}
+
+	public void setDocClass(DocClass docClass) {
+		this.docClass = docClass;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

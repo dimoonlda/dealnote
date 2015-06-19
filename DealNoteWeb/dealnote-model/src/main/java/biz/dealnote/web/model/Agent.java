@@ -71,34 +71,6 @@ public class Agent {
 	 */
 	private Integer strictstopship;
 	/**
-	 * префикс регистрационных номеров накладных по форме оплаты 1. 
-	 * Используется для печати накладных. 
-	 * Позволяет каждому торговому представителю иметь 
-	 * свой уникальный диапазон регистрационных номеров накладных.
-	 */
-	private String regnumprefix1;
-	/**
-	 * следующий регистрационный номер накладной по форме оплаты 1. 
-	 * Это поле автоматически увеличивается при создании каждого нового 
-	 * отгрузочного документа в вэн селлинге 
-	 * (при создании предварительного заказа не изменяется) .
-	 */
-	private Integer regnumnext1;
-	/**
-	 * префикс регистрационных номеров накладных по форме оплаты 2. 
-	 * Используется для печати накладных. 
-	 * Позволяет каждому торговому представителю иметь 
-	 * свой уникальный диапазон регистрационных номеров накладных.
-	 */
-	private String regnumprefix2;
-	/**
-	 * следующий регистрационный номер накладной по форме оплаты 2. 
-	 * Это поле автоматически увеличивается при создании каждого нового 
-	 * отгрузочного документа в вэн селлинге 
-	 * (при создании предварительного заказа не изменяется) .
-	 */
-	private Integer regnumnext2;
-	/**
 	 *Управляет выбором возможных видов работы: 
 	 *1 –преселлинг, 2 –вэнселлинг. 
 	 *Возможно сочетание видов работы. 
@@ -106,7 +78,7 @@ public class Agent {
 	 */
 	@NotNull(message = "{message.field.notnull}")
 	private Integer vsandps;
-	private Integer autoDiscount;
+	private Short allowDiscount;
 	/**
 	 * ФИО торгового представителя (используется при печати накладных).
 	 */
@@ -196,15 +168,17 @@ public class Agent {
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="agent")
 	private Set<Client> clients = new HashSet<Client>();
 	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "agent")
+	private Set<DocClassDet> docClassDets = new HashSet<>();
+	
 	public Agent(){
 		this.roleCode = 1;
 		this.active = 0;
 		this.outerId = 0;
 		this.strictstopship = 0;
-		this.regnumnext1 = 0;
-		this.regnumnext2 = 0;
 		this.vsandps = 0;
-		this.autoDiscount = 0;
+		this.allowDiscount = 0;
 		this.isGPS = 0;
 		this.dayDelDoc = 0;
 		this.frequencyGetGPS = 0;
@@ -289,52 +263,12 @@ public class Agent {
 		this.strictstopship = strictstopship;
 	}
 
-	public String getRegnumprefix1() {
-		return regnumprefix1;
-	}
-
-	public void setRegnumprefix1(String regnumprefix1) {
-		this.regnumprefix1 = regnumprefix1;
-	}
-
-	public Integer getRegnumnext1() {
-		return regnumnext1;
-	}
-
-	public void setRegnumnext1(Integer regnumnext1) {
-		this.regnumnext1 = regnumnext1;
-	}
-
-	public String getRegnumprefix2() {
-		return regnumprefix2;
-	}
-
-	public void setRegnumprefix2(String regnumprefix2) {
-		this.regnumprefix2 = regnumprefix2;
-	}
-
-	public Integer getRegnumnext2() {
-		return regnumnext2;
-	}
-
-	public void setRegnumnext2(Integer regnumnext2) {
-		this.regnumnext2 = regnumnext2;
-	}
-
 	public Integer getVsandps() {
 		return vsandps;
 	}
 
 	public void setVsandps(Integer vsandps) {
 		this.vsandps = vsandps;
-	}
-
-	public Integer getAutoDiscount() {
-		return autoDiscount;
-	}
-
-	public void setAutoDiscount(Integer autoDiscount) {
-		this.autoDiscount = autoDiscount;
 	}
 
 	public String getFio() {
@@ -479,6 +413,22 @@ public class Agent {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Short getAllowDiscount() {
+		return allowDiscount;
+	}
+
+	public void setAllowDiscount(Short allowDiscount) {
+		this.allowDiscount = allowDiscount;
+	}
+
+	public Set<DocClassDet> getDocClassDets() {
+		return docClassDets;
+	}
+
+	public void setDocClassDets(Set<DocClassDet> docClassDets) {
+		this.docClassDets = docClassDets;
 	}
 
 	@JsonIgnore

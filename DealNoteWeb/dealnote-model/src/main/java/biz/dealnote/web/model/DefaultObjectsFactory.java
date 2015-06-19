@@ -260,4 +260,20 @@ public final class DefaultObjectsFactory {
 		client.setVersion("version");
 		return client;
 	}
+	
+	public static DocClass createDefaultDocClass(Integer id){
+		DocClass docClass = 
+				new DocClass(id, null, DEFAULT_NAME, DEFAULT_DESCRIPTION);
+		return docClass;
+	}
+	
+	public static DocClassDet createDefaultDocClassDet(Integer id){
+		DocClassDet det = new DocClassDet();
+		det.setAgent(createDefaultAgent(DEFAULT_AGENT_ID));
+		det.setDocClass(createDefaultDocClass(1));
+		det.setId(id);
+		det.setRegNumNext(100);
+		det.setRegNumPrefix("A");
+		return det;
+	}
 }
