@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import biz.dealnote.rest.controllers.exceptions.CreateDtoException;
 import biz.dealnote.rest.controllers.exceptions.RequestHandledException;
 import biz.dealnote.rest.controllers.exceptions.WrongAgentException;
 import biz.dealnote.rest.controllers.exceptions.WrongRestClientException;
@@ -55,6 +56,7 @@ import biz.dealnote.rest.model.dto.WsServerDto;
 import biz.dealnote.rest.service.DealNoteRestService;
 import biz.dealnote.rest.service.DtoConverterService;
 import biz.dealnote.web.model.Agent;
+import biz.dealnote.web.model.DocClassDet;
 import biz.dealnote.web.model.Document;
 import biz.dealnote.web.model.Location;
 import biz.dealnote.web.model.ServiceClient;
@@ -383,7 +385,9 @@ public class DealNoteRestController {
 		RestClientInfo client = docRes.getRestClient();
 		try{
 			checkClient(client);
-			checkAgentAndReturn(client.getAgentId());
+			Agent agent = checkAgentAndReturn(client.getAgentId());
+			
+			updateDocClassDet(docRes.getDocClassDet(), agent);
 			
 			Document doc = null;
 			if(!docRes.getDataArray().isEmpty()){
@@ -400,6 +404,12 @@ public class DealNoteRestController {
 			throw new RequestHandledException(
 					String.format("Exception when saving document for agentId: %d", client.getAgentId()), ex);
 		}
+	}
+	
+	private void updateDocClassDet(DocClassDetDto detDto, Agent agent) throws CreateDtoException{
+		DocClassDet det = dtoConverterService.buildDocClassDet(detDto, agent)
+				.orElseThrow(IllegalArgumentException::new);
+		dealNoteRestService.saveDocClassDet(det);
 	}
 
 	/**

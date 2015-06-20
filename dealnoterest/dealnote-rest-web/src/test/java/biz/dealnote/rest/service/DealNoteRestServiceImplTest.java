@@ -313,4 +313,11 @@ public class DealNoteRestServiceImplTest{
 		assertEquals(classDets.size(), result.size());
 		assertEquals(classDets.get(0), result.get(0));
 	}
+	
+	@Test
+	public void testSaveDocClassDet() {
+		DocClassDet det = createDefaultDocClassDet(1);
+		dealNoteRestService.saveDocClassDet(det);
+		verify(docClassDetDao).save(det);
+	}
 }

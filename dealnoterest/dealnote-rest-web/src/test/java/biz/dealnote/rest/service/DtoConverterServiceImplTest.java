@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import biz.dealnote.rest.AbstractTest;
@@ -95,6 +96,9 @@ public class DtoConverterServiceImplTest extends AbstractTest{
 
 	@Autowired
 	private DocumentDetailDao documentDetailDao;
+	
+	@Autowired
+	private DocClassDetDao docClassDetDao;
 	
 	@Autowired
 	private DtoConverterService dtoConverterService;
@@ -387,5 +391,16 @@ public class DtoConverterServiceImplTest extends AbstractTest{
 		Collection<DocClassDetDto> classDetDtos = 
 				dtoConverterService.buildDocClassDetDtoCollection(classDets);
 		assertEquals(classDets.size(), classDetDtos.size());
+	}
+	
+	@Test
+	public void testBuildDocClassDet() throws CreateDtoException{
+		DocClassDetDto detDto = new DocClassDetDto();
+		Agent agent = createDefaultAgent(TEST_AGENT_ID);
+		detDto.docClassId = 1;
+		detDto.regNumNext = 1010;
+		DocClassDet result = dtoConverterService.buildDocClassDet(detDto, agent).get();
+		assertNotNull(result);
+		assertEquals(detDto.regNumNext, result.getRegNumNext());
 	}
 }

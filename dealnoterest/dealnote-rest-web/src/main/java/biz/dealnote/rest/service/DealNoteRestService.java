@@ -46,4 +46,5 @@ public interface DealNoteRestService {
 	public ServiceClient getServiceClientByTypeCode(int code);
 	
 	public Collection<DocClassDet> getDocClassDetByAgent(Agent agent); 
+	public void saveDocClassDet(DocClassDet det);
 }

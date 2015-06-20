@@ -228,4 +228,10 @@ public class DealNoteRestServiceImpl implements DealNoteRestService {
 	public Collection<DocClassDet> getDocClassDetByAgent(Agent agent) {
 		return docClassDetDao.getDocClassDetsByAgent(agent);
 	}
+
+	@Override
+	@Transactional
+	public void saveDocClassDet(DocClassDet det) {
+		docClassDetDao.save(det);
+	}
 }

@@ -518,4 +518,22 @@ public class DtoConverterServiceImpl implements DtoConverterService {
 		}
 	}
 
+	@Override
+	public Optional<DocClassDet> buildDocClassDet(final DocClassDetDto docClassDetDto,
+			final Agent agent) throws CreateDtoException {
+		if(docClassDetDto.docClassId == null || agent.getId() == null){
+			throw new IllegalArgumentException();
+		}
+		try{
+			Optional<DocClassDet> result = docClassDetDao.getDocClassDetsByAgent(agent).stream()
+				.filter((det) -> det.getDocClass().getId().equals(docClassDetDto.docClassId))
+				.findFirst();
+			result.get().setRegNumNext(docClassDetDto.regNumNext);
+			return result;
+		}catch(Exception e){
+			throw new CreateDtoException(String.format("Build DocClassDet collection exception for: %s and %s. ", 
+					docClassDetDto, agent), e);
+		}
+	}
+
 }

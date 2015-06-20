@@ -104,5 +104,7 @@ public interface DtoConverterService {
 	public DocClassDetDto buildDocClassDetDto(DocClassDet docClassDet);
 	public Collection<DocClassDetDto> buildDocClassDetDtoCollection(Collection<DocClassDet> docClassDetCol) 
 			throws CreateDtoException;
-
+	public Optional<DocClassDet> buildDocClassDet(final DocClassDetDto docClassDetDto, final Agent agent) 
+			throws CreateDtoException;
+	
 }
