@@ -29,6 +29,8 @@
 		<jadira-usertype.version>3.1.0.CR1</jadira-usertype.version>
 		<google-gson.version>2.3.1</google-gson.version>
 		<fasterxml.jackson.version>2.5.1</fasterxml.jackson.version>
+		
+		<shared.resources>0.0.1-SNAPSHOT</shared.resources>
 
 	</properties>
 	<packaging>pom</packaging>
