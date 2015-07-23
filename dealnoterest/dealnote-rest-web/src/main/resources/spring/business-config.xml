@@ -15,23 +15,23 @@
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<import resource="datasource-config.xml" />
+	<!--<import resource="datasource-config.xml" />-->
 	
 	<beans profile="production">
 		<import resource="security-config.xml" />
 	</beans>
 	
 	<beans>
-		<context:component-scan base-package="biz.dealnote.rest.service, biz.dealnote.web.dao.jpa" />
+		<!--<context:component-scan base-package="biz.dealnote.rest.service, biz.dealnote.web.dao.jpa" />-->
 
-		<context:property-placeholder location="classpath:spring/data-access.properties"
-			system-properties-mode="OVERRIDE" />
+		<!--<context:property-placeholder location="classpath:spring/data-access.properties"
+			system-properties-mode="OVERRIDE" />-->
 		
 		<!-- enables scanning for @Transactional annotations -->
-		<tx:annotation-driven />
+		<!--<tx:annotation-driven />-->
 	</beans>
 	
-	<beans profile="production">
+<!--	<beans profile="production">
 		<bean id="entityManagerFactory"
 			class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
 			p:dataSource-ref="dataSource">
@@ -43,9 +43,9 @@
 			<property name="persistenceUnitName" value="dealNote" />
 			<property name="packagesToScan" value="biz.dealnote.web.model" />
 		</bean>
-	</beans>
+	</beans>-->
 
-	<beans profile="test">
+<!--	<beans profile="test">
 		<bean id="entityManagerFactory"
 			class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
 			p:dataSource-ref="dataSource">
@@ -57,12 +57,12 @@
 			<property name="persistenceUnitName" value="dealNote" />
 			<property name="packagesToScan" value="biz.dealnote.web" />
 		</bean>
-	</beans>
+	</beans>-->
 	
 	<beans>
-		<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
-			p:entityManagerFactory-ref="entityManagerFactory" />
+		<!--<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+			p:entityManagerFactory-ref="entityManagerFactory" />-->
 
-		<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+		<!--<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />-->
 	</beans>
 </beans>

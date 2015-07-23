@@ -16,9 +16,9 @@
          http://www.springframework.org/schema/jee
          http://www.springframework.org/schema/jee/spring-jee.xsd">
 
-    <context:property-placeholder location="classpath:spring/data-access.properties" system-properties-mode="OVERRIDE"/>
+    <!--<context:property-placeholder location="classpath:spring/data-access.properties" system-properties-mode="OVERRIDE"/>-->
 	
-		<beans profile="test">
+<!--		<beans profile="test">
     	<jdbc:embedded-database id="dataSource" type="HSQL">
         	<jdbc:script location="classpath:sql/schema.sql"/>
         	<jdbc:script location="classpath:sql/measures.sql"/>
@@ -33,9 +33,9 @@
         	<jdbc:script location="classpath:sql/partjobs.sql"/>
         	<jdbc:script location="classpath:sql/test-data.sql"/>
     	</jdbc:embedded-database>
-	</beans>
+	</beans>-->
 	
-	<beans profile="production">
+<!--	<beans profile="production">
     	<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/dbAlterTestConn"/>
-    </beans>
+    </beans>-->
 </beans>
