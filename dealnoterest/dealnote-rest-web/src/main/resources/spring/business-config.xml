@@ -17,9 +17,9 @@
 
 	<!--<import resource="datasource-config.xml" />-->
 	
-	<beans profile="production">
+<!--	<beans profile="production">
 		<import resource="security-config.xml" />
-	</beans>
+	</beans>-->
 	
 	<beans>
 		<!--<context:component-scan base-package="biz.dealnote.rest.service, biz.dealnote.web.dao.jpa" />-->

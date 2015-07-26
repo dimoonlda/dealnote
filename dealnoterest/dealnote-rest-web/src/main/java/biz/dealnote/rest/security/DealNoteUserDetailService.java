@@ -7,7 +7,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import biz.dealnote.web.dao.UserDao;
 import biz.dealnote.web.model.User;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DealNoteUserDetailService implements UserDetailsService {
 
 	@Autowired

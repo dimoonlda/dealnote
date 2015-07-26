@@ -10,7 +10,7 @@
 
 	<global-method-security secured-annotations="enabled"/>
 
-	<http realm="Protected API"
+	<!--<http realm="Protected API"
 		use-expressions="true"
 		create-session="stateless"
 		entry-point-ref="unauthorizedEntryPoint"
@@ -19,20 +19,20 @@
 		<custom-filter ref="restAuthenticationFilter" position="FORM_LOGIN_FILTER"/>
 
 		<intercept-url pattern="/**" access="isAuthenticated()" requires-channel="https"/>
-	</http>
+	</http>-->
 
-	<bean:bean id="unauthorizedEntryPoint" class="biz.dealnote.rest.security.CustomAuthenticationEntryPoint"/>
+	<!--<bean:bean id="unauthorizedEntryPoint" class="biz.dealnote.rest.security.CustomAuthenticationEntryPoint"/>-->
 
-	<bean:bean id="userDetailService" class="biz.dealnote.rest.security.DealNoteUserDetailService"/>
+	<!--<bean:bean id="userDetailService" class="biz.dealnote.rest.security.DealNoteUserDetailService"/>-->
 
-	<authentication-manager id="restAuthenticationManager">
+<!--	<authentication-manager id="restAuthenticationManager">
 		<authentication-provider user-service-ref="userDetailService">
 		</authentication-provider>
-	</authentication-manager>
+	</authentication-manager>-->
 
-	<bean:bean id="authenticationService" class="biz.dealnote.rest.security.RestAuthenticationService"
+	<!--<bean:bean id="authenticationService" class="biz.dealnote.rest.security.RestAuthenticationService"
 		c:authenticationManager-ref="restAuthenticationManager"/>
 
 	<bean:bean id="restAuthenticationFilter" class="biz.dealnote.rest.security.ClientAuthenticationFilter"
-		c:authenticationService-ref="authenticationService"/>     
+		c:authenticationService-ref="authenticationService"/>     -->
 </bean:beans>
