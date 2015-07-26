@@ -18,17 +18,12 @@ import biz.dealnote.web.dao.UserDao;
 
 public class RestAuthenticationService implements AuthenticationService {
 
-	@Autowired
+
 	private UserDao userDao;
 
 	private AuthenticationManager authenticationManager;
 
 	private static Logger logger = Logger.getLogger(RestAuthenticationService.class);
-
-
-	public RestAuthenticationService(AuthenticationManager authenticationManager) {
-		this.authenticationManager = authenticationManager;
-	}
 
 	@Override
 	@Transactional
@@ -52,9 +47,12 @@ public class RestAuthenticationService implements AuthenticationService {
 		}
 		return false;
 	}
-	
+
 	public void setUserDao(UserDao userDao){
 		this.userDao = userDao;
 	}
 
+	public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+		this.authenticationManager = authenticationManager;
+	}
 }

@@ -36,7 +36,7 @@ import java.util.Locale;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"biz.dealnote.rest.controllers, biz.dealnote.rest.service"})
-public class AppConfig extends WebMvcConfigurerAdapter {
+public class WebConfig extends WebMvcConfigurerAdapter {
 
 
     @Bean(name = "messageSource")

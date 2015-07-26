@@ -29,7 +29,7 @@ public class DealNoteWebAppInitializer extends AbstractAnnotationConfigDispatche
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[]{AppConfig.class};
+        return new Class<?>[]{WebConfig.class};
     }
 
     @Override
